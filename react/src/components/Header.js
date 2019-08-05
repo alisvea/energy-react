@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 class Header extends React.Component {
     render() {
@@ -14,28 +14,8 @@ class Header extends React.Component {
                                 </Link>
                             </li>
                             <li>
-                                <Link to={'/news'}>
-                                    <span>News</span>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to={'/interesting'}>
-                                    <span>Interesting</span>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to={'/mazahia'}>
-                                    <span>Fun</span>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to={'/international'}>
-                                    <span>International</span>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to={'/science'}>
-                                    <span>Science</span>
+                                <Link to={'/new'}>
+                                    <span>New</span>
                                 </Link>
                             </li>
                         </ul>

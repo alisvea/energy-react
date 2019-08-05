@@ -6,17 +6,18 @@ import Ni from './components/Ni';
 import FormVideo from './components/FormVideo';
 import FormPost from './components/FormPost';
 import Index from './components/Index';
+import New from './components/New';
 
 class App extends Component {
 
     render() {
         return (
             <Switch>
-                <Route exact path={`/posts`} component={FormPost}/>
                 <Route exact path={`/index`} component={Index}/>
                 <Route exact path={`/`} component={Index}/>
-                <Route exact path={`/shows`} component={FormVideo}/>
-                <Route exact path={`/shows/:id`} component={FormVideo}/>
+
+                <Route exact path={`/new`} component={New}/>
+
                 <Route component={Ni}/>
             </Switch>
         );

@@ -16,8 +16,12 @@ class Index extends React.Component {
                 spot_price: { value: 39.21, unit: 'öre' },
                 spot_start: { value: 4.45, unit: 'öre' },
                 el_certificate: { value: 4.45, unit: 'öre' },
-                // moms: { value: 11.78, unit: 'öre' }, // 25% of the above 3
-                // price_per_kw_hour: { value: 58.89, unit: 'öre' }, // The sum of above 4
+            },
+            production: {
+                monthly_consumption: { value: 204, unit: 'kWh' },
+                spot_price: { value: 41.34, unit: 'öre' },
+                svea_energy_price: { value: 5, unit: 'öre' },
+                skatt_reduction: { value: 60, unit: 'öre' },
             }
         }
     }
@@ -241,8 +245,10 @@ class Index extends React.Component {
                                                     <div className="calculator-content" style={{minHeight: '380px'}}>
 
                                                         <div className="item">
-                                                            <p className="title">Uppskattad Måndasförbruknin</p>
-                                                            <span className="price">83 kWh</span>
+                                                            <p className="title">Uppskattad Måndasförbrukning</p>
+                                                            <span className="price">
+                                                                {this.state.production.monthly_consumption.value} {this.state.production.monthly_consumption.unit}
+                                                            </span>
                                                         </div>
 
                                                         <div className="item" style={{marginBottom: '12px'}}>
@@ -252,17 +258,23 @@ class Index extends React.Component {
 
                                                         <div className="item">
                                                             <p className="title"> Spotpris </p>
-                                                            <span className="price">39.21 öre</span>
+                                                            <span className="price">
+                                                                {this.state.production.spot_price.value} {this.state.production.spot_price.unit}
+                                                            </span>
                                                         </div>
 
                                                         <div className="item">
                                                             <p className="title"> SVEA Energy pris </p>
-                                                            <span className="price">4.45 öre</span>
+                                                            <span className="price">
+                                                                {this.state.production.svea_energy_price.value} {this.state.production.svea_energy_price.unit}
+                                                            </span>
                                                         </div>
 
                                                         <div className="item">
                                                             <p className="title"> Skattereduktion </p>
-                                                            <span className="price">3.45 öre</span>
+                                                            <span className="price">
+                                                                {this.state.production.skatt_reduction.value} {this.state.production.skatt_reduction.unit}
+                                                            </span>
                                                         </div>
 
                                                     </div>
@@ -309,7 +321,7 @@ class Index extends React.Component {
                                                         <div className="item" style={{textAlign: 'center'}}>
                                                             <p className="compare"> DITT JÄMFÖRELSE </p>
                                                             <p className="small u-center-text"> PRIS </p>
-                                                            <span className="price u-center-text">90 öre / KwH</span>
+                                                            <span className="price u-center-text">{comparison_price} / KwH</span>
                                                         </div>
 
                                                     </div>

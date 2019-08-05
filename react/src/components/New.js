@@ -19,8 +19,6 @@ class New extends React.Component {
                 spot_price: {value: 39.21, unit: 'öre'},
                 spot_start: {value: 4.45, unit: 'öre'},
                 el_certificate: {value: 4.45, unit: 'öre'},
-                // moms: { value: 11.78, unit: 'öre' }, // 25% of the above 3
-                // price_per_kw_hour: { value: 58.89, unit: 'öre' }, // The sum of above 4
             }
         }
     }
@@ -37,7 +35,7 @@ class New extends React.Component {
 
     render() {
         const {spot_price, spot_start, el_certificate, monthly_consumption} = this.state.bill;
-        const moms = ((spot_price.value + spot_start.value + el_certificate.value) * 0.25).toFixed(2);
+        const moms = Number(((spot_price.value + spot_start.value + el_certificate.value) * 0.25).toFixed(2));
         const price_per_kw_hour = (Number.parseFloat(spot_price.value + spot_start.value + el_certificate.value + moms)).toFixed(2);
 
         let comparison_price = ((39 / this.state.bill.monthly_consumption.value) * 100) + price_per_kw_hour;
@@ -298,7 +296,7 @@ class New extends React.Component {
                                                     </div>
                                                 </div>
 
-                                                <div style={{clear:'both'}}></div>
+                                                <div style={{clear: 'both'}}></div>
 
                                             </div>
                                         </div>

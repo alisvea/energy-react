@@ -2,3 +2,4 @@
 react/node_modules
 sass/node_modules
 *.log
+react/build

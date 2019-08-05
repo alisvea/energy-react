@@ -38,7 +38,7 @@ class Index extends React.Component {
 
     render() {
         const { spot_price, spot_start, el_certificate, monthly_consumption} = this.state.bill;
-        const moms = ((spot_price.value + spot_start.value + el_certificate.value) * 0.25).toFixed(2);
+        const moms = Number( ((spot_price.value + spot_start.value + el_certificate.value) * 0.25).toFixed(2) );
         const price_per_kw_hour = (Number.parseFloat(spot_price.value + spot_start.value + el_certificate.value + moms)).toFixed(2);
 
         let comparison_price = ((39 / this.state.bill.monthly_consumption.value) * 100 ) + price_per_kw_hour;

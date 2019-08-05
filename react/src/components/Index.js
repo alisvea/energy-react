@@ -33,6 +33,13 @@ class Index extends React.Component {
     }
 
     render() {
+        const { spot_price, spot_start, el_certificate, monthly_consumption} = this.state.bill;
+        const moms = ((spot_price.value + spot_start.value + el_certificate.value) * 0.25).toFixed(2);
+        const price_per_kw_hour = (Number.parseFloat(spot_price.value + spot_start.value + el_certificate.value + moms)).toFixed(2);
+
+        let comparison_price = ((39 / this.state.bill.monthly_consumption.value) * 100 ) + price_per_kw_hour;
+        comparison_price = Number.parseFloat(comparison_price).toFixed(2);
+
         return (
             <section id="energy" className="container-fluid">
                 <div className="box u-margin-top-big u-white-bg">
@@ -43,8 +50,7 @@ class Index extends React.Component {
                         <div className="row">
                             <div className="col-1-of-3">
                                 <h1 className="u-left-text u-grey-text u-margin-top-big u-margin-bottom-big">BYT
-                                    TILL <span className="u-green-text">GRÖN</span>
-                                    ENERGI</h1>
+                                    TILL <span className="u-green-text">GRÖN</span> ENERGI</h1>
 
                                 <form action="">
                                     <div className="row">
@@ -169,33 +175,45 @@ class Index extends React.Component {
 
                                                         <div className="item">
                                                             <p className="title">Uppskattad Måndasförbrukning</p>
-                                                            <span className="price">83 kWh</span>
+                                                            <span className="price">
+                                                                {monthly_consumption.value} {monthly_consumption.unit}
+                                                            </span>
                                                         </div>
 
                                                         <div className="item" style={{marginBottom: '12px'}}>
                                                             <p className="title"> Pris per kilowattimme </p>
-                                                            <span className="price line">58.89 öre</span>
+                                                            <span className="price line">
+                                                                {price_per_kw_hour} öre
+                                                            </span>
                                                         </div>
 
 
                                                         <div className="item">
                                                             <p className="title"> Spotpris </p>
-                                                            <span className="price">39.21 öre</span>
+                                                            <span className="price">
+                                                                {spot_price.value} {spot_price.unit}
+                                                            </span>
                                                         </div>
 
                                                         <div className="item">
                                                             <p className="title"> Spotpåslag </p>
-                                                            <span className="price">4.45 öre</span>
+                                                            <span className="price">
+                                                                {spot_start.value} {spot_start.unit}
+                                                            </span>
                                                         </div>
 
                                                         <div className="item">
                                                             <p className="title"> Elcertifikat </p>
-                                                            <span className="price">3.45 öre</span>
+                                                            <span className="price">
+                                                                {el_certificate.value} {el_certificate.unit}
+                                                            </span>
                                                         </div>
 
                                                         <div className="item">
                                                             <p className="title"> MOMS </p>
-                                                            <span className="price line">11.78 öre</span>
+                                                            <span className="price line">
+                                                                {moms} öre
+                                                            </span>
                                                         </div>
                                                     </div>
 
@@ -217,10 +235,10 @@ class Index extends React.Component {
                                                 <div className="calculator">
                                                     <div className="calculator-header">
                                                         <h2 className="u-center-text u-grey-text">RÖRLIGT</h2>
-                                                        <p className="heading u-grey-text u-center-text">FÖRBRUKNINGSAVTAL</p>
+                                                        <p className="heading u-grey-text u-center-text">PRODUKTIONSAVTAL</p>
                                                     </div>
 
-                                                    <div className="calculator-content">
+                                                    <div className="calculator-content" style={{minHeight: '380px'}}>
 
                                                         <div className="item">
                                                             <p className="title">Uppskattad Måndasförbruknin</p>
@@ -238,19 +256,15 @@ class Index extends React.Component {
                                                         </div>
 
                                                         <div className="item">
-                                                            <p className="title"> Spotpåslag </p>
+                                                            <p className="title"> SVEA Energy pris </p>
                                                             <span className="price">4.45 öre</span>
                                                         </div>
 
                                                         <div className="item">
-                                                            <p className="title"> Elcertifikat </p>
+                                                            <p className="title"> Skattereduktion </p>
                                                             <span className="price">3.45 öre</span>
                                                         </div>
 
-                                                        <div className="item">
-                                                            <p className="title"> MOMS </p>
-                                                            <span className="price line">11.78 öre</span>
-                                                        </div>
                                                     </div>
 
                                                     <div className="calculator-footer">
@@ -270,12 +284,12 @@ class Index extends React.Component {
                                             <div className="bill-top-col">
                                                 <div className="calculator">
                                                     <div className="calculator-header">
-                                                        <h2 className="u-center-text u-grey-text">RÖRLIGT</h2>
-                                                        <p className="heading u-grey-text u-center-text">FÖRBRUKNINGSAVTAL</p>
+                                                        <h2 className="u-center-text u-grey-text">INGEN</h2>
+                                                        <p className="heading u-grey-text u-center-text">Bindningstid</p>
                                                     </div>
 
                                                     <div className="calculator-content"
-                                                         style={{border: 'none', minHeight: '350px'}}>
+                                                         style={{border: 'none', minHeight: '380px', paddingRight: '25px'}}>
 
                                                         <div className="item">
                                                             <p className="title">Vi tycker att bindningstid har passerat

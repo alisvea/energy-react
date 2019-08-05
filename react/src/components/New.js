@@ -54,8 +54,7 @@ class New extends React.Component {
                         <div className="row">
                             <div className="col-1-of-3">
                                 <h1 className="u-left-text u-grey-text u-margin-top-big u-margin-bottom-big">BYT TILL <span
-                                    className="u-green-text">GRÖN</span>
-                                    ENERGI</h1>
+                                    className="u-green-text">GRÖN</span> ENERGI</h1>
 
                                 <form action="">
                                     <div className="row">
@@ -192,7 +191,7 @@ class New extends React.Component {
                                                         <div className="item" style={{marginBottom: '12px'}}>
                                                             <p className="title"> Pris per kilowattimme </p>
                                                             <span className="price line">
-                                                                {price_per_kw_hour}
+                                                                {price_per_kw_hour} öre
                                                             </span>
                                                         </div>
 
@@ -221,7 +220,7 @@ class New extends React.Component {
                                                         <div className="item">
                                                             <p className="title"> MOMS </p>
                                                             <span className="price line">
-                                                                {moms}
+                                                                {moms} öre
                                                             </span>
                                                         </div>
                                                     </div>

@@ -82,4 +82,18 @@
 }
 
 
+@media only screen and (max-width: 920px) {
+  .bill-top {
+    flex-direction: column !important;
+  };
+  .calculator {
+    &-content {
+      border-right: none !important;
+    }
+  }
+
+  .bill-top-left {
+    border: none !important;
+  }
+}
 

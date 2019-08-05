@@ -53,6 +53,14 @@ html, body {
   .circle {
     float: none !important; } }
 
+@media only screen and (max-width: 920px) {
+  .bill-top {
+    flex-direction: column !important; }
+  .calculator-content {
+    border-right: none !important; }
+  .bill-top-left {
+    border: none !important; } }
+
 /** Utilities **/
 .u-center-text {
   text-align: center; }
@@ -273,6 +281,12 @@ hr.black100 {
 .help-inline {
   color: #E80000;
   display: none; }
+
+form {
+  padding-right: 30px; }
+
+input[type="text"], input[type="email"] {
+  width: 100%; }
 
 /** Switch **/
 .switch {
@@ -572,9 +586,6 @@ p.compare {
 .eula {
   display: block;
   text-align: left; }
-
-form {
-  padding-right: 50px; }
 
 .total-text {
   color: #75a522;

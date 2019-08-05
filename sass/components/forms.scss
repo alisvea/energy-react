@@ -104,3 +104,11 @@
   color: $color-red-light-1;
   display: none;
 }
+
+form {
+  padding-right: 30px;
+}
+
+input[type="text"], input[type="email"] {
+  width: 100%;
+}

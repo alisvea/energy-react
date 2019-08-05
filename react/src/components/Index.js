@@ -1,9 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
-import ListPost from './ListPost';
 import {postsAddAction} from "../actions/PostsAction";
-import Sidebar from "./Sidebar";
 import Header from "./Header";
 
 class Index extends React.Component {
@@ -12,6 +10,16 @@ class Index extends React.Component {
         this.refTitle = React.createRef();
         this.refDescription = React.createRef();
         this.submitForm = this.submitForm.bind(this);
+        this.state = {
+            bill : {
+                monthly_consumption: { value: 83, unit: 'kWh' },
+                spot_price: { value: 39.21, unit: 'öre' },
+                spot_start: { value: 4.45, unit: 'öre' },
+                el_certificate: { value: 4.45, unit: 'öre' },
+                // moms: { value: 11.78, unit: 'öre' }, // 25% of the above 3
+                // price_per_kw_hour: { value: 58.89, unit: 'öre' }, // The sum of above 4
+            }
+        }
     }
 
     submitForm(e) {
@@ -160,7 +168,7 @@ class Index extends React.Component {
                                                     <div className="calculator-content">
 
                                                         <div className="item">
-                                                            <p className="title">Uppskattad Måndasförbruknin</p>
+                                                            <p className="title">Uppskattad Måndasförbrukning</p>
                                                             <span className="price">83 kWh</span>
                                                         </div>
 

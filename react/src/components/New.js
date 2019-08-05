@@ -12,6 +12,17 @@ class New extends React.Component {
         this.refTitle = React.createRef();
         this.refDescription = React.createRef();
         this.submitForm = this.submitForm.bind(this);
+
+        this.state = {
+            bill : {
+                monthly_consumption: { value: 83, unit: 'kWh' },
+                spot_price: { value: 39.21, unit: 'öre' },
+                spot_start: { value: 4.45, unit: 'öre' },
+                el_certificate: { value: 4.45, unit: 'öre' },
+                // moms: { value: 11.78, unit: 'öre' }, // 25% of the above 3
+                // price_per_kw_hour: { value: 58.89, unit: 'öre' }, // The sum of above 4
+            }
+        }
     }
 
     submitForm(e) {
@@ -25,6 +36,13 @@ class New extends React.Component {
     }
 
     render() {
+        const { spot_price, spot_start, el_certificate, monthly_consumption} = this.state.bill;
+        const moms = ((spot_price.value + spot_start.value + el_certificate.value) * 0.25).toFixed(2);
+        const price_per_kw_hour = (Number.parseFloat(spot_price.value + spot_start.value + el_certificate.value + moms)).toFixed(2);
+
+        let comparison_price = ((39 / this.state.bill.monthly_consumption.value) * 100 ) + price_per_kw_hour;
+        comparison_price = Number.parseFloat(comparison_price).toFixed(2);
+
         return (
             <section id="energy" className="container-fluid">
                 <div className="box u-margin-top-big u-white-bg">
@@ -143,8 +161,6 @@ class New extends React.Component {
                                             <label htmlFor="toggle" className="switch"></label>
                                             <span className="u-left-text">Visa mig hur mycket jag kan spara på att installera solceller!</span>
                                         </div>
-
-
                                         <button id="send" className="btn btn-success">SKICKA</button>
                                     </div>
                                 </form>
@@ -167,34 +183,46 @@ class New extends React.Component {
                                                     <div className="calculator-content" style={{border: 'none'}}>
 
                                                         <div className="item">
-                                                            <p className="title">Uppskattad Måndasförbruknin</p>
-                                                            <span className="price">83 kWh</span>
+                                                            <p className="title">Uppskattad Måndasförbrukning</p>
+                                                            <span className="price">
+                                                                {monthly_consumption.value} {monthly_consumption.unit}
+                                                            </span>
                                                         </div>
 
                                                         <div className="item" style={{marginBottom: '12px'}}>
                                                             <p className="title"> Pris per kilowattimme </p>
-                                                            <span className="price line">58.89 öre</span>
+                                                            <span className="price line">
+                                                                {price_per_kw_hour}
+                                                            </span>
                                                         </div>
 
 
                                                         <div className="item">
                                                             <p className="title"> Spotpris </p>
-                                                            <span className="price">39.21 öre</span>
+                                                            <span className="price">
+                                                                {spot_price.value} {spot_price.unit}
+                                                            </span>
                                                         </div>
 
                                                         <div className="item">
                                                             <p className="title"> Spotpåslag </p>
-                                                            <span className="price">4.45 öre</span>
+                                                            <span className="price">
+                                                                {spot_start.value} {spot_start.unit}
+                                                            </span>
                                                         </div>
 
                                                         <div className="item">
                                                             <p className="title"> Elcertifikat </p>
-                                                            <span className="price">3.45 öre</span>
+                                                            <span className="price">
+                                                                {el_certificate.value} {el_certificate.unit}
+                                                            </span>
                                                         </div>
 
                                                         <div className="item">
                                                             <p className="title"> MOMS </p>
-                                                            <span className="price line">11.78 öre</span>
+                                                            <span className="price line">
+                                                                {moms}
+                                                            </span>
                                                         </div>
                                                     </div>
 
@@ -241,7 +269,7 @@ class New extends React.Component {
                                                         <div className="item" style={{textAlign: 'center'}}>
                                                             <p className="compare"> DITT JÄMFÖRELSE </p>
                                                             <p className="small u-center-text"> PRIS </p>
-                                                            <span className="price u-center-text">90 öre / KwH</span>
+                                                            <span className="price u-center-text">{comparison_price} / KwH</span>
                                                         </div>
 
                                                         <div className="item u-margin-top-big">

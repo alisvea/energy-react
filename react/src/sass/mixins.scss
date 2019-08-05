@@ -1,0 +1,49 @@
+@import "variables.scss";
+// Mixins
+@mixin banner {
+  width: 100%;
+  position: relative;
+  color: red;
+  .banner-content {
+    position: absolute;
+    top: 50px;
+    width: 100%;
+  }
+  img {
+    width: 100%;
+  }
+  span {
+    width: 100%;
+    font-size: $bannerHeading;
+    display: block;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+  span.title {
+    font-weight: normal;
+    margin-bottom: 30px;
+    color: pink;
+  }
+}
+
+// Clear fix
+
+@mixin clearFix {
+  &:after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+}
+
+// grid system
+
+@mixin grid($cols, $margin) {
+  float: left;
+  margin-right: $margin;
+  margin-bottom: $margin;
+  width: ((100% - (($cols - 1) * $margin)) / $cols);
+  &:nth-child(#{$cols}n) {
+    margin-right: 0;
+  };
+}

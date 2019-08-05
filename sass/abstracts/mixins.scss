@@ -1,0 +1,21 @@
+@import "./variables";
+
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+@mixin clipPathTop {
+  clip-path: polygon(0 0, 50% $box-top-depth, 100% 0, 100% 100%, 0 100%);
+}
+
+@mixin clipPathBottom {
+  clip-path: polygon(0 0, 100% 0, 100% $box-bottom-left-depth, 50% 100%, 0 $box-bottom-right-depth);
+}
+
+@mixin clipPathBoth {
+  clip-path: polygon(0 0, 50% $box-top-depth, 100% 0, 100% $box-bottom-right-depth, 50% 100%, 0 $box-bottom-left-depth);
+}

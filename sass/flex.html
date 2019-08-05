@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="solceller">
+    <meta name="author" content="svea solar">
+    <link rel="shortcut icon" href="images/solceller.png">
+
+    <title>Energy - New Customers</title>
+
+    <!-- Custom styles for this template -->
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:300&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css"
+          integrity="sha256-UzFD2WYH2U1dQpKDjjZK72VtPeWP50NoJjd26rnAdUI=" crossorigin="anonymous"/>
+</head>
+
+<body>
+
+
+<!-- Energy Calculator -->
+<section id="energy" class="container-fluid" style="background-color: blueviolet; margin-top: 50px;">
+    <div class="box u-margin-top-big u-white-bg">
+        <div class="content">
+            <div class="row">
+                <div class="col-1-of-3">
+                    <h1 class="u-left-text u-grey-text u-margin-top-big">BYT TILL <span class="u-green-text">GRÖN</span>
+                        ENERGI</h1>
+
+                    <form action="">
+                        <div class="row">
+                            <div class="col-1-of-3">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="first-name" placeholder="Förnamn">
+                                    <span id="first-name-error"
+                                          class="help-inline">Detta är ett obligatoriskt fält.</span>
+                                </div>
+                            </div>
+                            <div class="col-2-of-3">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="last-name" placeholder="Efternamn">
+                                    <span id="last-name-error"
+                                          class="help-inline">Detta är ett obligatoriskt fält.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-1-of-1">
+                                <div class="form-group">
+                                    <input type="email" class="form-control" id="email" placeholder="E-post">
+                                    <span id="email-error" class="help-inline">Detta är ett obligatoriskt fält.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-1-of-3">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="telephone" placeholder="Telefon">
+                                    <span id="telephone-error"
+                                          class="help-inline">Detta är ett obligatoriskt fält.</span>
+                                </div>
+                            </div>
+                            <div class="col-2-of-3">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="personummer" placeholder="Personummer">
+                                    <span id="email-error" class="help-inline">Detta är ett obligatoriskt fält.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-1-of-1">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="gata" placeholder="Gata">
+                                    <span id="gata-error" class="help-inline">Detta är ett obligatoriskt fält.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-1-of-3">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="postnumber" placeholder="Postnummer">
+                                    <span id="postnumber-error"
+                                          class="help-inline">Detta är ett obligatoriskt fält.</span>
+                                </div>
+                            </div>
+                            <div class="col-2-of-3">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="city" placeholder="Ort">
+                                    <span id="city-error" class="help-inline">Detta är ett obligatoriskt fält.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-1-of-1">
+                                <div class="form-group">
+                                    <div style="display: flex;">
+                                        <div style="flex: 1; text-align: left; padding-top: 12px">
+                                            <input type="checkbox" class="form-control" id="eula"
+                                                   style="width: 20px; display: inline-block;">
+                                        </div>
+                                        <div style="flex: 10">
+                                            <p>
+                                                Jag accepterar SVEA Energy allmänna vilkor samt ger
+                                                tillstånd behandla min personliga information enligt de lagar som rådar.
+                                                Svea Energy har även tillstånd att hämta
+                                                min förbrukningsdata från min nätägare.
+                                            </p>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="vertical-buttons u-margin-bottom-big">
+                            <button id="send" class="btn btn-success">SKICKA</button>
+                        </div>
+                    </form>
+                </div>
+
+
+                <div class="col-2-of-3">
+
+                    <div class="solar-customers">
+                        <div class="bill">
+
+                            <div class="bill-top" style="padding-top: 0;">
+                                <div class="bill-top-col" style="border-right: 8px solid #f8f8f8">
+                                    <div class="calculator">
+                                        <div class="calculator-header">
+                                            <h2 class="u-center-text u-grey-text">RÖRLIGT</h2>
+                                            <p class="heading u-grey-text u-center-text">FÖRBRUKNINGSAVTAL</p>
+                                        </div>
+
+                                        <div class="calculator-content" style="border: none;">
+
+                                            <div class="item">
+                                                <p class="title">Uppskattad Måndasförbruknin</p>
+                                                <span class="price">83 kWh</span>
+                                            </div>
+
+                                            <div class="item" style="margin-bottom: 12px;">
+                                                <p class="title"> Pris per kilowattimme </p>
+                                                <span class="price line">58.89 öre</span>
+                                            </div>
+
+
+                                            <div class="item">
+                                                <p class="title"> Spotpris </p>
+                                                <span class="price">39.21 öre</span>
+                                            </div>
+
+                                            <div class="item">
+                                                <p class="title"> Spotpåslag </p>
+                                                <span class="price">4.45 öre</span>
+                                            </div>
+
+                                            <div class="item">
+                                                <p class="title"> Elcertifikat </p>
+                                                <span class="price">3.45 öre</span>
+                                            </div>
+
+                                            <div class="item">
+                                                <p class="title"> MOMS </p>
+                                                <span class="price line">11.78 öre</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="calculator-footer">
+                                            <div class="total">
+                                                <p class="total-price">88 kr / månad</p>
+                                                <p class="total-text"
+                                                   style="color:#75a522; font-size: 10px; line-height: 1.5;">
+                                                    *Det rorliga elpriset/spotpriser andras hela tiden och följer
+                                                    nordiska elbörsen (nordpool).
+                                                    Elcertifikatskostnaden varierar måndasvis.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div style="background-color:green; flex: 2;" class="bill-top-col">
+                                    <div style="display:flex; flex: 1; height: 100%; background-color: lightblue; flex-direction: column;">
+                                        <div style=" flex: 1; background-color: #73a421">aaa</div>
+                                        <div style=" flex: 1;">bbb</div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="bill-bottom">
+                                <div class="bill-source">
+
+                                    <div class="col-1-of-1">
+                                        <div class="circle"></div>
+                                        <div class="rectangle">
+                                            <div class="col-1-of-3"></div>
+                                            <div class="col-2-of-3">
+                                                <div class="rectangle-image">
+                                                    <h1>ENERGIKÄLLA</h1>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+@import "../abstracts/variables";
+@import "../abstracts/mixins";
+
+/** Switch **/
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 90px;
+  height: 30px;
+  background-color: $color-text-green;
+  border-radius: 20px;
+  margin-top: 5px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background-color: $color-white;
+    top: 4px;
+    left: 4px;
+    transition: all 0.3s;
+  }
+}
+
+.checkbox:checked + .switch::after {
+  left: 62px;
+}
+
+.checkbox:checked + .switch {
+  background-color: $color-text-grey;
+}
+
+.checkbox {
+  display: none;
+}
+

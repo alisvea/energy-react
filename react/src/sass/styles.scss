@@ -1,0 +1,96 @@
+@import "reset.scss";
+@import "focus-box.scss";
+@import "variables.scss";
+@import "mixins.scss";
+
+
+.wrapper {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+#main-nav {
+  background: $deepBlue;
+  border-left: 3px solid #120ef9;
+
+  ul {
+    width: 100%;
+    list-style-type: none;
+    @include clearFix;
+  }
+
+  li {
+    float: left;
+    width: (100% / 4);
+  }
+
+  a {
+    color: $offWhite;
+    text-decoration: none;
+    padding: 16px;
+    display: block;
+    text-align: center;
+    font-family: 'Roboto', arial, sans-serif;
+    &:hover {
+      background: #333;
+    }
+  }
+}
+
+#services {
+  li {
+    @include grid(3, 2%);
+    border: 1px solid rebeccapurple;
+  }
+  li div {
+    background: #FFF;
+  }
+  margin: 30px 0;
+
+}
+
+section h1 {
+  font-size: $sectionHeading;
+  color: $deepBlue;
+  text-align: center;
+}
+
+.lead-banner {
+  @include banner;
+  text-align: right;
+}
+
+.middle-banner {
+  @include banner;
+
+  li {
+    text-transform: uppercase;
+    font-size: 20px;
+    width: 100%;
+    margin: 20px 0;
+  }
+}
+
+#cards {
+  margin: 30px 0;
+  .card {
+    border: 1px solid rebeccapurple;
+    @include clearFix;
+  }
+
+  img {
+    display: block;
+    float: left;
+    max-width: 80px; 
+  }
+  .content {
+    padding: 0 30px;
+    display: block;
+    float: left;
+  }
+
+
+
+}

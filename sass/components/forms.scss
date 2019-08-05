@@ -1,0 +1,107 @@
+@import "../abstracts/variables";
+
+.form-group {
+  margin-bottom: 30px;
+}
+.form-control {
+  font-family: "Open Sans", "Sans serif";
+  display: block;
+  width: 100%;
+
+  padding: 5px 0  !important;
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  line-height: 1.5 !important;
+  height: auto !important;
+  color: #495057 !important;
+  background-color: #fff !important;
+  background-clip: padding-box !important;
+  border-top: none !important;
+  border-right: none !important;
+  border-left: none !important;
+  border-bottom: 2px solid $color-grey-light-1;
+  border-radius: 0 !important;
+  -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out !important;
+  transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out !important;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !important;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out !important;
+}
+.form-control:focus {
+  outline: none;
+}
+
+.btn {
+  padding: 12px 30px !important;
+  border-radius: 0 !important;
+  font-size: 16px;
+  min-width: 150px;
+  font-weight: 500;
+  font-family: "Open Sans", "Sans serif";
+}
+
+.btn-primary {
+  background-color: white;
+  color: rgb(0, 0, 0);
+  border: 2px solid rgb(115, 164, 33);
+  border-image-outset: 0px;
+  border-image-repeat: stretch;
+}
+
+.btn-success {
+  background-color: $color-white;
+  border: 1px solid $color-green-light-1;
+  cursor: pointer;
+}
+
+.btn-success:hover {
+  background-color: $color-green-light-3;
+  color: $color-white;
+}
+
+.btn-primary:hover {
+  background-color: white;
+  color: rgb(0, 0, 0);
+  border: 2px solid rgb(115, 164, 33);
+}
+
+.mobile-button {
+  padding: 10px;
+  border: 1px solid black;
+}
+
+
+.horizontal-buttons {
+  display: flex;
+  flex-direction: row;
+}
+
+.horizontal-buttons :first-child {
+  margin-right: 9px;
+}
+
+.horizontal-buttons :last-child {
+  margin-left: 9px;
+}
+
+.vertical-buttons {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.vertical-buttons :first-child {
+  margin: 10px;
+  flex: 1;
+}
+
+.vertical-buttons :last-child {
+  margin: 10px;
+  flex: 1;
+}
+
+.help-inline {
+  color: $color-red-light-1;
+  display: none;
+}

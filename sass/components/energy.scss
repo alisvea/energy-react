@@ -1,0 +1,226 @@
+@import "../abstracts/variables";
+@import "../abstracts/mixins";
+
+.solar-customers {
+
+  .bill {
+    background-color: $color-grey-light-1;
+    padding: 45px;
+    border-radius: 5px;
+
+    &-top {
+      background-color: #FFFFFF;
+      padding: 25px;
+      display: flex;
+      flex-direction: row;
+
+      &-col {
+        flex: 1;
+      }
+
+      /* for new customers */
+      &-left {
+        flex: 1;
+        border-right: 8px solid #f8f8f8;
+      }
+
+      &-right {
+        flex: 2;
+
+        .calculator {
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+
+          &-header {
+            flex: 0.5;
+          }
+
+          &-content {
+            flex: 1.5;
+            border-bottom: 8px solid #f8f8f8;
+            border-right: none;
+            padding-right: 25px;
+
+            .item {
+              .title {
+                text-align: center;
+              }
+
+              b {
+                text-align: center;
+                display: block;
+                line-height: 2;
+              }
+            }
+          }
+
+          &-footer {
+            flex: 2;
+          }
+        }
+      }
+    }
+
+    &-bottom {
+      margin-top: 30px;
+    }
+
+    &-source {
+      background-size: cover;
+      background-repeat: no-repeat;
+      min-height: 230px;
+      background-position: center center;
+      height: 100%;
+
+      h1 {
+        padding-top: 5px;
+        text-align: left;
+        color: $color-text-grey;
+        display: table-caption;
+        padding-left: 30px;
+        margin-top: -23px;
+      }
+
+      img {
+        width: 100%;
+      }
+    }
+  }
+
+  .calculator {
+    &-header {
+
+    }
+
+    &-content {
+      border-right: 1px solid #d3d3d3;
+      margin: 40px 0px 1px 0px;
+      padding-top: 0px;
+      padding-right: 80px;
+      padding-bottom: 0px;
+
+
+      .item {
+        text-align: left;
+        margin-bottom: 20px;
+
+        p.title {
+          color: $color-text-grey;
+          margin: 0;
+        }
+
+        .line {
+          border-bottom: .5px solid lightgrey;
+          display: block;
+          padding-bottom: 20px;
+        }
+      }
+
+      .item:last-child {
+        margin-bottom: 5px;
+      }
+    }
+
+    &-content, &-footer {
+      padding-left: 25px;
+
+    }
+
+    &-footer {
+      padding-right: 10px;
+    }
+  }
+}
+
+.total {
+  text-align: left;
+  padding-top: 0px;
+  padding-bottom: 0px;
+
+  &-price {
+    font-family: "DejaVu Sans";
+    color: $color-text-green;
+    font-weight: bold;
+    text-align: left;
+  }
+}
+
+.price {
+  font-family: "DejaVu Sans";
+  font-weight: bold;
+  text-align: left;
+  color: $color-text-grey;
+}
+
+#send {
+  font-family: "Open Sans", "Sans serif";
+  font-weight: bold;
+  text-align: center;
+}
+
+strong {
+  color: $color-text-grey;
+  font-weight: bold;
+  font-family: "DejaVu Sans";
+  font-size: 12px;
+}
+
+
+.small {
+  font-size: 12px !important;
+  line-height: 1 !important;
+}
+
+b {
+  font-weight: bold;
+  color: $color-text-grey;
+}
+
+p.compare {
+  color: $color-text-grey;
+  font-size: 16px;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.circle {
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  background-color: #73a421;
+  background-image: url("../images/circle.png");
+  background-origin: content-box;
+  padding: 0px;
+  border: 20px solid white;
+  background-size: cover;
+  float: left;
+}
+
+.rectangle {
+  background-color: $color-white;
+  margin-top: 50px;
+  background-origin: content-box;
+  margin-left: 50px;
+}
+
+.rectangle, .rectangle-image {
+  height: 135px;
+}
+
+.rectangle-image {
+  background-color: $color-white;
+  background-size: cover;
+  background-image: url("../images/rectangle.png");
+  background-origin: content-box;
+  background-position: center;
+}
+
+.eula {
+  display: block;
+  text-align: left;
+}
+
+form {
+  padding-right: 50px;
+}

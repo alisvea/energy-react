@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:100,300.400,700,900' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/c55de4f83b.js"></script>
+
+    <link href="css/icon-font.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="img/favicon.png" rel="shortcut icon" type="image/png">
+
+    <title>Admin at root </title>
+</head>
+<body>
+
+<!--
+<section class="grid">
+    <div class="row">
+        <div class="col-1-of-2"> Col 1 of 2</div>
+        <div class="col-1-of-2"> Col 1 of 2</div>
+    </div>
+
+    <div class="row">
+        <div class="col-1-of-3"> Col 1 of 3</div>
+        <div class="col-1-of-3"> Col 1 of 3</div>
+        <div class="col-1-of-3"> Col 1 of 3</div>
+    </div>
+
+    <div class="row">
+        <div class="col-1-of-3"> Col 1 of 3</div>
+        <div class="col-2-of-3"> Col 2 of 3</div>
+    </div>
+
+    <div class="row">
+        <div class="col-1-of-4"> Col 1 of 4</div>
+        <div class="col-1-of-4"> Col 1 of 4</div>
+        <div class="col-1-of-4"> Col 1 of 4</div>
+        <div class="col-1-of-4"> Col 1 of 4</div>
+    </div>
+
+    <div class="row">
+        <div class="col-1-of-4"> Col 1 of 4</div>
+        <div class="col-1-of-4"> Col 1 of 4</div>
+        <div class="col-2-of-4"> Col 2 of 4</div>
+    </div>
+
+    <div class="row">
+        <div class="col-3-of-4"> Col 1 of 4</div>
+        <div class="col-1-of-4"> Col 1 of 4</div>
+    </div>
+
+</section>
+-->
+
+<main>
+
+    <section class="section-main">
+        <div class="row">
+            <div class="col-1-of-4">
+                <div class="sidebar">
+                    <div class="user">
+                        <i style="font-size: 5rem" class="fas fa-audio-description"></i>
+                    </div>
+                    <div class="sidebar__navigation">
+                        <ul>
+                            <li><a class="btn-text" href="#"><i class="fas fa-video"></i> Add Video</a></li>
+                            <li><a class="btn-text" href="#"><i class="fas fa-photo-video"></i>Add Image</a></li>
+                            <li><a class="btn-text" href="#"><i class="fas fa-users"></i> Add User</a></li>
+                            <li><a class="btn-text" href="#"><i class="fas fa-chart-bar"></i> View Report</a></li>
+                            <li><a class="btn-text" href="#"><i class="fas fa-cogs"></i> Settings</a></li>
+                            <li><a class="btn-text" href="#"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3-of-4">
+                <section class="section-book2">
+                    <div class="row">
+                        <div class="book2">
+                            <div class="book__form">
+                                <form class="form"
+                                      action="/upload"
+                                      method="post"
+                                      enctype="multipart/form-data"
+                                >
+                                    <div class="u-margin-bottom-medium">
+                                        <h2 class="heading-secondary">
+                                            Upload video
+                                        </h2>
+                                    </div>
+
+                                    <div class="form__group">
+                                        <input class="form__input" id="title" placeholder="Title" required type="text">
+                                        <label class="form__label" for="title">Title</label>
+                                    </div>
+
+                                    <div class="form__group">
+                                        <input class="form__input" id="description" placeholder="Description" required
+                                               type="text">
+                                        <label class="form__label" for="description">Description</label>
+                                    </div>
+
+                                    <div class="form__group">
+                                        <input name="image" class="form__input" id="image" placeholder="Image" required
+                                               type="file">
+                                        <label class="form__label" for="image">Image</label>
+                                    </div>
+
+                                    <div class="form__group">
+                                        <input name="video" class="form__input" id="video" placeholder="Video" required
+                                               type="file">
+                                        <label class="form__label" for="video">Video</label>
+                                    </div>
+
+                                    <div class="u-margin-top-big">
+                                        <button class="btn btn--black" href="#"><i class="fas fa-cloud-upload-alt"></i>
+                                            &nbsp;Upload
+                                        </button>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <input id="show" class="form__input" id="show"
+                               placeholder="Show" required type="text"/>
+
+                        <div class="darkula">
+                            <ul class="list-group">
+                                <li class="list-group-item"><a href="#">Vestibulum at eros</a></li>
+                                <li class="list-group-item"><a href="#">Vestibulum at eros</a></li>
+                                <li class="list-group-item"><a href="#">Vestibulum at eros</a></li>
+                                <li class="list-group-item"><a href="#">Vestibulum at eros</a></li>
+                                <li class="list-group-item"><a href="#">Vestibulum at eros</a></li>
+                                <li class="list-group-item"><a href="#">Vestibulum at eros</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+
+    </section>
+
+</main>
+
+<footer class="footer">
+
+    <div class="row">
+        <div class="col-1-of-2">
+            <div class="footer__navigation">
+                <ul class="footer__list">
+                    <li class="footer__item"><a class="footer__link" href="#">Company</a></li>
+                    <li class="footer__item"><a class="footer__link" href="#">Contacts Us</a></li>
+                    <li class="footer__item"><a class="footer__link" href="#">Careers</a></li>
+                    <li class="footer__item"><a class="footer__link" href="#">Privacy policy</a></li>
+                    <li class="footer__item"><a class="footer__link" href="#">Terms</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-1-of-2">
+            <p class="footer__copyright">
+                Build my <a class="footer__link" href="#">Ali</a>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab accusamus animi beatae corporis dolores
+                eveniet modi molestias nostrum q.
+            </p>
+        </div>
+    </div>
+</footer>
+
+
+</body>
+</html>

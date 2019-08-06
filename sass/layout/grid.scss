@@ -97,3 +97,9 @@
   }
 }
 
+
+@media only screen and (max-width: 600px) {
+  .solar-customers .bill, .bill-top, .box, .content {
+    padding: 5px !important;
+  }
+}

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Route, Switch} from 'react-router-dom';
+import {Route, Switch, BrowserRouter} from 'react-router-dom';
 
 
 import Ni from './components/Ni';
@@ -12,14 +12,16 @@ class App extends Component {
 
     render() {
         return (
-            <Switch>
-                <Route exact path={`/index`} component={Index}/>
-                <Route exact path={`/`} component={Index}/>
+            <BrowserRouter basename="/">
+                <Switch>
+                    <Route exact path={`/index`} component={Index}/>
+                    <Route exact path={`/`} component={Index}/>
 
-                <Route exact path={`/new`} component={New}/>
+                    <Route exact path={`/new`} component={New}/>
 
-                <Route component={Ni}/>
-            </Switch>
+                    <Route component={Ni}/>
+                </Switch>
+            </BrowserRouter>
         );
     }
 }

@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "description": "Energy calculator - SASS application",
   "scripts": {
-    "sass": "node-sass main.scss css/style.css -w",
+    "start": "node-sass main.scss css/style.css -w",
     "server": "live-server",
     "deploy": "cp css ../react/public/ -Rf && cp images ../react/public/ -Rf "
   },

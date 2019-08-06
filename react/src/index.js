@@ -101,8 +101,8 @@ localStorage.setItem('statsUpdate', statsUpdate);
 
 // Read news
 if(true || ENVIRONMENT.DEV) {
-    store.dispatch(postsReadAction());
-    store.dispatch(videoReadAction());
+    // store.dispatch(postsReadAction());
+    // store.dispatch(videoReadAction());
 }
 
 /**

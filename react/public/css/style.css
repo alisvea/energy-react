@@ -61,6 +61,10 @@ html, body {
   .bill-top-left {
     border: none !important; } }
 
+@media only screen and (max-width: 600px) {
+  .solar-customers .bill, .bill-top, .box, .content {
+    padding: 5px !important; } }
+
 /** Utilities **/
 .u-center-text {
   text-align: center; }

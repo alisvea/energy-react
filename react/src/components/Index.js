@@ -42,9 +42,27 @@ class Index extends React.Component {
         }
     }
 
+    validatePnr(v) {
+        if(v && isNaN(v)) {
+            const vNoHyphen = v.replace(/-/g, '');
+            if(isNaN(vNoHyphen)) {
+                return  v.substring(0, v.length - 1);
+            }
+        }
+
+        if(v && v.length == 6) {
+            return v + '-';
+        }
+
+        if(v && v.length > 11) {
+            return v.substring(0, 11);
+        }
+        return v;
+    }
+
     handleChange(e) {
         const { form } = this.state;
-        form[e.target.id] = e.target.value;
+        form[e.target.id] = e.target.id == 'personummer' ? this.validatePnr(e.target.value) : e.target.value;
         this.setState({form});
         console.log(this.state);
     }
@@ -132,7 +150,7 @@ class Index extends React.Component {
                                         <div className="col-2-of-3">
                                             <div className="form-group">
                                                 <input type="text" className="form-control" id="personummer"
-                                                       placeholder="Personummer" value={this.state.form.personummer} onChange={(e)=>this.handleChange(e)} />
+                                                       placeholder="xxxxxx-xxxx" value={this.state.form.personummer} onChange={(e)=>this.handleChange(e)} />
                                                 <span id="email-error" className="help-inline">Detta är ett obligatoriskt fält.</span>
                                             </div>
                                         </div>

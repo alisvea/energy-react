@@ -64,7 +64,10 @@ class Index extends React.Component {
             body : JSON.stringify(this.state.form)
         });
 
-        console.log(response);
+        const result = await response;
+        const form = this.getCleanForm();
+        this.setState({form});
+        console.log(result);
     }
 
     render() {

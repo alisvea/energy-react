@@ -25,16 +25,20 @@ class Index extends React.Component {
                 svea_energy_price: {value: 5, unit: 'öre'},
                 skatt_reduction: {value: 60, unit: 'öre'},
             },
-            form: {
-                first_name: '',
-                last_name: '',
-                email: '',
-                telephone: '',
-                personummer: '',
-                address: '',
-                postNumber: '',
-                city: ''
-            }
+            form: this.getCleanForm()
+        }
+    }
+
+    getCleanForm() {
+        return {
+            first_name: '',
+            last_name: '',
+            email: '',
+            telephone: '',
+            personummer: '',
+            address: '',
+            postNumber: '',
+            city: ''
         }
     }
 
@@ -45,16 +49,22 @@ class Index extends React.Component {
         console.log(this.state);
     }
 
-    submitForm(e) {
+    async submitForm(e) {
         e.preventDefault();
-        const form = {};
-        form[e.target.id] = e.target.value();
-        const title = this.refTitle.current.value;
-        const description = this.refDescription.current.value;
-        console.log(title, description);
-        this.props.postsAddAction({title, description, author_id: 1});
-        this.refTitle.current.value = '';
-        this.refDescription.current.value = '';
+
+        const urlLive = 'https://www.sveasolar.se/wp-content/themes/xpro-child/calculatorv2/solarcalc-extras/submitform.php';
+        const proxyUrl = "https://cors-anywhere.herokuapp.com/";
+
+        const response = await fetch(proxyUrl + urlLive, {
+            method: 'POST',
+            headers: {
+                'Accept' : 'application/json',
+                'Content-Type' : 'application/json'
+            },
+            body : JSON.stringify(this.state.form)
+        });
+
+        console.log(response);
     }
 
     render() {

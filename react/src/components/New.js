@@ -19,18 +19,134 @@ class New extends React.Component {
                 spot_price: {value: 39.21, unit: 'öre'},
                 spot_start: {value: 4.45, unit: 'öre'},
                 el_certificate: {value: 4.45, unit: 'öre'},
-            }
+            },
+            form: this.getCleanForm()
         }
     }
 
-    submitForm(e) {
+    getCleanForm() {
+        return {
+            first_name: '',
+            last_name: '',
+            email: '',
+            telephone: '',
+            personummer: '',
+            address: '',
+            postNumber: '',
+            city: '',
+            eula: false
+        }
+    }
+
+    validatePnr(v) {
+        if(v && isNaN(v)) {
+            const vNoHyphen = v.replace(/-/g, '');
+            if(isNaN(vNoHyphen)) {
+                return  v.substring(0, v.length - 1);
+            }
+        }
+
+        if(v && v.length == 6) {
+            return v + '-';
+        }
+
+        if(v && v.length > 11) {
+            return v.substring(0, 11);
+        }
+        return v;
+    }
+
+    handleValidation() {
+        let fields = this.state.form;
+        let errors = {};
+        let formIsValid = true;
+
+        if(!fields['first_name']) {
+            formIsValid = false;
+            errors['firts_name'] = 'Cannot be empty';
+        }
+
+        if(!fields['last_name']) {
+            formIsValid = false;
+            errors['last_name'] = 'Cannot be empty';
+        }
+
+        if(!fields['email']) {
+            formIsValid = false;
+            errors['email'] = 'Email cannot be empty';
+        }
+
+        if(!fields['telephone']) {
+            formIsValid = false;
+            errors['telephone'] = 'telephone cannot be empty';
+        }
+
+        if(!fields['personummer']) {
+            formIsValid = false;
+            errors['personummer'] = 'Personnummer cannot be empty';
+        }
+
+        if(!fields['address']) {
+            formIsValid = false;
+            errors['address'] = 'Address cannot be empty';
+        }
+
+        if(!fields['postNumber']) {
+            formIsValid = false;
+            errors['postNumber'] = 'postnummer cannot be empty';
+        }
+
+        if(!fields['city']) {
+            formIsValid = false;
+            errors['city'] = 'city cannot be empty';
+        }
+
+        if(fields['eula'] == false) {
+            formIsValid = false;
+            errors['eula'] = 'Please accept EULA';
+        }
+
+        return errors;
+    }
+
+    handleChange(e) {
+        const { form } = this.state;
+        if(e.target.id == 'eula') {
+            form[e.target.id] = ! form.eula;
+        } else {
+            form[e.target.id] = e.target.id == 'personummer' ? this.validatePnr(e.target.value) : e.target.value;
+        }
+
+        this.setState({form});
+        console.log(this.state);
+    }
+
+    async submitForm(e) {
         e.preventDefault();
-        const title = this.refTitle.current.value;
-        const description = this.refDescription.current.value;
-        console.log(title, description);
-        this.props.postsAddAction({title, description, author_id: 1});
-        this.refTitle.current.value = '';
-        this.refDescription.current.value = '';
+        console.log('Before checking validation ');
+        const errors = this.handleValidation();
+
+        if((Object.keys(errors)).length > 0) {
+            console.log(errors);
+            return false;
+        }
+
+        const urlLive = 'https://www.sveasolar.se/wp-content/themes/xpro-child/calculatorv2/solarcalc-extras/submitform.php';
+        const proxyUrl = "https://cors-anywhere.herokuapp.com/";
+
+        const response = await fetch(proxyUrl + urlLive, {
+            method: 'POST',
+            headers: {
+                'Accept' : 'application/json',
+                'Content-Type' : 'application/json'
+            },
+            body : JSON.stringify(this.state.form)
+        });
+
+        const result = await response;
+        const form = this.getCleanForm();
+        this.setState({form});
+        console.log(result);
     }
 
     render() {

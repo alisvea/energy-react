@@ -7,8 +7,6 @@ import Header from "./Header";
 class Index extends React.Component {
     constructor(props) {
         super(props);
-        this.refTitle = React.createRef();
-        this.refDescription = React.createRef();
         this.submitForm = this.submitForm.bind(this);
         this.handleChange = this.handleChange.bind(this);
 

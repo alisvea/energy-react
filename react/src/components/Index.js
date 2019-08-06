@@ -38,7 +38,8 @@ class Index extends React.Component {
             personummer: '',
             address: '',
             postNumber: '',
-            city: ''
+            city: '',
+            eula: false
         }
     }
 
@@ -60,15 +61,80 @@ class Index extends React.Component {
         return v;
     }
 
+    handleValidation() {
+        let fields = this.state.form;
+        let errors = {};
+        let formIsValid = true;
+
+        if(!fields['first_name']) {
+            formIsValid = false;
+            errors['firts_name'] = 'Cannot be empty';
+        }
+
+        if(!fields['last_name']) {
+            formIsValid = false;
+            errors['last_name'] = 'Cannot be empty';
+        }
+
+        if(!fields['email']) {
+            formIsValid = false;
+            errors['email'] = 'Email cannot be empty';
+        }
+
+        if(!fields['telephone']) {
+            formIsValid = false;
+            errors['telephone'] = 'telephone cannot be empty';
+        }
+
+        if(!fields['personummer']) {
+            formIsValid = false;
+            errors['personummer'] = 'Personnummer cannot be empty';
+        }
+
+        if(!fields['address']) {
+            formIsValid = false;
+            errors['address'] = 'Address cannot be empty';
+        }
+
+        if(!fields['postNumber']) {
+            formIsValid = false;
+            errors['postNumber'] = 'postnummer cannot be empty';
+        }
+
+        if(!fields['city']) {
+            formIsValid = false;
+            errors['city'] = 'city cannot be empty';
+        }
+
+        if(fields['eula'] == false) {
+            formIsValid = false;
+            errors['eula'] = 'Please accept EULA';
+        }
+
+        return errors;
+    }
+
     handleChange(e) {
         const { form } = this.state;
-        form[e.target.id] = e.target.id == 'personummer' ? this.validatePnr(e.target.value) : e.target.value;
+        if(e.target.id == 'eula') {
+            form[e.target.id] = ! form.eula;
+        } else {
+            form[e.target.id] = e.target.id == 'personummer' ? this.validatePnr(e.target.value) : e.target.value;
+        }
+
         this.setState({form});
         console.log(this.state);
     }
 
     async submitForm(e) {
         e.preventDefault();
+        console.log('Before checking validation ');
+        const errors = this.handleValidation();
+
+        if((Object.keys(errors)).length > 0) {
+            console.log(errors);
+            return false;
+        }
 
         const urlLive = 'https://www.sveasolar.se/wp-content/themes/xpro-child/calculatorv2/solarcalc-extras/submitform.php';
         const proxyUrl = "https://cors-anywhere.herokuapp.com/";
@@ -189,7 +255,7 @@ class Index extends React.Component {
                                             <div className="form-group">
                                                 <div style={{display: 'flex'}}>
                                                     <div style={{flex: 1, textAlign: 'left', paddingTop: '12px'}}>
-                                                        <input type="checkbox" className="form-control" id="eula" />
+                                                        <input type="checkbox"  checked={this.state.form.eula} onChange={(e)=>this.handleChange(e)} className="form-control" id="eula" />
                                                     </div>
                                                     <div style={{flex: 10}}>
                                                         <label htmlFor="eula" className="eula">

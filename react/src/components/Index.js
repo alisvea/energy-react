@@ -11,6 +11,7 @@ class Index extends React.Component {
         this.handleChange = this.handleChange.bind(this);
 
         this.state = {
+            sendLabel: 'SKICKA',
             bill: {
                 monthly_consumption: {value: 83, unit: 'kWh'},
                 spot_price: {value: 39.21, unit: 'öre'},
@@ -136,6 +137,7 @@ class Index extends React.Component {
 
         const urlLive = 'https://www.sveasolar.se/wp-content/themes/xpro-child/calculatorv2/solarcalc-extras/submitform.php';
         const proxyUrl = "https://cors-anywhere.herokuapp.com/";
+        this.setState({sendLabel: 'BEARBETNING'});
 
         const response = await fetch(proxyUrl + urlLive, {
             method: 'POST',
@@ -148,7 +150,7 @@ class Index extends React.Component {
 
         const result = await response;
         const form = this.getCleanForm();
-        this.setState({form});
+        this.setState({form, sendLabel: 'SKICKA'});
         console.log(result);
     }
 
@@ -270,7 +272,7 @@ class Index extends React.Component {
                                     </div>
 
                                     <div className="vertical-buttons u-margin-bottom-big">
-                                        <button onClick={this.submitForm} id="send" className="btn btn-success">SKICKA</button>
+                                        <button onClick={this.submitForm} id="send" className="btn btn-success">{this.state.sendLabel}</button>
                                     </div>
                                 </form>
                             </div>

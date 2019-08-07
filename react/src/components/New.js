@@ -14,6 +14,7 @@ class New extends React.Component {
         this.submitForm = this.submitForm.bind(this);
 
         this.state = {
+            sendLabel: 'SKICKA',
             bill: {
                 monthly_consumption: {value: 83, unit: 'kWh'},
                 spot_price: {value: 39.21, unit: 'öre'},
@@ -21,7 +22,9 @@ class New extends React.Component {
                 el_certificate: {value: 4.45, unit: 'öre'},
             },
             form: this.getCleanForm()
-        }
+        };
+
+        this.refSaving = React.createRef();
     }
 
     getCleanForm() {
@@ -34,7 +37,8 @@ class New extends React.Component {
             address: '',
             postNumber: '',
             city: '',
-            eula: false
+            eula: false,
+            saving: false
         }
     }
 
@@ -111,6 +115,13 @@ class New extends React.Component {
 
     handleChange(e) {
         const { form } = this.state;
+
+        if(e.target.id == 'saving') {
+            form.saving =  this.refSaving.current.checked == true ? true : false;
+            form.savings = !!! this.refSaving.current.checked;
+            console.log('Saving: ', e.target.id, this.refSaving.current.checked, form.saving);
+        }
+
         if(e.target.id == 'eula') {
             form[e.target.id] = ! form.eula;
         } else {
@@ -118,7 +129,7 @@ class New extends React.Component {
         }
 
         this.setState({form});
-        console.log(this.state);
+        console.log(form);
     }
 
     async submitForm(e) {
@@ -134,6 +145,8 @@ class New extends React.Component {
         const urlLive = 'https://www.sveasolar.se/wp-content/themes/xpro-child/calculatorv2/solarcalc-extras/submitform.php';
         const proxyUrl = "https://cors-anywhere.herokuapp.com/";
 
+        this.setState({sendLabel: 'BEARBETNING'});
+
         const response = await fetch(proxyUrl + urlLive, {
             method: 'POST',
             headers: {
@@ -145,7 +158,7 @@ class New extends React.Component {
 
         const result = await response;
         const form = this.getCleanForm();
-        this.setState({form});
+        this.setState({form, sendLabel: 'SKICKA'});
         console.log(result);
     }
 
@@ -175,16 +188,16 @@ class New extends React.Component {
                                     <div className="row">
                                         <div className="col-1-of-3">
                                             <div className="form-group">
-                                                <input type="text" className="form-control" id="first-name"
-                                                       placeholder="Förnamn"/>
+                                                <input type="text" className="form-control" id="first_name"
+                                                       placeholder="Förnamn" value={this.state.form.first_name} onChange={(e)=>this.handleChange(e)} />
                                                 <span id="first-name-error"
                                                       className="help-inline">Detta är ett obligatoriskt fält.</span>
                                             </div>
                                         </div>
                                         <div className="col-2-of-3">
                                             <div className="form-group">
-                                                <input type="text" className="form-control" id="last-name"
-                                                       placeholder="Efternamn"/>
+                                                <input type="text" className="form-control" id="last_name"
+                                                       placeholder="Efternamn" value={this.state.form.last_name} onChange={(e)=>this.handleChange(e)}/>
                                                 <span id="last-name-error"
                                                       className="help-inline">Detta är ett obligatoriskt fält.</span>
                                             </div>
@@ -195,7 +208,7 @@ class New extends React.Component {
                                         <div className="col-1-of-1">
                                             <div className="form-group">
                                                 <input type="email" className="form-control" id="email"
-                                                       placeholder="E-post"/>
+                                                       placeholder="E-post" value={this.state.form.email} onChange={(e)=>this.handleChange(e)}/>
                                                 <span id="email-error" className="help-inline">Detta är ett obligatoriskt fält.</span>
                                             </div>
                                         </div>
@@ -205,7 +218,7 @@ class New extends React.Component {
                                         <div className="col-1-of-3">
                                             <div className="form-group">
                                                 <input type="text" className="form-control" id="telephone"
-                                                       placeholder="Telefon"/>
+                                                       placeholder="Telefon" value={this.state.form.telephone} onChange={(e)=>this.handleChange(e)}/>
                                                 <span id="telephone-error"
                                                       className="help-inline">Detta är ett obligatoriskt fält.</span>
                                             </div>
@@ -213,7 +226,7 @@ class New extends React.Component {
                                         <div className="col-2-of-3">
                                             <div className="form-group">
                                                 <input type="text" className="form-control" id="personummer"
-                                                       placeholder="Personummer"/>
+                                                       placeholder="xxxxxx-xxxx" value={this.state.form.personummer} onChange={(e)=>this.handleChange(e)} />
                                                 <span id="email-error" className="help-inline">Detta är ett obligatoriskt fält.</span>
                                             </div>
                                         </div>
@@ -222,8 +235,8 @@ class New extends React.Component {
                                     <div className="row">
                                         <div className="col-1-of-1">
                                             <div className="form-group">
-                                                <input type="text" className="form-control" id="gata"
-                                                       placeholder="Gata"/>
+                                                <input type="text" className="form-control" id="address"
+                                                       placeholder="Gata" value={this.state.form.address} onChange={(e)=>this.handleChange(e)} />
                                                 <span id="gata-error" className="help-inline">Detta är ett obligatoriskt fält.</span>
                                             </div>
                                         </div>
@@ -232,8 +245,8 @@ class New extends React.Component {
                                     <div className="row">
                                         <div className="col-1-of-3">
                                             <div className="form-group">
-                                                <input type="text" className="form-control" id="postnumber"
-                                                       placeholder="Postnummer"/>
+                                                <input type="text" className="form-control" id="postNumber"
+                                                       placeholder="Postnummer" value={this.state.form.postNumber} onChange={(e)=>this.handleChange(e)} />
                                                 <span id="postnumber-error"
                                                       className="help-inline">Detta är ett obligatoriskt fält.</span>
                                             </div>
@@ -241,7 +254,7 @@ class New extends React.Component {
                                         <div className="col-2-of-3">
                                             <div className="form-group">
                                                 <input type="text" className="form-control" id="city"
-                                                       placeholder="Ort"/>
+                                                       placeholder="Ort" value={this.state.form.city} onChange={(e)=>this.handleChange(e)} />
                                                 <span id="city-error" className="help-inline">Detta är ett obligatoriskt fält.</span>
                                             </div>
                                         </div>
@@ -250,9 +263,9 @@ class New extends React.Component {
                                     <div className="row">
                                         <div className="col-1-of-1">
                                             <div className="form-group">
-                                                <div style={{display: 'flex', width: '100%'}}>
+                                                <div style={{display: 'flex'}}>
                                                     <div style={{flex: 1, textAlign: 'left', paddingTop: '12px'}}>
-                                                        <input type="checkbox" className="form-control" id="eula"/>
+                                                        <input type="checkbox"  checked={this.state.form.eula} onChange={(e)=>this.handleChange(e)} className="form-control" id="eula" />
                                                     </div>
                                                     <div style={{flex: 10}}>
                                                         <label htmlFor="eula" className="eula">
@@ -263,7 +276,6 @@ class New extends React.Component {
                                                             min förbrukningsdata från min nätägare.
                                                         </label>
                                                     </div>
-
                                                 </div>
                                             </div>
                                         </div>
@@ -272,11 +284,11 @@ class New extends React.Component {
 
                                     <div className="vertical-buttons u-margin-bottom-big">
                                         <div style={{display: 'flex', flexDirection: 'row', width: '100%'}}>
-                                            <input type="checkbox" id="toggle" className="checkbox"/>
-                                            <label htmlFor="toggle" className="switch"></label>
+                                            <input type="checkbox" ref={this.refSaving} id="toggle" className="checkbox" />
+                                            <label htmlFor="toggle" className="switch" id="saving" onClick={(e)=>this.handleChange(e)}></label>
                                             <span className="u-left-text">Visa mig hur mycket jag kan spara på att installera solceller!</span>
                                         </div>
-                                        <button id="send" className="btn btn-success">SKICKA</button>
+                                        <button onClick={this.submitForm} id="send" className="btn btn-success">{this.state.sendLabel}</button>
                                     </div>
                                 </form>
                             </div>

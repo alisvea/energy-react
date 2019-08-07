@@ -78,7 +78,14 @@ class Index extends React.Component {
 
         if(!fields['email']) {
             formIsValid = false;
-            errors['email'] = 'Email cannot be empty';
+            errors['email'] = 'Detta är ett obligatoriskt fält.';
+        } else {
+            if (/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(fields['email'])) {
+                console.log('EMail',true);
+            } else {
+                console.log('EMail',true);
+                errors['email'] = 'Bör vara giltigt e-postmeddelande';
+            }
         }
 
         if(!fields['telephone']) {
@@ -207,7 +214,7 @@ class Index extends React.Component {
                                                 <input type="email" className="form-control" id="email"
                                                        placeholder="E-post" value={this.state.form.email} onChange={(e)=>this.handleChange(e)}/>
                                                 <span id="email-error" style={{display: this.state.errors.email ? 'block' : 'none'}}
-                                                      className="help-inline">Detta är ett obligatoriskt fält.</span>
+                                                      className="help-inline">{this.state.errors.email}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -284,7 +291,6 @@ class Index extends React.Component {
                                                         <span id="city-error" style={{display: this.state.errors.eula ? 'block' : 'none'}}
                                                               className="help-inline">Detta är ett obligatoriskt fält.</span>
                                             </div>
-
 
                                         </div>
                                     </div>

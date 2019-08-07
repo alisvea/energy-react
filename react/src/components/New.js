@@ -21,7 +21,8 @@ class New extends React.Component {
                 spot_start: {value: 4.45, unit: 'öre'},
                 el_certificate: {value: 4.45, unit: 'öre'},
             },
-            form: this.getCleanForm()
+            form: this.getCleanForm(),
+            errors: {}
         };
 
         this.refSaving = React.createRef();
@@ -77,7 +78,14 @@ class New extends React.Component {
 
         if(!fields['email']) {
             formIsValid = false;
-            errors['email'] = 'Email cannot be empty';
+            errors['email'] = 'Detta är ett obligatoriskt fält.';
+        } else {
+            if (/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(fields['email'])) {
+                console.log('EMail',true);
+            } else {
+                console.log('EMail',true);
+                errors['email'] = 'Bör vara giltigt e-postmeddelande';
+            }
         }
 
         if(!fields['telephone']) {
@@ -110,6 +118,7 @@ class New extends React.Component {
             errors['eula'] = 'Please accept EULA';
         }
 
+        this.setState({errors});
         return errors;
     }
 
@@ -190,7 +199,7 @@ class New extends React.Component {
                                             <div className="form-group">
                                                 <input type="text" className="form-control" id="first_name"
                                                        placeholder="Förnamn" value={this.state.form.first_name} onChange={(e)=>this.handleChange(e)} />
-                                                <span id="first-name-error"
+                                                <span id="first-name-error" style={{display: this.state.errors.first_name ? 'block' : 'none'}}
                                                       className="help-inline">Detta är ett obligatoriskt fält.</span>
                                             </div>
                                         </div>
@@ -198,7 +207,7 @@ class New extends React.Component {
                                             <div className="form-group">
                                                 <input type="text" className="form-control" id="last_name"
                                                        placeholder="Efternamn" value={this.state.form.last_name} onChange={(e)=>this.handleChange(e)}/>
-                                                <span id="last-name-error"
+                                                <span id="last-name-error" style={{display: this.state.errors.last_name ? 'block' : 'none'}}
                                                       className="help-inline">Detta är ett obligatoriskt fält.</span>
                                             </div>
                                         </div>
@@ -209,7 +218,8 @@ class New extends React.Component {
                                             <div className="form-group">
                                                 <input type="email" className="form-control" id="email"
                                                        placeholder="E-post" value={this.state.form.email} onChange={(e)=>this.handleChange(e)}/>
-                                                <span id="email-error" className="help-inline">Detta är ett obligatoriskt fält.</span>
+                                                <span id="email-error" style={{display: this.state.errors.email ? 'block' : 'none'}}
+                                                      className="help-inline">{this.state.errors.email}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -219,7 +229,7 @@ class New extends React.Component {
                                             <div className="form-group">
                                                 <input type="text" className="form-control" id="telephone"
                                                        placeholder="Telefon" value={this.state.form.telephone} onChange={(e)=>this.handleChange(e)}/>
-                                                <span id="telephone-error"
+                                                <span id="telephone-error" style={{display: this.state.errors.telephone ? 'block' : 'none'}}
                                                       className="help-inline">Detta är ett obligatoriskt fält.</span>
                                             </div>
                                         </div>
@@ -227,7 +237,8 @@ class New extends React.Component {
                                             <div className="form-group">
                                                 <input type="text" className="form-control" id="personummer"
                                                        placeholder="xxxxxx-xxxx" value={this.state.form.personummer} onChange={(e)=>this.handleChange(e)} />
-                                                <span id="email-error" className="help-inline">Detta är ett obligatoriskt fält.</span>
+                                                <span id="email-error" style={{display: this.state.errors.personummer ? 'block' : 'none'}}
+                                                      className="help-inline">Detta är ett obligatoriskt fält.</span>
                                             </div>
                                         </div>
                                     </div>
@@ -237,7 +248,8 @@ class New extends React.Component {
                                             <div className="form-group">
                                                 <input type="text" className="form-control" id="address"
                                                        placeholder="Gata" value={this.state.form.address} onChange={(e)=>this.handleChange(e)} />
-                                                <span id="gata-error" className="help-inline">Detta är ett obligatoriskt fält.</span>
+                                                <span id="gata-error" style={{display: this.state.errors.address ? 'block' : 'none'}}
+                                                      className="help-inline">Detta är ett obligatoriskt fält.</span>
                                             </div>
                                         </div>
                                     </div>
@@ -247,7 +259,7 @@ class New extends React.Component {
                                             <div className="form-group">
                                                 <input type="text" className="form-control" id="postNumber"
                                                        placeholder="Postnummer" value={this.state.form.postNumber} onChange={(e)=>this.handleChange(e)} />
-                                                <span id="postnumber-error"
+                                                <span id="postnumber-error" style={{display: this.state.errors.postNumber ? 'block' : 'none'}}
                                                       className="help-inline">Detta är ett obligatoriskt fält.</span>
                                             </div>
                                         </div>
@@ -255,14 +267,15 @@ class New extends React.Component {
                                             <div className="form-group">
                                                 <input type="text" className="form-control" id="city"
                                                        placeholder="Ort" value={this.state.form.city} onChange={(e)=>this.handleChange(e)} />
-                                                <span id="city-error" className="help-inline">Detta är ett obligatoriskt fält.</span>
+                                                <span id="city-error" style={{display: this.state.errors.city ? 'block' : 'none'}}
+                                                      className="help-inline">Detta är ett obligatoriskt fält.</span>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div className="row">
                                         <div className="col-1-of-1">
-                                            <div className="form-group">
+                                            <div className="form-group" style={{marginBottom: 0}}>
                                                 <div style={{display: 'flex'}}>
                                                     <div style={{flex: 1, textAlign: 'left', paddingTop: '12px'}}>
                                                         <input type="checkbox"  checked={this.state.form.eula} onChange={(e)=>this.handleChange(e)} className="form-control" id="eula" />
@@ -277,6 +290,11 @@ class New extends React.Component {
                                                         </label>
                                                     </div>
                                                 </div>
+                                            </div>
+
+                                            <div style={{display: 'block'}}>
+                                                        <span id="city-error" style={{display: this.state.errors.eula ? 'block' : 'none'}}
+                                                              className="help-inline">Detta är ett obligatoriskt fält.</span>
                                             </div>
                                         </div>
                                     </div>

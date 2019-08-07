@@ -583,7 +583,7 @@ p.compare {
 .rectangle-image {
   background-color: #fff;
   background-size: cover;
-  background-image: url("../images/rectangle.png");
+  /* background-image: url("../images/rectangle.png"); */
   background-origin: content-box;
   background-position: center; }
 
@@ -595,3 +595,8 @@ p.compare {
   color: #75a522;
   font-size: 10px;
   line-height: 1.5; }
+
+.energy-sources {
+  margin-top: -25px;
+  max-height: 108px;
+  max-width: 487px; }

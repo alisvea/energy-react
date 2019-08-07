@@ -9,6 +9,7 @@ class Index extends React.Component {
         super(props);
         this.submitForm = this.submitForm.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.onKeyDown = this.onKeyDown.bind(this);
 
         this.state = {
             sendLabel: 'SKICKA',
@@ -29,6 +30,11 @@ class Index extends React.Component {
         }
     }
 
+    onKeyDown(e) {
+        const keyCode = e.keyCode;
+        this.setState({keyCode});
+    }
+
     getCleanForm() {
         return {
             first_name: '',
@@ -43,7 +49,7 @@ class Index extends React.Component {
         }
     }
 
-    validatePnr(v) {
+    validatePnr(v, e) {
         if(v && isNaN(v)) {
             const vNoHyphen = v.replace(/-/g, '');
             if(isNaN(vNoHyphen)) {
@@ -51,7 +57,7 @@ class Index extends React.Component {
             }
         }
 
-        if(v && v.length == 6) {
+        if(v && v.length == 6 && this.state.keyCode !== 8) {
             return v + '-';
         }
 
@@ -81,9 +87,7 @@ class Index extends React.Component {
             errors['email'] = 'Detta är ett obligatoriskt fält.';
         } else {
             if (/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(fields['email'])) {
-                console.log('EMail',true);
             } else {
-                console.log('EMail',true);
                 errors['email'] = 'Bör vara giltigt e-postmeddelande';
             }
         }
@@ -128,11 +132,10 @@ class Index extends React.Component {
         if(e.target.id == 'eula') {
             form[e.target.id] = ! form.eula;
         } else {
-            form[e.target.id] = e.target.id == 'personummer' ? this.validatePnr(e.target.value) : e.target.value;
+            form[e.target.id] = e.target.id == 'personummer' ? this.validatePnr(e.target.value, e) : e.target.value;
         }
 
         this.setState({form});
-        console.log(this.state);
     }
 
 
@@ -231,8 +234,8 @@ class Index extends React.Component {
                                         <div className="col-2-of-3">
                                             <div className="form-group">
                                                 <input type="text" className="form-control" id="personummer"
-                                                       placeholder="xxxxxx-xxxx" value={this.state.form.personummer} onChange={(e)=>this.handleChange(e)} />
-                                                <span id="email-error" style={{display: this.state.errors.personummer ? 'block' : 'none'}}
+                                                       placeholder="xxxxxx-xxxx" value={this.state.form.personummer} onChange={(e)=>this.handleChange(e)} onKeyDown={this.onKeyDown} />
+                                                <span id="personummer-error" style={{display: this.state.errors.personummer ? 'block' : 'none'}}
                                                       className="help-inline">Detta är ett obligatoriskt fält.</span>
                                             </div>
                                         </div>
@@ -448,17 +451,17 @@ class Index extends React.Component {
                                                          }}>
 
                                                         <div className="item">
-                                                            <p className="title">Vi tycker att bindningstid har passerat
+                                                            <p className="title" style={{textAlign: 'center'}}>Vi tycker att bindningstid har passerat
                                                                 sitt
                                                                 utgångsdatum</p>
                                                         </div>
 
                                                         <div className="item" style={{marginBottom: '12px'}}>
-                                                            <p className="title"> Ingen gillar bindningstider - Det gör
+                                                            <p className="title" style={{textAlign: 'center'}}> Ingen gillar bindningstider - Det gör
                                                                 inte vi heller!
                                                                 Hos oss är det du some bestämmer om vi är bra nog,
                                                                 därför utesluter vi bindningstid.</p>
-                                                            <b>Du kan säga upp avtalet när du vill.</b>
+                                                            <b style={{textAlign: 'center', display: 'block', marginTop: '12px'}}>Du kan säga upp avtalet när du vill.</b>
                                                         </div>
 
 
@@ -486,7 +489,8 @@ class Index extends React.Component {
                                                         <div className="col-1-of-3"></div>
                                                         <div className="col-2-of-3">
                                                             <div className="rectangle-image">
-                                                                <h1>ENERGIKÄLLA</h1>
+                                                                <h1>ENERGIKÄLLA2</h1>
+                                                                <img className="energy-sources" src="images/rectangle.png" alt="ENERGIKÄLLA" />
                                                             </div>
                                                         </div>
                                                     </div>

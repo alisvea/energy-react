@@ -1,9 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
-import ListPost from './ListPost';
 import {postsAddAction} from "../actions/PostsAction";
-import Sidebar from "./Sidebar";
 import Header from "./Header";
 
 class New extends React.Component {
@@ -12,6 +10,7 @@ class New extends React.Component {
         this.refTitle = React.createRef();
         this.refDescription = React.createRef();
         this.submitForm = this.submitForm.bind(this);
+        this.onKeyDown = this.onKeyDown.bind(this);
 
         this.state = {
             sendLabel: 'SKICKA',
@@ -43,6 +42,11 @@ class New extends React.Component {
         }
     }
 
+    onKeyDown(e) {
+        const keyCode = e.keyCode;
+        this.setState({keyCode});
+    }
+
     validatePnr(v) {
         if(v && isNaN(v)) {
             const vNoHyphen = v.replace(/-/g, '');
@@ -51,7 +55,7 @@ class New extends React.Component {
             }
         }
 
-        if(v && v.length == 6) {
+        if(v && v.length == 6 && this.state.keyCode !== 8) {
             return v + '-';
         }
 
@@ -236,8 +240,8 @@ class New extends React.Component {
                                         <div className="col-2-of-3">
                                             <div className="form-group">
                                                 <input type="text" className="form-control" id="personummer"
-                                                       placeholder="xxxxxx-xxxx" value={this.state.form.personummer} onChange={(e)=>this.handleChange(e)} />
-                                                <span id="email-error" style={{display: this.state.errors.personummer ? 'block' : 'none'}}
+                                                       placeholder="xxxxxx-xxxx" value={this.state.form.personummer} onChange={(e)=>this.handleChange(e)} onKeyDown={this.onKeyDown} />
+                                                <span id="personummer-error" style={{display: this.state.errors.personummer ? 'block' : 'none'}}
                                                       className="help-inline">Detta är ett obligatoriskt fält.</span>
                                             </div>
                                         </div>
@@ -437,6 +441,7 @@ class New extends React.Component {
                                                         <div className="col-2-of-3">
                                                             <div className="rectangle-image">
                                                                 <h1>ENERGIKÄLLA</h1>
+                                                                <img className="energy-sources" src="images/rectangle.png" alt="ENERGIKÄLLA" />
                                                             </div>
                                                         </div>
                                                     </div>

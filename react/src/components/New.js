@@ -67,7 +67,7 @@ class New extends React.Component {
 
         if(!fields['first_name']) {
             formIsValid = false;
-            errors['firts_name'] = 'Cannot be empty';
+            errors['first_name'] = 'Cannot be empty';
         }
 
         if(!fields['last_name']) {

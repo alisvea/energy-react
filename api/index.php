@@ -1,8 +1,31 @@
 <?php
+$month_start = new DateTime("first day of last month");
+$month_end = new DateTime("last day of last month");
 
-$url = 'https://gasell1.zavann.se/rest/v2/hourlyspotprice?from_date=2019-07-01&to_date=2019-07-31';
+$firstDayOfMonth = $month_start->format('Y-m-d');
+$lastDayOfMonth = $month_end->format('Y-m-d');
+
+$fileName = $month_start->format('mY') . '.json';
+$url = "https://gasell1.zavann.se/rest/v2/hourlyspotprice?from_date={$firstDayOfMonth}&to_date={$lastDayOfMonth}";
+
 $username = 'svea_solar';
 $password = 'shae2Che';
+
+header('Content-Type: application/json');
+
+echo $url;
+echo PHP_EOL;
+echo $fileName;
+echo PHP_EOL;
+
+
+
+if(file_exists($fileName)) {
+    $contents = file_get_contents($fileName);
+    echo $contents;
+
+    exit;
+}
 
 $curl = null;
 $curl = curl_init();
@@ -28,4 +51,5 @@ if ($curl_response === false) {
 } else {
     echo "Request successful<br/>";
 }
-print_r($curl_response);
+
+file_put_contents($fileName, $curl_response);

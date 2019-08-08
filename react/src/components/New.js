@@ -221,7 +221,7 @@ class New extends React.Component {
                                         <div className="col-1-of-1">
                                             <div className="form-group">
                                                 <input type="email" className="form-control" id="email"
-                                                       placeholder="E-post" value={this.state.form.email} onChange={(e)=>this.handleChange(e)}/>
+                                                       placeholder="Email" value={this.state.form.email} onChange={(e)=>this.handleChange(e)}/>
                                                 <span id="email-error" style={{display: this.state.errors.email ? 'block' : 'none'}}
                                                       className="help-inline">{this.state.errors.email}</span>
                                             </div>
@@ -232,7 +232,7 @@ class New extends React.Component {
                                         <div className="col-1-of-3">
                                             <div className="form-group">
                                                 <input type="text" className="form-control" id="telephone"
-                                                       placeholder="Telefon" value={this.state.form.telephone} onChange={(e)=>this.handleChange(e)}/>
+                                                       placeholder="Telefonnummer" value={this.state.form.telephone} onChange={(e)=>this.handleChange(e)}/>
                                                 <span id="telephone-error" style={{display: this.state.errors.telephone ? 'block' : 'none'}}
                                                       className="help-inline">Detta är ett obligatoriskt fält.</span>
                                             </div>
@@ -240,7 +240,7 @@ class New extends React.Component {
                                         <div className="col-2-of-3">
                                             <div className="form-group">
                                                 <input type="text" className="form-control" id="personummer"
-                                                       placeholder="xxxxxx-xxxx" value={this.state.form.personummer} onChange={(e)=>this.handleChange(e)} onKeyDown={this.onKeyDown} />
+                                                       placeholder="Personnummer" value={this.state.form.personummer} onChange={(e)=>this.handleChange(e)} onKeyDown={this.onKeyDown} />
                                                 <span id="personummer-error" style={{display: this.state.errors.personummer ? 'block' : 'none'}}
                                                       className="help-inline">Detta är ett obligatoriskt fält.</span>
                                             </div>
@@ -422,7 +422,7 @@ class New extends React.Component {
                                                         </div>
 
                                                         <div className="item u-margin-top-big">
-                                                            <button className="btn btn-success small">SE
+                                                            <button className="btn-thin btn-success small">SE
                                                                 JÄMFÖRELSEPRISER
                                                             </button>
                                                         </div>

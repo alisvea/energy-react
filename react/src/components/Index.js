@@ -474,7 +474,7 @@ class Index extends React.Component {
                                                     </div>
 
                                                     <div className="calculator-footer">
-                                                        <button className="btn btn-success small">SE JÄMFÖRELSEPRISER
+                                                        <button className="btn-thin btn-success small">SE JÄMFÖRELSEPRISER
                                                         </button>
                                                     </div>
                                                 </div>
@@ -489,7 +489,7 @@ class Index extends React.Component {
                                                         <div className="col-1-of-3"></div>
                                                         <div className="col-2-of-3">
                                                             <div className="rectangle-image">
-                                                                <h1>ENERGIKÄLLA2</h1>
+                                                                <h1>ENERGIKÄLLA</h1>
                                                                 <img className="energy-sources" src="images/rectangle.png" alt="ENERGIKÄLLA" />
                                                             </div>
                                                         </div>

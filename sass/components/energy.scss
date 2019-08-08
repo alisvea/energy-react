@@ -108,6 +108,7 @@
         p.title {
           color: $color-text-grey;
           margin: 0;
+          font-size: 15px;
         }
 
         .line {
@@ -147,10 +148,11 @@
 }
 
 .price {
-  font-family: "DejaVu Sans";
+  ont-family: "Open Sans", "Sans serif";
   font-weight: bold;
   text-align: left;
   color: $color-text-grey;
+  font-size: 14px;
 }
 
 #send {
@@ -219,6 +221,8 @@ p.compare {
 .eula {
   display: block;
   text-align: left;
+  font-size: 14px;
+  color: $color-text-grey;
 }
 
 .total-text {
@@ -228,7 +232,7 @@ p.compare {
 }
 
 .energy-sources {
-  margin-top: -25px;
+  margin-top: -45px;
   max-height: 108px;;
   max-width: 487px;
 }

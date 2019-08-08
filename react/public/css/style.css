@@ -208,13 +208,13 @@ hr.black100 {
   font-weight: 400 !important;
   line-height: 1.5 !important;
   height: auto !important;
-  color: #495057 !important;
+  color: black !important;
   background-color: #fff !important;
   background-clip: padding-box !important;
   border-top: none !important;
   border-right: none !important;
   border-left: none !important;
-  border-bottom: 2px solid #f8f8f8;
+  border-bottom: 0.5px solid black;
   border-radius: 0 !important;
   -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out !important;
   transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out !important;
@@ -225,7 +225,15 @@ hr.black100 {
   outline: none; }
 
 .btn {
-  padding: 8px 30px !important;
+  padding: 20px 75px !important;
+  border-radius: 0 !important;
+  font-size: 16px;
+  min-width: 150px;
+  font-weight: 500;
+  font-family: "Open Sans", "Sans serif"; }
+
+.btn-thin {
+  padding: 14px 18px !important;
   border-radius: 0 !important;
   font-size: 16px;
   min-width: 150px;
@@ -373,7 +381,7 @@ p {
 
 h1 {
   color: white;
-  font-size: 30px;
+  font-size: 40px;
   font-style: normal;
   font-weight: 300;
   display: block;
@@ -504,7 +512,8 @@ p.heading {
     margin-bottom: 20px; }
     .solar-customers .calculator-content .item p.title {
       color: #707070;
-      margin: 0; }
+      margin: 0;
+      font-size: 15px; }
     .solar-customers .calculator-content .item .line {
       border-bottom: .5px solid lightgrey;
       display: block;
@@ -529,10 +538,11 @@ p.heading {
     text-align: left; }
 
 .price {
-  font-family: "DejaVu Sans";
+  ont-family: "Open Sans", "Sans serif";
   font-weight: bold;
   text-align: left;
-  color: #707070; }
+  color: #707070;
+  font-size: 14px; }
 
 #send {
   font-family: "Open Sans", "Sans serif";
@@ -589,7 +599,9 @@ p.compare {
 
 .eula {
   display: block;
-  text-align: left; }
+  text-align: left;
+  font-size: 14px;
+  color: #707070; }
 
 .total-text {
   color: #75a522;
@@ -597,6 +609,6 @@ p.compare {
   line-height: 1.5; }
 
 .energy-sources {
-  margin-top: -25px;
+  margin-top: -45px;
   max-height: 108px;
   max-width: 487px; }

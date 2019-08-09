@@ -5,21 +5,19 @@ This gives a brief description of the API.
 
 
 ### Description
-This a simple RESTFul API ( v1, v2 ) and supports basic authentication using username and password supplied by the support.
+This is a simple RESTFul API ( v1, v2 ) and supports basic authentication using username and password supplied by the support.
 
 
 ### API Endpoints
 
-  * Get Collections: `GET https://gasell1.zavann.se/rest/v2/`.
-  * Run npm install `npm install ` .
-  * Run the server in DEV mode `npm start`.  
+  * Get Collections: `GET https://gasell1.zavann.se/rest/v2/`. In Postman provide username and password.
+  * Get Prices per zone `GET https://gasell1.zavann.se/rest/v2/hourlyspotprice?from_date=2019-07-01&to_date=2019-07-31` .
   
-### Usage
+### Install
   
-  * The server run by default on port 3000, so point your browser to [localhost](http://localhost:3000)
+  * Copy the php file index.php to your webserver and make sure to have write permissions for the web user.
   
 ### Requirements
 
    * You many need to install the following.
-     1. node >= 10.16.0
-     2. npm >= 6.9.0
+     1. php >= 5.4.0

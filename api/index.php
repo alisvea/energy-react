@@ -13,12 +13,10 @@ class SpotPrice {
         if(file_exists($this->fileName)) {
             $contents = file_get_contents($this->fileName);
             $jsonData = json_decode($contents, true);
-            header('Content-Type: application/json');
             $result = $this->calculateAverageForZone($jsonData, $zone);
 
         } else {
             $jsonData = makeCurlRequest();
-            header('Content-Type: application/json');
             $result = $this->calculateAverageForZone($jsonData, $zone);
         }
 
@@ -48,7 +46,7 @@ class SpotPrice {
         $month_data = $data[$zone][$date];
         $sum = 0;
 
-        foreach ($month_data as $day => $rate) {
+        foreach ($month_data as $hour => $rate) {
             $sum += $rate['price_including_vat'];
         }
 
@@ -63,11 +61,8 @@ class SpotPrice {
 
         $month_start = new DateTime("first day of last month");
         $month_end = new DateTime("last day of last month");
-        $startDayString = $month_start->format('Y-m');
         $lastDay = $month_end->format('d');
 
-        // echo $startDayString . PHP_EOL;
-        // echo $lastDay . PHP_EOL;
         $count = 0;
         $total_average = 0;
 
@@ -79,7 +74,6 @@ class SpotPrice {
                 $count++;
                 $total_average += $average;
             }
-            // echo PHP_EOL;
         }
 
         return round(($total_average / $count), 2);

@@ -150,7 +150,7 @@ class New extends React.Component {
         console.log('Before checking validation ');
         const errors = this.handleValidation();
 
-        if((Object.keys(errors)).length > 0) {
+        if((Object.keys(errors)).length > 0 || this.state.sendLabel == 'BEARBETNING') {
             console.log(errors);
             return false;
         }

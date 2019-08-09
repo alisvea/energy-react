@@ -69,7 +69,9 @@ html, body {
   .solar-customers .bill, .bill-top, .box, .content {
     padding: 5px !important; }
     .solar-customers .bill-content, .bill-top-content, .box-content, .content-content {
-      min-height: 290px; } }
+      min-height: 290px; }
+  form {
+    padding-right: 0px !important; } }
 
 /** Utilities **/
 .u-center-text {

@@ -151,9 +151,11 @@ class Index extends React.Component {
 
     async getSpotPrice(zone) {
         axios.get(server + zone).then(res => {
-                const {bill} = this.state;
+                const {bill, production} = this.state;
                 bill.spot_price = {value: Number(res.data.spot_price), unit: 'öre', zone: res.data.zone};
-                this.setState({bill});
+                production.spot_price.value = Number(res.data.spot_price);
+                this.setState({bill, production});
+                this.computeAll();
             }
         ).catch(error => {
             throw new Error(error);
@@ -191,13 +193,17 @@ class Index extends React.Component {
         console.log(result);
     }
 
+    computeAll() {
+        this.computeMoms();
+        this.computePerKwHour('consumption');
+        this.computePerKwHour('production');
+    }
+
     componentWillMount() {
         this.getSpotPrice('SE1');
         console.log('Index - componentWillMount');
         this.setParams();
-        this.computeMoms();
-        this.computePerKwHour('consumption');
-        this.computePerKwHour('production');
+        this.computeAll();
     }
 
     setParams() {
@@ -247,6 +253,8 @@ class Index extends React.Component {
     render() {
         console.log('Index - render ');
         const {bill, production} = this.state;
+        let comparison_price = (parseFloat(((39 / bill.monthly_consumption.value) * 100) + bill.price_per_kw_hour)).toFixed(2);
+
 
         return (
             <section id="energy" className="container-fluid">
@@ -565,7 +573,7 @@ class Index extends React.Component {
                                                         <div className="item" style={{textAlign: 'center'}}>
                                                             <p className="compare"> DITT JÄMFÖRELSE </p>
                                                             <p className="small u-center-text"> PRIS </p>
-                                                            <span className="price u-center-text">{'comparison_price'} / KwH</span>
+                                                            <span className="price u-center-text">{comparison_price} / KwH</span>
                                                         </div>
 
                                                     </div>

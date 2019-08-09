@@ -246,17 +246,7 @@ class Index extends React.Component {
 
     render() {
         console.log('Index - render ');
-
-        const {spot_price, spot_start, el_certificate, monthly_consumption} = this.state.bill;
-        const moms = Number(((spot_price.value + spot_start.value + el_certificate.value) * 0.25).toFixed(2));
-        const price_per_kw_hour = (Number.parseFloat(spot_price.value + spot_start.value + el_certificate.value + moms)).toFixed(2);
-
-        let comparison_price = ((39 / this.state.bill.monthly_consumption.value) * 100) + price_per_kw_hour;
-        comparison_price = Number.parseFloat(comparison_price).toFixed(2);
-
-        // Compute for production
-        const {production} = this.state;
-        const production_price_per_kw_hour = Number(production.spot_price.value) + production.svea_energy_price.value + production.skatt_reduction.value;
+        const {bill, production} = this.state;
 
         return (
             <section id="energy" className="container-fluid">
@@ -422,14 +412,14 @@ class Index extends React.Component {
                                                         <div className="item">
                                                             <p className="title">Uppskattad Måndasförbrukning</p>
                                                             <span className="price">
-                                                                {monthly_consumption.value} {monthly_consumption.unit}
+                                                                {bill.monthly_consumption.value} {bill.monthly_consumption.unit}
                                                             </span>
                                                         </div>
 
                                                         <div className="item" style={{marginBottom: '12px'}}>
                                                             <p className="title"> Pris per kilowattimme </p>
                                                             <span className="price line bolder">
-                                                                {price_per_kw_hour} öre
+                                                                {bill.price_per_kw_hour} öre
                                                             </span>
                                                         </div>
 
@@ -437,28 +427,28 @@ class Index extends React.Component {
                                                         <div className="item">
                                                             <p className="title"> Spotpris </p>
                                                             <span className="price">
-                                                                {spot_price.value} {spot_price.unit}
+                                                                {bill.spot_price.value} {bill.spot_price.unit}
                                                             </span>
                                                         </div>
 
                                                         <div className="item">
                                                             <p className="title"> Spotpåslag </p>
                                                             <span className="price">
-                                                                {spot_start.value} {spot_start.unit}
+                                                                {bill.spot_start.value} {bill.spot_start.unit}
                                                             </span>
                                                         </div>
 
                                                         <div className="item">
                                                             <p className="title"> Elcertifikat </p>
                                                             <span className="price">
-                                                                {el_certificate.value} {el_certificate.unit}
+                                                                {bill.el_certificate.value} {bill.el_certificate.unit}
                                                             </span>
                                                         </div>
 
                                                         <div className="item">
                                                             <p className="title"> MOMS </p>
                                                             <span className="price line">
-                                                                {moms} öre
+                                                                {bill.moms} öre
                                                             </span>
                                                         </div>
                                                     </div>
@@ -489,27 +479,27 @@ class Index extends React.Component {
                                                         <div className="item">
                                                             <p className="title">Uppskattad Månadsproduktion</p>
                                                             <span className="price">
-                                                                {this.state.production.monthly_production.value} {this.state.production.monthly_production.unit}
+                                                                {production.monthly_production.value} {production.monthly_production.unit}
                                                             </span>
                                                         </div>
 
                                                         <div className="item" style={{marginBottom: '12px'}}>
                                                             <p className="title"> Pris per kilowattimme </p>
                                                             <span
-                                                                className="price line bolder">{production_price_per_kw_hour} öre</span>
+                                                                className="price line bolder">{production.price_per_kw_hour} öre</span>
                                                         </div>
 
                                                         <div className="item">
                                                             <p className="title"> Spotpris </p>
                                                             <span className="price">
-                                                                {spot_price.value} {this.state.production.spot_price.unit}
+                                                                {production.spot_price.value} {production.spot_price.unit}
                                                             </span>
                                                         </div>
 
                                                         <div className="item">
                                                             <p className="title"> SVEA Energy pris </p>
                                                             <span className="price">
-                                                                {this.state.production.svea_energy_price.value} {this.state.production.svea_energy_price.unit}
+                                                                {production.svea_energy_price.value} {production.svea_energy_price.unit}
                                                             </span>
                                                         </div>
 
@@ -517,7 +507,7 @@ class Index extends React.Component {
                                                             <p className="title"> Skattereduktion </p>
                                                             <span className="price line"
                                                                   style={{paddingBottom: '80px'}}>
-                                                                {this.state.production.skatt_reduction.value} {this.state.production.skatt_reduction.unit}
+                                                                {production.skatt_reduction.value} {production.skatt_reduction.unit}
                                                             </span>
                                                         </div>
 
@@ -575,7 +565,7 @@ class Index extends React.Component {
                                                         <div className="item" style={{textAlign: 'center'}}>
                                                             <p className="compare"> DITT JÄMFÖRELSE </p>
                                                             <p className="small u-center-text"> PRIS </p>
-                                                            <span className="price u-center-text">{comparison_price} / KwH</span>
+                                                            <span className="price u-center-text">{'comparison_price'} / KwH</span>
                                                         </div>
 
                                                     </div>

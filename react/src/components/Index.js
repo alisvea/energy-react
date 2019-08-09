@@ -10,7 +10,6 @@ const endPoint = '/v2/calculator/api/?zone=';
 const server = apiServer + endPoint;
 
 
-
 class Index extends React.Component {
     constructor(props) {
         super(props);
@@ -22,19 +21,23 @@ class Index extends React.Component {
             sendLabel: 'SKICKA',
             bill: {
                 monthly_consumption: {value: 83, unit: 'kWh'},
+                price_per_kw_hour: {value: 0, unit: 'öre'},
+
                 spot_price: {value: 39.21, unit: 'öre'},
                 spot_start: {value: 4.45, unit: 'öre'},
                 el_certificate: {value: 4.45, unit: 'öre'},
+                moms: {value: 0, unit: 'öre'}
             },
             production: {
                 monthly_production: {value: 204, unit: 'kWh'},
+                price_per_kw_hour: {value: 0, unit: 'öre'},
+
                 spot_price: {value: 41.34, unit: 'öre'},
                 svea_energy_price: {value: 5, unit: 'öre'},
                 skatt_reduction: {value: 60, unit: 'öre'},
             },
             form: this.getCleanForm(),
             errors: {},
-            params: {}
         }
     }
 
@@ -58,18 +61,18 @@ class Index extends React.Component {
     }
 
     validatePnr(v, e) {
-        if(v && isNaN(v)) {
+        if (v && isNaN(v)) {
             const vNoHyphen = v.replace(/-/g, '');
-            if(isNaN(vNoHyphen)) {
-                return  v.substring(0, v.length - 1);
+            if (isNaN(vNoHyphen)) {
+                return v.substring(0, v.length - 1);
             }
         }
 
-        if(v && v.length == 6 && this.state.keyCode !== 8) {
+        if (v && v.length == 6 && this.state.keyCode !== 8) {
             return v + '-';
         }
 
-        if(v && v.length > 11) {
+        if (v && v.length > 11) {
             return v.substring(0, 11);
         }
         return v;
@@ -80,17 +83,17 @@ class Index extends React.Component {
         let errors = {};
         let formIsValid = true;
 
-        if(!fields['first_name']) {
+        if (!fields['first_name']) {
             formIsValid = false;
             errors['first_name'] = 'Cannot be empty';
         }
 
-        if(!fields['last_name']) {
+        if (!fields['last_name']) {
             formIsValid = false;
             errors['last_name'] = 'Cannot be empty';
         }
 
-        if(!fields['email']) {
+        if (!fields['email']) {
             formIsValid = false;
             errors['email'] = 'Detta är ett obligatoriskt fält.';
         } else {
@@ -100,32 +103,32 @@ class Index extends React.Component {
             }
         }
 
-        if(!fields['telephone']) {
+        if (!fields['telephone']) {
             formIsValid = false;
             errors['telephone'] = 'telephone cannot be empty';
         }
 
-        if(!fields['personummer']) {
+        if (!fields['personummer']) {
             formIsValid = false;
             errors['personummer'] = 'Personnummer cannot be empty';
         }
 
-        if(!fields['address']) {
+        if (!fields['address']) {
             formIsValid = false;
             errors['address'] = 'Address cannot be empty';
         }
 
-        if(!fields['postNumber']) {
+        if (!fields['postNumber']) {
             formIsValid = false;
             errors['postNumber'] = 'postnummer cannot be empty';
         }
 
-        if(!fields['city']) {
+        if (!fields['city']) {
             formIsValid = false;
             errors['city'] = 'city cannot be empty';
         }
 
-        if(fields['eula'] == false) {
+        if (fields['eula'] == false) {
             formIsValid = false;
             errors['eula'] = 'Please accept EULA';
         }
@@ -136,9 +139,9 @@ class Index extends React.Component {
     }
 
     handleChange(e) {
-        const { form } = this.state;
-        if(e.target.id == 'eula') {
-            form[e.target.id] = ! form.eula;
+        const {form} = this.state;
+        if (e.target.id == 'eula') {
+            form[e.target.id] = !form.eula;
         } else {
             form[e.target.id] = e.target.id == 'personummer' ? this.validatePnr(e.target.value, e) : e.target.value;
         }
@@ -148,11 +151,10 @@ class Index extends React.Component {
 
     async getSpotPrice(zone) {
         axios.get(server + zone).then(res => {
-            const { bill } = this.state;
-            bill.spot_price = {value: Number(res.data.spot_price), unit: 'öre', zone: res.data.zone};
-            this.setState({bill});
-        }
-
+                const {bill} = this.state;
+                bill.spot_price = {value: Number(res.data.spot_price), unit: 'öre', zone: res.data.zone};
+                this.setState({bill});
+            }
         ).catch(error => {
             throw new Error(error);
             console.dir(error);
@@ -165,7 +167,7 @@ class Index extends React.Component {
         console.log('Before checking validation ');
         const errors = this.handleValidation();
 
-        if((Object.keys(errors)).length > 0 || this.state.sendLabel == 'BEARBETNING') {
+        if ((Object.keys(errors)).length > 0 || this.state.sendLabel == 'BEARBETNING') {
             console.log(errors);
             return false;
         }
@@ -177,10 +179,10 @@ class Index extends React.Component {
         const response = await fetch(proxyUrl + urlLive, {
             method: 'POST',
             headers: {
-                'Accept' : 'application/json',
-                'Content-Type' : 'application/json'
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
             },
-            body : JSON.stringify(this.state.form)
+            body: JSON.stringify(this.state.form)
         });
 
         const result = await response;
@@ -192,30 +194,60 @@ class Index extends React.Component {
     componentWillMount() {
         this.getSpotPrice('SE1');
         console.log('Index - componentWillMount');
+        this.setParams();
+        this.computeMoms();
+        this.computePerKwHour('consumption');
+        this.computePerKwHour('production');
+    }
 
-        const { search } = this.props.location; // ?cons=4000&prod=888&v=1
+    setParams() {
+        const {search} = this.props.location; // ?cons=4000&prod=888&v=1
         const params = search.split('&');
         console.log(params);
         const paramsArray = {};
-        params.forEach( param => {
+        params.forEach(param => {
             let a = param.split('=');
             let key = a[0].replace('?', '');
-            paramsArray[key] =  a[1];
+            paramsArray[key] = a[1];
         });
 
-        const { bill, production } = this.state;
+        const {bill, production} = this.state;
         bill.monthly_consumption.value = paramsArray.cons;
         production.monthly_production.value = paramsArray.prod;
         console.log(paramsArray);
         this.setState({bill, production, version: paramsArray.v});
     }
 
-    render() {
+    computeMoms() {
+        const {spot_price, spot_start, el_certificate} = this.state.bill;
+        const moms = Number(((spot_price.value + spot_start.value + el_certificate.value) * 0.25).toFixed(2));
+        const {bill} = this.state;
+        bill.moms = moms;
+        this.setState({bill});
+    }
 
+    computePerKwHour(type) {
+        if(type === 'consumption') {
+            let {spot_price, spot_start, el_certificate, moms} = this.state.bill;
+            const { bill } = this.state;
+            let price_per_kw_hour = (Number.parseFloat(spot_price.value + spot_start.value + el_certificate.value + moms)).toFixed(2);
+            bill.price_per_kw_hour = price_per_kw_hour;
+            this.setState({bill});
+        }
+
+        if(type === 'production') {
+            let {production} = this.state;
+            let price_per_kw_hour = Number(production.spot_price.value) + production.svea_energy_price.value + production.skatt_reduction.value;
+            production.price_per_kw_hour = price_per_kw_hour;
+            this.setState({production});
+        }
+
+    }
+
+    render() {
         console.log('Index - render ');
 
         const {spot_price, spot_start, el_certificate, monthly_consumption} = this.state.bill;
-
         const moms = Number(((spot_price.value + spot_start.value + el_certificate.value) * 0.25).toFixed(2));
         const price_per_kw_hour = (Number.parseFloat(spot_price.value + spot_start.value + el_certificate.value + moms)).toFixed(2);
 
@@ -223,8 +255,8 @@ class Index extends React.Component {
         comparison_price = Number.parseFloat(comparison_price).toFixed(2);
 
         // Compute for production
-        const { production } = this.state;
-        const production_price_per_kw_hour =  Number(production.spot_price.value) + production.svea_energy_price.value + production.skatt_reduction.value;
+        const {production} = this.state;
+        const production_price_per_kw_hour = Number(production.spot_price.value) + production.svea_energy_price.value + production.skatt_reduction.value;
 
         return (
             <section id="energy" className="container-fluid">
@@ -243,16 +275,20 @@ class Index extends React.Component {
                                         <div className="col-1-of-3">
                                             <div className="form-group">
                                                 <input type="text" className="form-control" id="first_name"
-                                                       placeholder="Förnamn" value={this.state.form.first_name} onChange={(e)=>this.handleChange(e)} />
-                                                <span id="first-name-error" style={{display: this.state.errors.first_name ? 'block' : 'none'}}
+                                                       placeholder="Förnamn" value={this.state.form.first_name}
+                                                       onChange={(e) => this.handleChange(e)}/>
+                                                <span id="first-name-error"
+                                                      style={{display: this.state.errors.first_name ? 'block' : 'none'}}
                                                       className="help-inline">Detta är ett obligatoriskt fält.</span>
                                             </div>
                                         </div>
                                         <div className="col-2-of-3">
                                             <div className="form-group">
                                                 <input type="text" className="form-control" id="last_name"
-                                                       placeholder="Efternamn" value={this.state.form.last_name} onChange={(e)=>this.handleChange(e)}/>
-                                                <span id="last-name-error" style={{display: this.state.errors.last_name ? 'block' : 'none'}}
+                                                       placeholder="Efternamn" value={this.state.form.last_name}
+                                                       onChange={(e) => this.handleChange(e)}/>
+                                                <span id="last-name-error"
+                                                      style={{display: this.state.errors.last_name ? 'block' : 'none'}}
                                                       className="help-inline">Detta är ett obligatoriskt fält.</span>
                                             </div>
                                         </div>
@@ -262,8 +298,10 @@ class Index extends React.Component {
                                         <div className="col-1-of-1">
                                             <div className="form-group">
                                                 <input type="email" className="form-control" id="email"
-                                                       placeholder="E-post" value={this.state.form.email} onChange={(e)=>this.handleChange(e)}/>
-                                                <span id="email-error" style={{display: this.state.errors.email ? 'block' : 'none'}}
+                                                       placeholder="E-post" value={this.state.form.email}
+                                                       onChange={(e) => this.handleChange(e)}/>
+                                                <span id="email-error"
+                                                      style={{display: this.state.errors.email ? 'block' : 'none'}}
                                                       className="help-inline">{this.state.errors.email}</span>
                                             </div>
                                         </div>
@@ -273,16 +311,21 @@ class Index extends React.Component {
                                         <div className="col-1-of-3">
                                             <div className="form-group">
                                                 <input type="text" className="form-control" id="telephone"
-                                                       placeholder="Telefon" value={this.state.form.telephone} onChange={(e)=>this.handleChange(e)}/>
-                                                <span id="telephone-error" style={{display: this.state.errors.telephone ? 'block' : 'none'}}
+                                                       placeholder="Telefon" value={this.state.form.telephone}
+                                                       onChange={(e) => this.handleChange(e)}/>
+                                                <span id="telephone-error"
+                                                      style={{display: this.state.errors.telephone ? 'block' : 'none'}}
                                                       className="help-inline">Detta är ett obligatoriskt fält.</span>
                                             </div>
                                         </div>
                                         <div className="col-2-of-3">
                                             <div className="form-group">
                                                 <input type="text" className="form-control" id="personummer"
-                                                       placeholder="xxxxxx-xxxx" value={this.state.form.personummer} onChange={(e)=>this.handleChange(e)} onKeyDown={this.onKeyDown} />
-                                                <span id="personummer-error" style={{display: this.state.errors.personummer ? 'block' : 'none'}}
+                                                       placeholder="xxxxxx-xxxx" value={this.state.form.personummer}
+                                                       onChange={(e) => this.handleChange(e)}
+                                                       onKeyDown={this.onKeyDown}/>
+                                                <span id="personummer-error"
+                                                      style={{display: this.state.errors.personummer ? 'block' : 'none'}}
                                                       className="help-inline">Detta är ett obligatoriskt fält.</span>
                                             </div>
                                         </div>
@@ -292,8 +335,10 @@ class Index extends React.Component {
                                         <div className="col-1-of-1">
                                             <div className="form-group">
                                                 <input type="text" className="form-control" id="address"
-                                                       placeholder="Gata" value={this.state.form.address} onChange={(e)=>this.handleChange(e)} />
-                                                <span id="gata-error" style={{display: this.state.errors.address ? 'block' : 'none'}}
+                                                       placeholder="Gata" value={this.state.form.address}
+                                                       onChange={(e) => this.handleChange(e)}/>
+                                                <span id="gata-error"
+                                                      style={{display: this.state.errors.address ? 'block' : 'none'}}
                                                       className="help-inline">Detta är ett obligatoriskt fält.</span>
                                             </div>
                                         </div>
@@ -303,16 +348,20 @@ class Index extends React.Component {
                                         <div className="col-1-of-3">
                                             <div className="form-group">
                                                 <input type="text" className="form-control" id="postNumber"
-                                                       placeholder="Postnummer" value={this.state.form.postNumber} onChange={(e)=>this.handleChange(e)} />
-                                                <span id="postnumber-error" style={{display: this.state.errors.postNumber ? 'block' : 'none'}}
+                                                       placeholder="Postnummer" value={this.state.form.postNumber}
+                                                       onChange={(e) => this.handleChange(e)}/>
+                                                <span id="postnumber-error"
+                                                      style={{display: this.state.errors.postNumber ? 'block' : 'none'}}
                                                       className="help-inline">Detta är ett obligatoriskt fält.</span>
                                             </div>
                                         </div>
                                         <div className="col-2-of-3">
                                             <div className="form-group">
                                                 <input type="text" className="form-control" id="city"
-                                                       placeholder="Ort" value={this.state.form.city} onChange={(e)=>this.handleChange(e)} />
-                                                <span id="city-error" style={{display: this.state.errors.city ? 'block' : 'none'}}
+                                                       placeholder="Ort" value={this.state.form.city}
+                                                       onChange={(e) => this.handleChange(e)}/>
+                                                <span id="city-error"
+                                                      style={{display: this.state.errors.city ? 'block' : 'none'}}
                                                       className="help-inline">Detta är ett obligatoriskt fält.</span>
                                             </div>
                                         </div>
@@ -323,7 +372,9 @@ class Index extends React.Component {
                                             <div className="form-group" style={{marginBottom: 0}}>
                                                 <div style={{display: 'flex'}}>
                                                     <div style={{flex: 1, textAlign: 'left', paddingTop: '12px'}}>
-                                                        <input type="checkbox"  checked={this.state.form.eula} onChange={(e)=>this.handleChange(e)} className="form-control" id="eula" />
+                                                        <input type="checkbox" checked={this.state.form.eula}
+                                                               onChange={(e) => this.handleChange(e)}
+                                                               className="form-control" id="eula"/>
                                                     </div>
                                                     <div style={{flex: 10}}>
                                                         <label htmlFor="eula" className="eula">
@@ -338,7 +389,8 @@ class Index extends React.Component {
                                             </div>
 
                                             <div style={{display: 'block'}}>
-                                                        <span id="city-error" style={{display: this.state.errors.eula ? 'block' : 'none'}}
+                                                        <span id="city-error"
+                                                              style={{display: this.state.errors.eula ? 'block' : 'none'}}
                                                               className="help-inline">Detta är ett obligatoriskt fält.</span>
                                             </div>
 
@@ -346,7 +398,8 @@ class Index extends React.Component {
                                     </div>
 
                                     <div className="vertical-buttons u-margin-bottom-big u-margin-top-big">
-                                        <button onClick={this.submitForm} id="send" className="btn btn-success">{this.state.sendLabel}</button>
+                                        <button onClick={this.submitForm} id="send"
+                                                className="btn btn-success">{this.state.sendLabel}</button>
                                     </div>
                                 </form>
                             </div>
@@ -431,7 +484,7 @@ class Index extends React.Component {
                                                         <p className="heading u-grey-text u-center-text">PRODUKTIONSAVTAL</p>
                                                     </div>
 
-                                                    <div className="calculator-content" style={{minHeight:'350px'}}>
+                                                    <div className="calculator-content" style={{minHeight: '350px'}}>
 
                                                         <div className="item">
                                                             <p className="title">Uppskattad Månadsproduktion</p>
@@ -442,7 +495,8 @@ class Index extends React.Component {
 
                                                         <div className="item" style={{marginBottom: '12px'}}>
                                                             <p className="title"> Pris per kilowattimme </p>
-                                                            <span className="price line bolder">{production_price_per_kw_hour} öre</span>
+                                                            <span
+                                                                className="price line bolder">{production_price_per_kw_hour} öre</span>
                                                         </div>
 
                                                         <div className="item">
@@ -498,17 +552,23 @@ class Index extends React.Component {
                                                          }}>
 
                                                         <div className="item">
-                                                            <p className="title" style={{textAlign: 'center'}}>Vi tycker att bindningstid har passerat
+                                                            <p className="title" style={{textAlign: 'center'}}>Vi tycker
+                                                                att bindningstid har passerat
                                                                 sitt
                                                                 utgångsdatum</p>
                                                         </div>
 
                                                         <div className="item" style={{marginBottom: '12px'}}>
-                                                            <p className="title" style={{textAlign: 'center'}}> Ingen gillar bindningstider - Det gör
+                                                            <p className="title" style={{textAlign: 'center'}}> Ingen
+                                                                gillar bindningstider - Det gör
                                                                 inte vi heller!
                                                                 Hos oss är det du some bestämmer om vi är bra nog,
                                                                 därför utesluter vi bindningstid.</p>
-                                                            <b style={{textAlign: 'center', display: 'block', marginTop: '12px'}}>Du kan säga upp avtalet när du vill.</b>
+                                                            <b style={{
+                                                                textAlign: 'center',
+                                                                display: 'block',
+                                                                marginTop: '12px'
+                                                            }}>Du kan säga upp avtalet när du vill.</b>
                                                         </div>
 
 
@@ -521,7 +581,8 @@ class Index extends React.Component {
                                                     </div>
 
                                                     <div className="calculator-footer">
-                                                        <button className="btn-thin btn-success small">SE JÄMFÖRELSEPRISER
+                                                        <button className="btn-thin btn-success small">SE
+                                                            JÄMFÖRELSEPRISER
                                                         </button>
                                                     </div>
                                                 </div>
@@ -537,7 +598,8 @@ class Index extends React.Component {
                                                         <div className="col-2-of-3">
                                                             <div className="rectangle-image">
                                                                 <h1>ENERGIKÄLLA</h1>
-                                                                <img className="energy-sources" src="images/rectangle.png" alt="ENERGIKÄLLA" />
+                                                                <img className="energy-sources"
+                                                                     src="images/rectangle.png" alt="ENERGIKÄLLA"/>
                                                             </div>
                                                         </div>
                                                     </div>

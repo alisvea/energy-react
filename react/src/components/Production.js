@@ -67,14 +67,6 @@ class Production extends React.Component {
     }
 
     computePerKwHour(type) {
-        if (type === 'consumption') {
-            let {spot_price, spot_start, el_certificate, moms} = this.state.bill;
-            const {bill} = this.state;
-            let price_per_kw_hour = (Number.parseFloat(spot_price.value + spot_start.value + el_certificate.value + moms)).toFixed(2);
-            bill.price_per_kw_hour = price_per_kw_hour;
-            this.setState({bill});
-        }
-
         if (type === 'production') {
             let {production} = this.state;
             let price_per_kw_hour = Number(production.spot_price.value) + production.svea_energy_price.value + production.skatt_reduction.value;

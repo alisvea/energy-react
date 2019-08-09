@@ -1,5 +1,5 @@
 import {call, put} from 'redux-saga/effects';
-import api from '../api/posts';
+import api from '../api/spot';
 import {
     postsReadAction,
     postsReadSuccessAction,

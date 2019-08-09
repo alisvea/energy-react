@@ -29,6 +29,7 @@ class SpotPrice {
     }
 
     private function sendData($result) {
+        header('Access-Control-Allow-Origin: '.$_SERVER['HTTP_ORIGIN']);
         header('Content-Type: application/json');
         echo json_encode($result);
     }
@@ -128,6 +129,17 @@ class SpotPrice {
 }
 
 
+// respond to preflights
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    // return only the headers and not the content
+    // only allow CORS if we're doing a GET - i.e. no saving for now.
+    if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']) &&
+        $_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD'] == 'GET') {
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Headers: X-Requested-With');
+    }
+    exit;
+}
 
 $zone = isset($_GET['zone']) ? $_GET['zone'] : 'SE1';
 $spot_price = new SpotPrice($zone);

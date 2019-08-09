@@ -340,7 +340,7 @@ class New extends React.Component {
 
                                                         <div className="item" style={{marginBottom: '12px'}}>
                                                             <p className="title"> Pris per kilowattimme </p>
-                                                            <span className="price line">
+                                                            <span className="price line bolder">
                                                                 {price_per_kw_hour} öre
                                                             </span>
                                                         </div>

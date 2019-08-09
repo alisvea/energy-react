@@ -28,11 +28,11 @@ html, body {
   .row .col-1-of-4 {
     width: calc((100% - 3 * 2rem) / 4); }
   .row .col-2-of-3 {
-    width: calc( 2 * ((100% - 2 * 2rem) / 3) + 2rem); }
+    width: calc(2 * ((100% - 2 * 2rem) / 3) + 2rem); }
   .row .col-2-of-4 {
-    width: calc( 2 * ((100% - 3 * 2rem) / 4) + 2rem); }
+    width: calc(2 * ((100% - 3 * 2rem) / 4) + 2rem); }
   .row .col-3-of-4 {
-    width: calc( 3 * ((100% - 3 * 2rem) / 4) + 2 * 2rem); }
+    width: calc(3 * ((100% - 3 * 2rem) / 4) + 2 * 2rem); }
   .row .col-1-of-1 {
     width: 100%; }
   .row .container {
@@ -54,16 +54,22 @@ html, body {
     float: none !important; } }
 
 @media only screen and (max-width: 920px) {
+  h1 {
+    font-size: 35px !important; }
   .bill-top {
     flex-direction: column !important; }
   .calculator-content {
     border-right: none !important; }
+  .calculator-header {
+    margin-top: 40px; }
   .bill-top-left {
     border: none !important; } }
 
 @media only screen and (max-width: 600px) {
   .solar-customers .bill, .bill-top, .box, .content {
-    padding: 5px !important; } }
+    padding: 5px !important; }
+    .solar-customers .bill-content, .bill-top-content, .box-content, .content-content {
+      min-height: 290px; } }
 
 /** Utilities **/
 .u-center-text {
@@ -506,7 +512,8 @@ p.heading {
   margin: 40px 0px 1px 0px;
   padding-top: 0px;
   padding-right: 80px;
-  padding-bottom: 0px; }
+  padding-bottom: 0px;
+  min-height: 412px; }
   .solar-customers .calculator-content .item {
     text-align: left;
     margin-bottom: 20px; }
@@ -536,6 +543,10 @@ p.heading {
     color: #73A421;
     font-weight: bold;
     text-align: left; }
+
+.bolder {
+  color: #000000 !important;
+  font-weight: 700; }
 
 .price {
   ont-family: "Open Sans", "Sans serif";
@@ -609,6 +620,6 @@ p.compare {
   line-height: 1.5; }
 
 .energy-sources {
-  margin-top: -45px;
+  margin-top: -40px;
   max-height: 108px;
   max-width: 487px; }

@@ -1,4 +1,4 @@
-const apiServer = 'http://192.168.1.30:5000';
+const apiServer = 'https://www.sveasolar.se';
 
 
 export  {

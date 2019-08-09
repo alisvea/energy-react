@@ -1,8 +1,15 @@
 import React from 'react';
+import axios from 'axios'
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import {postsAddAction} from "../actions/PostsAction";
 import Header from "./Header";
+import {apiServer} from '../common/constants';
+
+const endPoint = '/v2/calculator/api/?zone=';
+const server = apiServer + endPoint;
+
+
 
 class Index extends React.Component {
     constructor(props) {
@@ -138,7 +145,18 @@ class Index extends React.Component {
         this.setState({form});
     }
 
+    async getSpotPrice(zone) {
+        axios.get(server + zone).then(res => {
+            const { bill } = this.state;
+            bill.spot_price = {value: Number(res.data.spot_price), unit: 'öre', zone: res.data.zone};
+            this.setState({bill});
+        }
 
+        ).catch(error => {
+            throw new Error(error);
+            console.dir(error);
+        });
+    }
 
     async submitForm(e) {
         e.preventDefault();
@@ -171,8 +189,14 @@ class Index extends React.Component {
         console.log(result);
     }
 
+    componentWillMount() {
+        this.getSpotPrice('SE1');
+    }
+
     render() {
+
         const {spot_price, spot_start, el_certificate, monthly_consumption} = this.state.bill;
+
         const moms = Number(((spot_price.value + spot_start.value + el_certificate.value) * 0.25).toFixed(2));
         const price_per_kw_hour = (Number.parseFloat(spot_price.value + spot_start.value + el_certificate.value + moms)).toFixed(2);
 
@@ -328,7 +352,7 @@ class Index extends React.Component {
 
                                                         <div className="item" style={{marginBottom: '12px'}}>
                                                             <p className="title"> Pris per kilowattimme </p>
-                                                            <span className="price line">
+                                                            <span className="price line bolder">
                                                                 {price_per_kw_hour} öre
                                                             </span>
                                                         </div>
@@ -395,13 +419,13 @@ class Index extends React.Component {
 
                                                         <div className="item" style={{marginBottom: '12px'}}>
                                                             <p className="title"> Pris per kilowattimme </p>
-                                                            <span className="price line">58.89 öre</span>
+                                                            <span className="price line bolder">58.89 öre</span>
                                                         </div>
 
                                                         <div className="item">
                                                             <p className="title"> Spotpris </p>
                                                             <span className="price">
-                                                                {this.state.production.spot_price.value} {this.state.production.spot_price.unit}
+                                                                {spot_price.value} {this.state.production.spot_price.unit}
                                                             </span>
                                                         </div>
 
@@ -446,7 +470,6 @@ class Index extends React.Component {
                                                     <div className="calculator-content"
                                                          style={{
                                                              border: 'none',
-                                                             minHeight: '380px',
                                                              paddingRight: '25px'
                                                          }}>
 

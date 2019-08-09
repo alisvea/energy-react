@@ -99,6 +99,7 @@
       padding-top: 0px;
       padding-right: 80px;
       padding-bottom: 0px;
+      min-height: 412px;
 
 
       .item {
@@ -145,6 +146,11 @@
     font-weight: bold;
     text-align: left;
   }
+}
+
+.bolder {
+  color: #000000 !important;
+  font-weight: 700;
 }
 
 .price {
@@ -232,7 +238,7 @@ p.compare {
 }
 
 .energy-sources {
-  margin-top: -45px;
+  margin-top: -40px;
   max-height: 108px;;
   max-width: 487px;
 }

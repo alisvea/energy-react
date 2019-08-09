@@ -31,16 +31,11 @@ import registerServiceWorker from './registerServiceWorker';
  * @returns {Array} - every return value is assigned to the corresponding key in allReducers
  */
 import rootSaga from './sagas/rootSaga';
-import PostsReducer from "./reducers/PostsReducer";
-import {postsReadAction} from "./actions/PostsAction";
-import {videoReadAction} from "./actions/VideoAction";
-import VideoReducer from "./reducers/VideoReducer";
-import SearchReducer from "./reducers/SearchReducer";
+import SpotReducer from "./reducers/SpotReducer";
+import {spotReadAction} from "./actions/SpotAction";
 
 const allReducers = combineReducers({
-    posts: PostsReducer,
-    videos: VideoReducer,
-    search: SearchReducer
+    spot: SpotReducer
 });
 
 // # 02
@@ -90,6 +85,7 @@ console.log(store.getState());
  * Dispatch action to store
  */
 
+store.dispatch(spotReadAction('SE1'));
 /*
 * no need here moved to App component for unified standard place for all these actions
 store.dispatch(eventStatsUpdateAction());

@@ -2,14 +2,7 @@ import React from 'react';
 import axios from 'axios'
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
-import {postsAddAction} from "../actions/PostsAction";
-import Header from "./Header";
-import Form from "./Form/Form";
-import Consumption from "./Consumption";
-import Production from "./Production";
-
 import {apiServer} from '../common/constants';
-
 
 const endPoint = '/v2/calculator/api/?zone=';
 const server = apiServer + endPoint;
@@ -184,7 +177,6 @@ const mapStateToProps = state => ({
  * @type {{UserUpdate: UserUpdateAction}}
  */
 const mapActionsToProps = {
-    postsAddAction
 };
 
 export default withRouter(connect(mapStateToProps, mapActionsToProps)(Binding));

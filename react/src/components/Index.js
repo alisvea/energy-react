@@ -2,7 +2,6 @@ import React from 'react';
 import axios from 'axios'
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
-import {postsAddAction} from "../actions/PostsAction";
 import Header from "./Header";
 import Form from "./Form/Form";
 import Consumption from "./Consumption";
@@ -185,7 +184,7 @@ class Index extends React.Component {
  * @param state
  */
 const mapStateToProps = state => ({
-    posts: state.posts,
+    spot: state.spot,
 });
 
 /**
@@ -193,7 +192,6 @@ const mapStateToProps = state => ({
  * @type {{UserUpdate: UserUpdateAction}}
  */
 const mapActionsToProps = {
-    postsAddAction
 };
 
 export default withRouter(connect(mapStateToProps, mapActionsToProps)(Index));

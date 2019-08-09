@@ -87,73 +87,70 @@ class Consumption extends React.Component {
     render() {
         console.log('Index - render ');
         const {bill} = this.state;
-        let comparison_price = (parseFloat(((39 / bill.monthly_consumption.value) * 100) + bill.price_per_kw_hour)).toFixed(2);
 
 
         return (
-            <div className="bill-top-col">
-                <div className="calculator">
-                    <div className="calculator-header">
-                        <h2 className="u-center-text u-grey-text">RÖRLIGT</h2>
-                        <p className="heading u-grey-text u-center-text">FÖRBRUKNINGSAVTAL</p>
-                    </div>
+            <div className="calculator">
+                <div className="calculator-header">
+                    <h2 className="u-center-text u-grey-text">RÖRLIGT</h2>
+                    <p className="heading u-grey-text u-center-text">FÖRBRUKNINGSAVTAL</p>
+                </div>
 
-                    <div className="calculator-content">
+                <div className="calculator-content" style={{borderRight: this.props.contentBorderRight === false ? 'none' : '1px solid #d3d3d3;'}}>
 
-                        <div className="item">
-                            <p className="title">Uppskattad Måndasförbrukning</p>
-                            <span className="price">
+                    <div className="item">
+                        <p className="title">Uppskattad Måndasförbrukning</p>
+                        <span className="price">
                                                                 {bill.monthly_consumption.value} {bill.monthly_consumption.unit}
                                                             </span>
-                        </div>
-
-                        <div className="item" style={{marginBottom: '12px'}}>
-                            <p className="title"> Pris per kilowattimme </p>
-                            <span className="price line bolder">
-                                                                {bill.price_per_kw_hour} öre
-                                                            </span>
-                        </div>
-
-
-                        <div className="item">
-                            <p className="title"> Spotpris </p>
-                            <span className="price">
-                                                                {bill.spot_price.value} {bill.spot_price.unit}
-                                                            </span>
-                        </div>
-
-                        <div className="item">
-                            <p className="title"> Spotpåslag </p>
-                            <span className="price">
-                                                                {bill.spot_start.value} {bill.spot_start.unit}
-                                                            </span>
-                        </div>
-
-                        <div className="item">
-                            <p className="title"> Elcertifikat </p>
-                            <span className="price">
-                                                                {bill.el_certificate.value} {bill.el_certificate.unit}
-                                                            </span>
-                        </div>
-
-                        <div className="item">
-                            <p className="title"> MOMS </p>
-                            <span className="price line">
-                                                                {bill.moms} öre
-                                                            </span>
-                        </div>
                     </div>
 
-                    <div className="calculator-footer">
-                        <div className="total">
-                            <p className="total-price">88 kr / månad</p>
-                            <p className="total-text">
-                                *Det rorliga elpriset/spotpriser andras hela tiden och
-                                följer
-                                nordiska elbörsen (nordpool).
-                                Elcertifikatskostnaden varierar måndasvis.
-                            </p>
-                        </div>
+                    <div className="item" style={{marginBottom: '12px'}}>
+                        <p className="title"> Pris per kilowattimme </p>
+                        <span className="price line bolder">
+                                                                {bill.price_per_kw_hour} öre
+                                                            </span>
+                    </div>
+
+
+                    <div className="item">
+                        <p className="title"> Spotpris </p>
+                        <span className="price">
+                                                                {bill.spot_price.value} {bill.spot_price.unit}
+                                                            </span>
+                    </div>
+
+                    <div className="item">
+                        <p className="title"> Spotpåslag </p>
+                        <span className="price">
+                                                                {bill.spot_start.value} {bill.spot_start.unit}
+                                                            </span>
+                    </div>
+
+                    <div className="item">
+                        <p className="title"> Elcertifikat </p>
+                        <span className="price">
+                                                                {bill.el_certificate.value} {bill.el_certificate.unit}
+                                                            </span>
+                    </div>
+
+                    <div className="item">
+                        <p className="title"> MOMS </p>
+                        <span className="price line">
+                                                                {bill.moms} öre
+                                                            </span>
+                    </div>
+                </div>
+
+                <div className="calculator-footer">
+                    <div className="total">
+                        <p className="total-price">88 kr / månad</p>
+                        <p className="total-text">
+                            *Det rorliga elpriset/spotpriser andras hela tiden och
+                            följer
+                            nordiska elbörsen (nordpool).
+                            Elcertifikatskostnaden varierar måndasvis.
+                        </p>
                     </div>
                 </div>
             </div>

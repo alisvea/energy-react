@@ -113,7 +113,6 @@ class Index extends React.Component {
     render() {
         console.log('Index - render ');
         const {bill, production} = this.state;
-        let comparison_price = (parseFloat(((39 / bill.monthly_consumption.value) * 100) + bill.price_per_kw_hour)).toFixed(2);
 
 
         return (
@@ -137,7 +136,9 @@ class Index extends React.Component {
                                     <div className="bill">
 
                                         <div className="bill-top">
-                                            <Consumption/>
+                                            <div className="bill-top-col">
+                                                <Consumption/>
+                                            </div>
 
                                             <Production/>
 

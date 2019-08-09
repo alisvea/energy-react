@@ -16,21 +16,12 @@ class Consumption extends React.Component {
                 el_certificate: {value: 4.45, unit: 'öre'},
                 moms: {value: 0, unit: 'öre'}
             },
-            production: {
-                monthly_production: {value: 204, unit: 'kWh'},
-                price_per_kw_hour: {value: 0, unit: 'öre'},
-
-                spot_price: {value: 41.34, unit: 'öre'},
-                svea_energy_price: {value: 5, unit: 'öre'},
-                skatt_reduction: {value: 60, unit: 'öre'},
-            },
         }
     }
 
     computeAll() {
         this.computeMoms();
         this.computePerKwHour('consumption');
-        this.computePerKwHour('production');
     }
 
     componentWillMount() {
@@ -40,23 +31,21 @@ class Consumption extends React.Component {
 
     componentDidMount() {
         console.log('Consumption - componentDidMount : spot', this.props.spot);
-        if( ! this.props.spot) return;
-        const { spot } = this.props;
-        const {bill, production} = this.state;
+        if (!this.props.spot) return;
+        const {spot} = this.props;
+        const {bill} = this.state;
         bill.spot_price = {value: Number(spot.spot_price), unit: 'öre', zone: spot.zone};
-        production.spot_price.value = Number(spot.spot_price);
-        this.setState({bill, production});
+        this.setState({bill});
         this.computeAll();
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
         console.log('Consumption - componentWillReceiveProps : spot', nextProps.spot);
-        if( ! nextProps.spot) return;
-        const { spot } = nextProps;
-        const {bill, production} = this.state;
+        if (!nextProps.spot) return;
+        const {spot} = nextProps;
+        const {bill} = this.state;
         bill.spot_price = {value: Number(spot.spot_price), unit: 'öre', zone: spot.zone};
-        production.spot_price.value = Number(spot.spot_price);
-        this.setState({bill, production});
+        this.setState({bill});
         this.computeAll();
     }
 
@@ -71,11 +60,10 @@ class Consumption extends React.Component {
             paramsArray[key] = a[1];
         });
 
-        const {bill, production} = this.state;
+        const {bill} = this.state;
         bill.monthly_consumption.value = paramsArray.cons;
-        production.monthly_production.value = paramsArray.prod;
         console.log(paramsArray);
-        this.setState({bill, production, version: paramsArray.v});
+        this.setState({bill, version: paramsArray.v});
     }
 
     computeMoms() {
@@ -94,19 +82,11 @@ class Consumption extends React.Component {
             bill.price_per_kw_hour = price_per_kw_hour;
             this.setState({bill});
         }
-
-        if (type === 'production') {
-            let {production} = this.state;
-            let price_per_kw_hour = Number(production.spot_price.value) + production.svea_energy_price.value + production.skatt_reduction.value;
-            production.price_per_kw_hour = price_per_kw_hour;
-            this.setState({production});
-        }
-
     }
 
     render() {
         console.log('Index - render ');
-        const {bill, production} = this.state;
+        const {bill} = this.state;
         let comparison_price = (parseFloat(((39 / bill.monthly_consumption.value) * 100) + bill.price_per_kw_hour)).toFixed(2);
 
 
@@ -193,7 +173,6 @@ const mapStateToProps = state => ({
  * Import action from dir action above - but must be passed to connect method in order to trigger reducer in store
  * @type {{UserUpdate: UserUpdateAction}}
  */
-const mapActionsToProps = {
-};
+const mapActionsToProps = {};
 
 export default withRouter(connect(mapStateToProps, mapActionsToProps)(Consumption));

@@ -7,7 +7,6 @@ import Header from "./Header";
 import Form from "./Form/Form";
 import Consumption from "./Consumption";
 import Production from "./Production";
-import Binding from "./Binding";
 
 import {apiServer} from '../common/constants';
 
@@ -16,7 +15,7 @@ const endPoint = '/v2/calculator/api/?zone=';
 const server = apiServer + endPoint;
 
 
-class Index extends React.Component {
+class Binding extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -94,15 +93,15 @@ class Index extends React.Component {
     }
 
     computePerKwHour(type) {
-        if (type === 'consumption') {
+        if(type === 'consumption') {
             let {spot_price, spot_start, el_certificate, moms} = this.state.bill;
-            const {bill} = this.state;
+            const { bill } = this.state;
             let price_per_kw_hour = (Number.parseFloat(spot_price.value + spot_start.value + el_certificate.value + moms)).toFixed(2);
             bill.price_per_kw_hour = price_per_kw_hour;
             this.setState({bill});
         }
 
-        if (type === 'production') {
+        if(type === 'production') {
             let {production} = this.state;
             let price_per_kw_hour = Number(production.spot_price.value) + production.svea_energy_price.value + production.skatt_reduction.value;
             production.price_per_kw_hour = price_per_kw_hour;
@@ -118,64 +117,56 @@ class Index extends React.Component {
 
 
         return (
-            <section id="energy" className="container-fluid">
-                <div className="box u-margin-top-big u-white-bg">
-                    <div className="content">
-                        <div className="row">
-                            <Header/>
-                        </div>
-                        <div className="row">
-                            <div className="col-1-of-3">
-                                <h1 className="u-left-text u-grey-text u-margin-top-big u-margin-bottom-big">BYT
-                                    TILL <span className="u-green-text">GRÖN</span> ENERGI</h1>
-
-                                <Form saving={false}/>
-                            </div>
-
-                            <div className="col-2-of-3">
-
-                                <div className="solar-customers">
-                                    <div className="bill">
-
-                                        <div className="bill-top">
-                                            <Consumption/>
-
-                                            <Production/>
-
-                                            <Binding/>
-                                        </div>
-                                        <div className="bill-bottom">
-                                            <div className="bill-source">
-
-                                                <div className="col-1-of-1">
-                                                    <div className="circle"></div>
-                                                    <div className="rectangle">
-                                                        <div className="col-1-of-3"></div>
-                                                        <div className="col-2-of-3">
-                                                            <div className="rectangle-image">
-                                                                <h1>ENERGIKÄLLA</h1>
-                                                                <img className="energy-sources"
-                                                                     src="images/rectangle.png" alt="ENERGIKÄLLA"/>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div style={{clear: 'both'}}></div>
-
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
+            <div className="bill-top-col">
+                <div className="calculator">
+                    <div className="calculator-header">
+                        <h2 className="u-center-text u-grey-text">INGEN</h2>
+                        <p className="heading u-grey-text u-center-text">Bindningstid</p>
                     </div>
 
-                </div>
-            </section>
+                    <div className="calculator-content"
+                         style={{
+                             border: 'none',
+                             minHeight: '412px',
+                             paddingRight: '25px'
+                         }}>
 
+                        <div className="item">
+                            <p className="title" style={{textAlign: 'center'}}>Vi tycker
+                                att bindningstid har passerat
+                                sitt
+                                utgångsdatum</p>
+                        </div>
+
+                        <div className="item" style={{marginBottom: '12px'}}>
+                            <p className="title" style={{textAlign: 'center'}}> Ingen
+                                gillar bindningstider - Det gör
+                                inte vi heller!
+                                Hos oss är det du some bestämmer om vi är bra nog,
+                                därför utesluter vi bindningstid.</p>
+                            <b style={{
+                                textAlign: 'center',
+                                display: 'block',
+                                marginTop: '12px'
+                            }}>Du kan säga upp avtalet när du vill.</b>
+                        </div>
+
+
+                        <div className="item" style={{textAlign: 'center'}}>
+                            <p className="compare"> DITT JÄMFÖRELSE </p>
+                            <p className="small u-center-text"> PRIS </p>
+                            <span className="price u-center-text">{comparison_price} / KwH</span>
+                        </div>
+
+                    </div>
+
+                    <div className="calculator-footer">
+                        <button className="btn-thin btn-success small">SE
+                            JÄMFÖRELSEPRISER
+                        </button>
+                    </div>
+                </div>
+            </div>
         )
     }
 }
@@ -196,4 +187,4 @@ const mapActionsToProps = {
     postsAddAction
 };
 
-export default withRouter(connect(mapStateToProps, mapActionsToProps)(Index));
+export default withRouter(connect(mapStateToProps, mapActionsToProps)(Binding));

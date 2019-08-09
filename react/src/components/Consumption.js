@@ -5,9 +5,6 @@ import {withRouter} from "react-router-dom";
 import {postsAddAction} from "../actions/PostsAction";
 import Header from "./Header";
 import Form from "./Form/Form";
-import Consumption from "./Consumption";
-import Production from "./Production";
-import Binding from "./Binding";
 
 import {apiServer} from '../common/constants';
 
@@ -16,7 +13,7 @@ const endPoint = '/v2/calculator/api/?zone=';
 const server = apiServer + endPoint;
 
 
-class Index extends React.Component {
+class Consumption extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -118,64 +115,72 @@ class Index extends React.Component {
 
 
         return (
-            <section id="energy" className="container-fluid">
-                <div className="box u-margin-top-big u-white-bg">
-                    <div className="content">
-                        <div className="row">
-                            <Header/>
+            <div className="bill-top-col">
+                <div className="calculator">
+                    <div className="calculator-header">
+                        <h2 className="u-center-text u-grey-text">RÖRLIGT</h2>
+                        <p className="heading u-grey-text u-center-text">FÖRBRUKNINGSAVTAL</p>
+                    </div>
+
+                    <div className="calculator-content">
+
+                        <div className="item">
+                            <p className="title">Uppskattad Måndasförbrukning</p>
+                            <span className="price">
+                                                                {bill.monthly_consumption.value} {bill.monthly_consumption.unit}
+                                                            </span>
                         </div>
-                        <div className="row">
-                            <div className="col-1-of-3">
-                                <h1 className="u-left-text u-grey-text u-margin-top-big u-margin-bottom-big">BYT
-                                    TILL <span className="u-green-text">GRÖN</span> ENERGI</h1>
 
-                                <Form saving={false}/>
-                            </div>
+                        <div className="item" style={{marginBottom: '12px'}}>
+                            <p className="title"> Pris per kilowattimme </p>
+                            <span className="price line bolder">
+                                                                {bill.price_per_kw_hour} öre
+                                                            </span>
+                        </div>
 
-                            <div className="col-2-of-3">
 
-                                <div className="solar-customers">
-                                    <div className="bill">
+                        <div className="item">
+                            <p className="title"> Spotpris </p>
+                            <span className="price">
+                                                                {bill.spot_price.value} {bill.spot_price.unit}
+                                                            </span>
+                        </div>
 
-                                        <div className="bill-top">
-                                            <Consumption/>
+                        <div className="item">
+                            <p className="title"> Spotpåslag </p>
+                            <span className="price">
+                                                                {bill.spot_start.value} {bill.spot_start.unit}
+                                                            </span>
+                        </div>
 
-                                            <Production/>
+                        <div className="item">
+                            <p className="title"> Elcertifikat </p>
+                            <span className="price">
+                                                                {bill.el_certificate.value} {bill.el_certificate.unit}
+                                                            </span>
+                        </div>
 
-                                            <Binding/>
-                                        </div>
-                                        <div className="bill-bottom">
-                                            <div className="bill-source">
-
-                                                <div className="col-1-of-1">
-                                                    <div className="circle"></div>
-                                                    <div className="rectangle">
-                                                        <div className="col-1-of-3"></div>
-                                                        <div className="col-2-of-3">
-                                                            <div className="rectangle-image">
-                                                                <h1>ENERGIKÄLLA</h1>
-                                                                <img className="energy-sources"
-                                                                     src="images/rectangle.png" alt="ENERGIKÄLLA"/>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div style={{clear: 'both'}}></div>
-
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                            </div>
+                        <div className="item">
+                            <p className="title"> MOMS </p>
+                            <span className="price line">
+                                                                {bill.moms} öre
+                                                            </span>
                         </div>
                     </div>
 
+                    <div className="calculator-footer">
+                        <div className="total">
+                            <p className="total-price">88 kr / månad</p>
+                            <p className="total-text">
+                                *Det rorliga elpriset/spotpriser andras hela tiden och
+                                följer
+                                nordiska elbörsen (nordpool).
+                                Elcertifikatskostnaden varierar måndasvis.
+                            </p>
+                        </div>
+                    </div>
                 </div>
-            </section>
-
+            </div>
         )
     }
 }
@@ -196,4 +201,4 @@ const mapActionsToProps = {
     postsAddAction
 };
 
-export default withRouter(connect(mapStateToProps, mapActionsToProps)(Index));
+export default withRouter(connect(mapStateToProps, mapActionsToProps)(Consumption));

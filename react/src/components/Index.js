@@ -4,7 +4,10 @@ import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import {postsAddAction} from "../actions/PostsAction";
 import Header from "./Header";
+import Form from "./Form/Form";
+
 import {apiServer} from '../common/constants';
+
 
 const endPoint = '/v2/calculator/api/?zone=';
 const server = apiServer + endPoint;
@@ -268,138 +271,7 @@ class Index extends React.Component {
                                 <h1 className="u-left-text u-grey-text u-margin-top-big u-margin-bottom-big">BYT
                                     TILL <span className="u-green-text">GRÖN</span> ENERGI</h1>
 
-                                <form action="">
-                                    <div className="row">
-                                        <div className="col-1-of-3">
-                                            <div className="form-group">
-                                                <input type="text" className="form-control" id="first_name"
-                                                       placeholder="Förnamn" value={this.state.form.first_name}
-                                                       onChange={(e) => this.handleChange(e)}/>
-                                                <span id="first-name-error"
-                                                      style={{display: this.state.errors.first_name ? 'block' : 'none'}}
-                                                      className="help-inline">Detta är ett obligatoriskt fält.</span>
-                                            </div>
-                                        </div>
-                                        <div className="col-2-of-3">
-                                            <div className="form-group">
-                                                <input type="text" className="form-control" id="last_name"
-                                                       placeholder="Efternamn" value={this.state.form.last_name}
-                                                       onChange={(e) => this.handleChange(e)}/>
-                                                <span id="last-name-error"
-                                                      style={{display: this.state.errors.last_name ? 'block' : 'none'}}
-                                                      className="help-inline">Detta är ett obligatoriskt fält.</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="row">
-                                        <div className="col-1-of-1">
-                                            <div className="form-group">
-                                                <input type="email" className="form-control" id="email"
-                                                       placeholder="E-post" value={this.state.form.email}
-                                                       onChange={(e) => this.handleChange(e)}/>
-                                                <span id="email-error"
-                                                      style={{display: this.state.errors.email ? 'block' : 'none'}}
-                                                      className="help-inline">{this.state.errors.email}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="row">
-                                        <div className="col-1-of-3">
-                                            <div className="form-group">
-                                                <input type="text" className="form-control" id="telephone"
-                                                       placeholder="Telefon" value={this.state.form.telephone}
-                                                       onChange={(e) => this.handleChange(e)}/>
-                                                <span id="telephone-error"
-                                                      style={{display: this.state.errors.telephone ? 'block' : 'none'}}
-                                                      className="help-inline">Detta är ett obligatoriskt fält.</span>
-                                            </div>
-                                        </div>
-                                        <div className="col-2-of-3">
-                                            <div className="form-group">
-                                                <input type="text" className="form-control" id="personummer"
-                                                       placeholder="xxxxxx-xxxx" value={this.state.form.personummer}
-                                                       onChange={(e) => this.handleChange(e)}
-                                                       onKeyDown={this.onKeyDown}/>
-                                                <span id="personummer-error"
-                                                      style={{display: this.state.errors.personummer ? 'block' : 'none'}}
-                                                      className="help-inline">Detta är ett obligatoriskt fält.</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="row">
-                                        <div className="col-1-of-1">
-                                            <div className="form-group">
-                                                <input type="text" className="form-control" id="address"
-                                                       placeholder="Gata" value={this.state.form.address}
-                                                       onChange={(e) => this.handleChange(e)}/>
-                                                <span id="gata-error"
-                                                      style={{display: this.state.errors.address ? 'block' : 'none'}}
-                                                      className="help-inline">Detta är ett obligatoriskt fält.</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="row">
-                                        <div className="col-1-of-3">
-                                            <div className="form-group">
-                                                <input type="text" className="form-control" id="postNumber"
-                                                       placeholder="Postnummer" value={this.state.form.postNumber}
-                                                       onChange={(e) => this.handleChange(e)}/>
-                                                <span id="postnumber-error"
-                                                      style={{display: this.state.errors.postNumber ? 'block' : 'none'}}
-                                                      className="help-inline">Detta är ett obligatoriskt fält.</span>
-                                            </div>
-                                        </div>
-                                        <div className="col-2-of-3">
-                                            <div className="form-group">
-                                                <input type="text" className="form-control" id="city"
-                                                       placeholder="Ort" value={this.state.form.city}
-                                                       onChange={(e) => this.handleChange(e)}/>
-                                                <span id="city-error"
-                                                      style={{display: this.state.errors.city ? 'block' : 'none'}}
-                                                      className="help-inline">Detta är ett obligatoriskt fält.</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="row">
-                                        <div className="col-1-of-1">
-                                            <div className="form-group" style={{marginBottom: 0}}>
-                                                <div style={{display: 'flex'}}>
-                                                    <div style={{flex: 1, textAlign: 'left', paddingTop: '12px'}}>
-                                                        <input type="checkbox" checked={this.state.form.eula}
-                                                               onChange={(e) => this.handleChange(e)}
-                                                               className="form-control" id="eula"/>
-                                                    </div>
-                                                    <div style={{flex: 10}}>
-                                                        <label htmlFor="eula" className="eula">
-                                                            Jag accepterar SVEA Energy allmänna vilkor samt ger
-                                                            tillstånd behandla min personliga information enligt de
-                                                            lagar som rådar.
-                                                            Svea Energy har även tillstånd att hämta
-                                                            min förbrukningsdata från min nätägare.
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div style={{display: 'block'}}>
-                                                        <span id="city-error"
-                                                              style={{display: this.state.errors.eula ? 'block' : 'none'}}
-                                                              className="help-inline">Detta är ett obligatoriskt fält.</span>
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-                                    <div className="vertical-buttons u-margin-bottom-big u-margin-top-big">
-                                        <button onClick={this.submitForm} id="send"
-                                                className="btn btn-success">{this.state.sendLabel}</button>
-                                    </div>
-                                </form>
+                                <Form saving={false} />
                             </div>
 
                             <div className="col-2-of-3">

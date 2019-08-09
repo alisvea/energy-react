@@ -1,13 +1,6 @@
 import React from 'react';
-import axios from 'axios'
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
-
-import {apiServer} from '../common/constants';
-
-
-const endPoint = '/v2/calculator/api/?zone=';
-const server = apiServer + endPoint;
 
 
 class Production extends React.Component {
@@ -34,31 +27,39 @@ class Production extends React.Component {
         }
     }
 
-    async getSpotPrice(zone) {
-        axios.get(server + zone).then(res => {
-                const {bill, production} = this.state;
-                bill.spot_price = {value: Number(res.data.spot_price), unit: 'öre', zone: res.data.zone};
-                production.spot_price.value = Number(res.data.spot_price);
-                this.setState({bill, production});
-                this.computeAll();
-            }
-        ).catch(error => {
-            throw new Error(error);
-            console.dir(error);
-        });
+    componentWillMount() {
+        //this.getSpotPrice('SE1');
+        // console.log('Index - componentWillMount');
+        this.setParams();
+        this.computeAll();
+    }
+
+    componentDidMount() {
+        console.log('Production - componentDidMount : spot', this.props.spot);
+        if( ! this.props.spot) return;
+        const { spot } = this.props;
+        const {bill, production} = this.state;
+        bill.spot_price = {value: Number(spot.spot_price), unit: 'öre', zone: spot.zone};
+        production.spot_price.value = Number(spot.spot_price);
+        this.setState({bill, production});
+        this.computeAll();
+    }
+
+    componentWillReceiveProps(nextProps, nextContext) {
+        console.log('Production - componentWillReceiveProps : spot', nextProps.spot);
+        if( ! nextProps.spot) return;
+        const { spot } = nextProps;
+        const {bill, production} = this.state;
+        bill.spot_price = {value: Number(spot.spot_price), unit: 'öre', zone: spot.zone};
+        production.spot_price.value = Number(spot.spot_price);
+        this.setState({bill, production});
+        this.computeAll();
     }
 
     computeAll() {
         this.computeMoms();
         this.computePerKwHour('consumption');
         this.computePerKwHour('production');
-    }
-
-    componentWillMount() {
-        this.getSpotPrice('SE1');
-        console.log('Index - componentWillMount');
-        this.setParams();
-        this.computeAll();
     }
 
     setParams() {
@@ -102,8 +103,9 @@ class Production extends React.Component {
             production.price_per_kw_hour = price_per_kw_hour;
             this.setState({production});
         }
-
     }
+
+
 
     render() {
         console.log('Index - render ');
@@ -180,7 +182,7 @@ class Production extends React.Component {
  * @param state
  */
 const mapStateToProps = state => ({
-    posts: state.posts,
+    spot: state.spot,
 });
 
 /**

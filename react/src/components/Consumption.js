@@ -1,13 +1,6 @@
 import React from 'react';
-import axios from 'axios'
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
-
-import {apiServer} from '../common/constants';
-
-
-const endPoint = '/v2/calculator/api/?zone=';
-const server = apiServer + endPoint;
 
 
 class Consumption extends React.Component {
@@ -34,20 +27,6 @@ class Consumption extends React.Component {
         }
     }
 
-    async getSpotPrice(zone) {
-        axios.get(server + zone).then(res => {
-                const {bill, production} = this.state;
-                bill.spot_price = {value: Number(res.data.spot_price), unit: 'öre', zone: res.data.zone};
-                production.spot_price.value = Number(res.data.spot_price);
-                this.setState({bill, production});
-                this.computeAll();
-            }
-        ).catch(error => {
-            throw new Error(error);
-            console.dir(error);
-        });
-    }
-
     computeAll() {
         this.computeMoms();
         this.computePerKwHour('consumption');
@@ -55,9 +34,29 @@ class Consumption extends React.Component {
     }
 
     componentWillMount() {
-        this.getSpotPrice('SE1');
-        console.log('Index - componentWillMount');
         this.setParams();
+        this.computeAll();
+    }
+
+    componentDidMount() {
+        console.log('Consumption - componentDidMount : spot', this.props.spot);
+        if( ! this.props.spot) return;
+        const { spot } = this.props;
+        const {bill, production} = this.state;
+        bill.spot_price = {value: Number(spot.spot_price), unit: 'öre', zone: spot.zone};
+        production.spot_price.value = Number(spot.spot_price);
+        this.setState({bill, production});
+        this.computeAll();
+    }
+
+    componentWillReceiveProps(nextProps, nextContext) {
+        console.log('Consumption - componentWillReceiveProps : spot', nextProps.spot);
+        if( ! nextProps.spot) return;
+        const { spot } = nextProps;
+        const {bill, production} = this.state;
+        bill.spot_price = {value: Number(spot.spot_price), unit: 'öre', zone: spot.zone};
+        production.spot_price.value = Number(spot.spot_price);
+        this.setState({bill, production});
         this.computeAll();
     }
 
@@ -187,7 +186,7 @@ class Consumption extends React.Component {
  * @param state
  */
 const mapStateToProps = state => ({
-    posts: state.posts,
+    spot: state.spot,
 });
 
 /**

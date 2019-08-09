@@ -469,6 +469,7 @@ class Index extends React.Component {
                                                     <div className="calculator-content"
                                                          style={{
                                                              border: 'none',
+                                                             minHeight: '412px',
                                                              paddingRight: '25px'
                                                          }}>
 

@@ -27,13 +27,14 @@ class Index extends React.Component {
                 el_certificate: {value: 4.45, unit: 'öre'},
             },
             production: {
-                monthly_consumption: {value: 204, unit: 'kWh'},
+                monthly_production: {value: 204, unit: 'kWh'},
                 spot_price: {value: 41.34, unit: 'öre'},
                 svea_energy_price: {value: 5, unit: 'öre'},
                 skatt_reduction: {value: 60, unit: 'öre'},
             },
             form: this.getCleanForm(),
-            errors: {}
+            errors: {},
+            params: {}
         }
     }
 
@@ -190,9 +191,28 @@ class Index extends React.Component {
 
     componentWillMount() {
         this.getSpotPrice('SE1');
+        console.log('Index - componentWillMount');
+
+        const { search } = this.props.location; // ?cons=4000&prod=888&v=1
+        const params = search.split('&');
+        console.log(params);
+        const paramsArray = {};
+        params.forEach( param => {
+            let a = param.split('=');
+            let key = a[0].replace('?', '');
+            paramsArray[key] =  a[1];
+        });
+
+        const { bill, production } = this.state;
+        bill.monthly_consumption.value = paramsArray.cons;
+        production.monthly_production.value = paramsArray.prod;
+        console.log(paramsArray);
+        this.setState({bill, production, version: paramsArray.v});
     }
 
     render() {
+
+        console.log('Index - render ');
 
         const {spot_price, spot_start, el_certificate, monthly_consumption} = this.state.bill;
 
@@ -201,6 +221,10 @@ class Index extends React.Component {
 
         let comparison_price = ((39 / this.state.bill.monthly_consumption.value) * 100) + price_per_kw_hour;
         comparison_price = Number.parseFloat(comparison_price).toFixed(2);
+
+        // Compute for production
+        const { production } = this.state;
+        const production_price_per_kw_hour =  Number(production.spot_price.value) + production.svea_energy_price.value + production.skatt_reduction.value;
 
         return (
             <section id="energy" className="container-fluid">
@@ -410,15 +434,15 @@ class Index extends React.Component {
                                                     <div className="calculator-content" style={{minHeight:'350px'}}>
 
                                                         <div className="item">
-                                                            <p className="title">Uppskattad Måndasförbrukning</p>
+                                                            <p className="title">Uppskattad Månadsproduktion</p>
                                                             <span className="price">
-                                                                {this.state.production.monthly_consumption.value} {this.state.production.monthly_consumption.unit}
+                                                                {this.state.production.monthly_production.value} {this.state.production.monthly_production.unit}
                                                             </span>
                                                         </div>
 
                                                         <div className="item" style={{marginBottom: '12px'}}>
                                                             <p className="title"> Pris per kilowattimme </p>
-                                                            <span className="price line bolder">58.89 öre</span>
+                                                            <span className="price line bolder">{production_price_per_kw_hour} öre</span>
                                                         </div>
 
                                                         <div className="item">

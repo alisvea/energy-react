@@ -3,8 +3,6 @@ import {Route, Switch, BrowserRouter} from 'react-router-dom';
 
 
 import Ni from './components/Ni';
-import FormVideo from './components/FormVideo';
-import FormPost from './components/FormPost';
 import Index from './components/Index';
 import New from './components/New';
 

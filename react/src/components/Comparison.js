@@ -1,10 +1,9 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
-import Comparison from './Comparison';
 
 
-class Binding extends React.Component {
+class Comparison extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -97,57 +96,15 @@ class Binding extends React.Component {
     }
 
     render() {
-        console.log('Index - render ');
-        const {bill, production} = this.state;
+        const {bill} = this.state;
         let comparison_price = (parseFloat(((39 / bill.monthly_consumption.value) * 100) + bill.price_per_kw_hour)).toFixed(2);
 
 
         return (
-            <div className="bill-top-col">
-                <div className="calculator">
-                    <div className="calculator-header">
-                        <h2 className="u-center-text u-grey-text">INGEN</h2>
-                        <p className="heading u-grey-text u-center-text">Bindningstid</p>
-                    </div>
-
-                    <div className="calculator-content"
-                         style={{
-                             border: 'none',
-                             minHeight: '412px',
-                             paddingRight: '25px'
-                         }}>
-
-                        <div className="item">
-                            <p className="title" style={{textAlign: 'center'}}>Vi tycker
-                                att bindningstid har passerat
-                                sitt
-                                utgångsdatum</p>
-                        </div>
-
-                        <div className="item" style={{marginBottom: '12px'}}>
-                            <p className="title" style={{textAlign: 'center'}}> Ingen
-                                gillar bindningstider - Det gör
-                                inte vi heller!
-                                Hos oss är det du some bestämmer om vi är bra nog,
-                                därför utesluter vi bindningstid.</p>
-                            <b style={{
-                                textAlign: 'center',
-                                display: 'block',
-                                marginTop: '12px'
-                            }}>Du kan säga upp avtalet när du vill.</b>
-                        </div>
-
-
-                        <Comparison />
-
-                    </div>
-
-                    <div className="calculator-footer">
-                        <button className="btn-thin btn-success small">SE
-                            JÄMFÖRELSEPRISER
-                        </button>
-                    </div>
-                </div>
+            <div className="item" style={{textAlign: 'center'}}>
+                <p className="compare"> DITT JÄMFÖRELSE </p>
+                <p className="small u-center-text"> PRIS </p>
+                <span className="price u-center-text">{comparison_price} / KwH</span>
             </div>
         )
     }
@@ -168,4 +125,4 @@ const mapStateToProps = state => ({
 const mapActionsToProps = {
 };
 
-export default withRouter(connect(mapStateToProps, mapActionsToProps)(Binding));
+export default withRouter(connect(mapStateToProps, mapActionsToProps)(Comparison));

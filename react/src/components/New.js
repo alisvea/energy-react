@@ -4,6 +4,7 @@ import {withRouter} from "react-router-dom";
 import Header from "./Header";
 import Form from "./Form/Form";
 import Consumption from "./Consumption";
+import Comparison from "./Comparison";
 
 class New extends React.Component {
     constructor(props) {
@@ -238,11 +239,7 @@ class New extends React.Component {
                                                     </div>
 
                                                     <div className="calculator-footer">
-                                                        <div className="item" style={{textAlign: 'center'}}>
-                                                            <p className="compare"> DITT JÄMFÖRELSE </p>
-                                                            <p className="small u-center-text"> PRIS </p>
-                                                            <span className="price u-center-text">{comparison_price} / KwH</span>
-                                                        </div>
+                                                        <Comparison />
 
                                                         <div className="item u-margin-top-big">
                                                             <button className="btn-thin btn-success small">SE

@@ -9,12 +9,12 @@ class Header extends React.Component {
                     <div className="wrapper">
                         <ul>
                             <li>
-                                <Link to={'/'}>
-                                    <span>Home</span>
+                                <Link to={'/?cons=4000&prod=888&v=1'}>
+                                    <span>Existing</span>
                                 </Link>
                             </li>
                             <li>
-                                <Link to={'/new'}>
+                                <Link to={'/new?cons=4000&prod=888&v=1'}>
                                     <span>New</span>
                                 </Link>
                             </li>

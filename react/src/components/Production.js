@@ -12,7 +12,7 @@ class Production extends React.Component {
                 price_per_kw_hour: {value: 0, unit: 'öre'},
 
                 spot_price: {value: 41.34, unit: 'öre'},
-                svea_energy_price: {value: 5, unit: 'öre'},
+                svea_energy_price: {value: 5, unit: 'öre', bindingTime: 'INGEN'},
                 skatt_reduction: {value: 60, unit: 'öre'},
             },
         }
@@ -43,6 +43,7 @@ class Production extends React.Component {
         production.spot_price.value = Number(spot.spot_price);
         this.setState({production});
         this.computeAll();
+        this.setVersion(nextProps);
     }
 
     computeAll() {
@@ -64,6 +65,48 @@ class Production extends React.Component {
         production.monthly_production.value = paramsArray.prod;
         console.log(paramsArray);
         this.setState({bill, production, version: paramsArray.v});
+
+        // Set the price for
+        // 1 - SVEA Energy
+        // 2 - Bindningstid
+        this.setVersion();
+    }
+
+
+    setVersion(nextProps) {
+        const props = nextProps ? nextProps : this.props;
+        const { pathname } = props.location;
+        const { production } = this.state;
+
+        // There are four version for the svea energy price - based on the uri part as follows
+        // 1 - byt-elavtal    2 - erbjudande20   3 - employee-discount   4 - erbjudande19
+        const uri = pathname ? pathname.replace(/\//g, ''): '/byt-elavtal2';
+
+        console.log('Bindningstid - setVersion : pathname', uri);
+
+        switch (uri) {
+            case 'byt-elavtal' :
+                production.svea_energy_price.value = 5;
+                production.svea_energy_price.bindingTime = 'INGEN';
+                break;
+
+            case 'erbjudande20' :
+                production.svea_energy_price.value = 20;
+                production.svea_energy_price.bindingTime = '3 år';
+                break;
+
+            case 'employee-discount' :
+                production.svea_energy_price.value = 5;
+                production.svea_energy_price.bindingTime = 'INGEN';
+                break;
+
+            case 'erbjudande19' :
+                production.svea_energy_price.value = 30;
+                production.svea_energy_price.bindingTime = '3 år';
+                break;
+        }
+
+        this.setState({production});
     }
 
     computePerKwHour(type) {

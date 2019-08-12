@@ -14,7 +14,9 @@ class Consumption extends React.Component {
                 spot_price: {value: 39.21, unit: 'öre'},
                 spot_start: {value: 4.45, unit: 'öre'},
                 el_certificate: {value: 4.45, unit: 'öre'},
-                moms: {value: 0, unit: 'öre'}
+                moms: {value: 0, unit: 'öre'},
+
+                total: {value: 0, unit: 'öre'}
             },
         }
     }
@@ -79,7 +81,7 @@ class Consumption extends React.Component {
             let {spot_price, spot_start, el_certificate, moms} = this.state.bill;
             const {bill} = this.state;
             let price_per_kw_hour = (Number.parseFloat(spot_price.value + spot_start.value + el_certificate.value + moms)).toFixed(2);
-            bill.price_per_kw_hour = price_per_kw_hour;
+            bill.price_per_kw_hour.value = price_per_kw_hour;
             this.setState({bill});
         }
     }
@@ -87,6 +89,10 @@ class Consumption extends React.Component {
     render() {
         console.log('Index - render ');
         const {bill} = this.state;
+        const total =  Number(bill.monthly_consumption.value) * Number(bill.price_per_kw_hour.value) * 0.100;
+
+        console.log('bill.monthly_consumption.value', bill.monthly_consumption.value);
+        console.log('bill.price_per_kw_hour.value', bill.price_per_kw_hour.value);
 
 
         return (
@@ -96,7 +102,7 @@ class Consumption extends React.Component {
                     <p className="heading u-grey-text u-center-text">FÖRBRUKNINGSAVTAL</p>
                 </div>
 
-                <div className="calculator-content" style={{borderRight: this.props.contentBorderRight === false ? 'none' : '1px solid #d3d3d3;'}}>
+                <div className="calculator-content" style={{borderRight: this.props.contentBorderRight === false ? 'none' : '1px solid #d3d3d3'}}>
 
                     <div className="item">
                         <p className="title">Uppskattad Måndasförbrukning</p>
@@ -108,7 +114,7 @@ class Consumption extends React.Component {
                     <div className="item" style={{marginBottom: '12px'}}>
                         <p className="title"> Pris per kilowattimme </p>
                         <span className="price line bolder">
-                                                                {bill.price_per_kw_hour} öre
+                                                                {bill.price_per_kw_hour.value} öre
                                                             </span>
                     </div>
 
@@ -144,7 +150,7 @@ class Consumption extends React.Component {
 
                 <div className="calculator-footer">
                     <div className="total">
-                        <p className="total-price">88 kr / månad</p>
+                        <p className="total-price">{total} kr / månad</p>
                         <p className="total-text">
                             *Det rorliga elpriset/spotpriser andras hela tiden och
                             följer

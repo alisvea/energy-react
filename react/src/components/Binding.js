@@ -28,10 +28,11 @@ class Binding extends React.Component {
         }
     }
 
-    computeAll() {
+    computeAll(nextProps) {
         this.computeMoms();
         this.computePerKwHour('consumption');
         this.computePerKwHour('production');
+        this.setParams(nextProps);
     }
 
     componentWillMount() {
@@ -40,7 +41,8 @@ class Binding extends React.Component {
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
-        console.log('Consumption - componentWillReceiveProps : spot', nextProps.spot);
+        console.log('Bindningstid - componentWillReceiveProps : spot', nextProps.spot);
+        console.log('Bindningstid - componentWillReceiveProps :  prev props spot', this.props.spot);
         if( ! nextProps.spot) return;
 
         const { spot } = nextProps;
@@ -49,10 +51,12 @@ class Binding extends React.Component {
         bill.spot_price = {value: Number(spot.spot_price), unit: 'öre', zone: spot.zone};
         production.spot_price.value = Number(spot.spot_price);
         this.setState({bill, production});
-        this.computeAll();
+        this.computeAll(nextProps);
+
+        this.setVersion(nextProps);
     }
 
-    setParams() {
+    setParams(nextProps) {
         const {search} = this.props.location; // ?cons=4000&prod=888&v=1
         const params = search.split('&');
         console.log(params);
@@ -68,6 +72,11 @@ class Binding extends React.Component {
         production.monthly_production.value = paramsArray.prod;
         console.log(paramsArray);
         this.setState({bill, production, version: paramsArray.v});
+
+        // Set the price for
+        // 1 - SVEA Energy
+        // 2 - Bindningstid
+        this.setVersion(nextProps);
     }
 
     computeMoms() {
@@ -96,6 +105,46 @@ class Binding extends React.Component {
 
     }
 
+    componentDidMount() {
+        console.log('componentDidMount Binding');
+    }
+
+    setVersion(nextProps) {
+        const props = nextProps ? nextProps : this.props;
+        const { pathname } = props.location;
+        const { production } = this.state;
+
+        // There are four version for the svea energy price - based on the uri part as follows
+        // 1 - byt-elavtal    2 - erbjudande20   3 - employee-discount   4 - erbjudande19
+        const uri = pathname ? pathname.replace(/\//g, ''): '/byt-elavtal2';
+
+        console.log('Bindningstid - setVersion : pathname', uri);
+
+        switch (uri) {
+            case 'byt-elavtal' :
+                production.svea_energy_price.value = 5;
+                production.svea_energy_price.bindingTime = 'INGEN';
+                break;
+
+            case 'erbjudande20' :
+                production.svea_energy_price.value = 20;
+                production.svea_energy_price.bindingTime = '3 år';
+                break;
+
+            case 'employee-discount' :
+                production.svea_energy_price.value = 5;
+                production.svea_energy_price.bindingTime = 'INGEN';
+                break;
+
+            case 'erbjudande19' :
+                production.svea_energy_price.value = 30;
+                production.svea_energy_price.bindingTime = '3 år';
+                break;
+        }
+
+        this.setState({production});
+    }
+
     render() {
         console.log('Index - render ');
         const {bill, production} = this.state;
@@ -106,7 +155,7 @@ class Binding extends React.Component {
             <div className="bill-top-col">
                 <div className="calculator">
                     <div className="calculator-header">
-                        <h2 className="u-center-text u-grey-text">INGEN</h2>
+                        <h2 className="u-center-text u-grey-text">{production.svea_energy_price.bindingTime}</h2>
                         <p className="heading u-grey-text u-center-text">Bindningstid</p>
                     </div>
 
@@ -158,7 +207,7 @@ class Binding extends React.Component {
  * @param state
  */
 const mapStateToProps = state => ({
-    posts: state.posts,
+    spot: state.spot,
 });
 
 /**

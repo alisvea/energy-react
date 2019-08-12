@@ -13,6 +13,12 @@ class App extends Component {
             <BrowserRouter basename="/">
                 <Switch>
                     <Route exact path={`/index`} component={Index}/>
+
+                    <Route exact path={`/byt-elavtal/`} component={Index}/>
+                    <Route exact path={`/erbjudande20/`} component={Index}/>
+                    <Route exact path={`/employee-discount/`} component={Index}/>
+                    <Route exact path={`/erbjudande19/`} component={Index}/>
+
                     <Route exact path={`/`} component={Index}/>
 
                     <Route exact path={`/new`} component={New}/>

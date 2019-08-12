@@ -68,6 +68,7 @@ class Index extends React.Component {
 
                                             <Production/>
 
+                                            { console.log('Index - binding')}
                                             <Binding/>
                                         </div>
                                         <div className="bill-bottom">

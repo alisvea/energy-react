@@ -89,11 +89,8 @@ class Consumption extends React.Component {
     render() {
         console.log('Index - render ');
         const {bill} = this.state;
-        const total =  Number(bill.monthly_consumption.value) * Number(bill.price_per_kw_hour.value) * 0.100;
-
-        console.log('bill.monthly_consumption.value', bill.monthly_consumption.value);
-        console.log('bill.price_per_kw_hour.value', bill.price_per_kw_hour.value);
-
+        let total = (Number(bill.monthly_consumption.value) * Number(bill.price_per_kw_hour.value) * 0.100).toFixed(2);
+        total = Math.ceil(total);
 
         return (
             <div className="calculator">
@@ -102,7 +99,8 @@ class Consumption extends React.Component {
                     <p className="heading u-grey-text u-center-text">FÖRBRUKNINGSAVTAL</p>
                 </div>
 
-                <div className="calculator-content" style={{borderRight: this.props.contentBorderRight === false ? 'none' : '1px solid #d3d3d3'}}>
+                <div className="calculator-content"
+                     style={{borderRight: this.props.contentBorderRight === false ? 'none' : '1px solid #d3d3d3'}}>
 
                     <div className="item">
                         <p className="title">Uppskattad Måndasförbrukning</p>

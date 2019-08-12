@@ -75,12 +75,12 @@ class Production extends React.Component {
 
     setVersion(nextProps) {
         const props = nextProps ? nextProps : this.props;
-        const { pathname } = props.location;
-        const { production } = this.state;
+        const {pathname} = props.location;
+        const {production} = this.state;
 
         // There are four version for the svea energy price - based on the uri part as follows
         // 1 - byt-elavtal    2 - erbjudande20   3 - employee-discount   4 - erbjudande19
-        const uri = pathname ? pathname.replace(/\//g, ''): '/byt-elavtal2';
+        const uri = pathname ? pathname.replace(/\//g, '') : '/byt-elavtal2';
 
         console.log('Bindningstid - setVersion : pathname', uri);
 
@@ -113,7 +113,7 @@ class Production extends React.Component {
         if (type === 'production') {
             let {production} = this.state;
             let price_per_kw_hour = Number(production.spot_price.value) + production.svea_energy_price.value + production.skatt_reduction.value;
-            production.price_per_kw_hour = price_per_kw_hour;
+            production.price_per_kw_hour.value = price_per_kw_hour;
             this.setState({production});
         }
     }
@@ -121,6 +121,8 @@ class Production extends React.Component {
     render() {
         console.log('Index - render ');
         const {production} = this.state;
+        let total = (Number(production.monthly_production.value) * Number(production.price_per_kw_hour.value) * 0.100).toFixed(2);
+        total = Math.ceil(total);
 
         return (
             <div className="bill-top-col">
@@ -142,7 +144,7 @@ class Production extends React.Component {
                         <div className="item" style={{marginBottom: '12px'}}>
                             <p className="title"> Pris per kilowattimme </p>
                             <span
-                                className="price line bolder">{production.price_per_kw_hour} öre</span>
+                                className="price line bolder">{production.price_per_kw_hour.value} öre</span>
                         </div>
 
                         <div className="item">
@@ -171,7 +173,7 @@ class Production extends React.Component {
 
                     <div className="calculator-footer">
                         <div className="total">
-                            <p className="total-price">88 kr / månad</p>
+                            <p className="total-price">{total} kr / månad</p>
                             <p className="total-text">
                                 *Det rorliga elpriset/spotpriser andras hela tiden och
                                 följer

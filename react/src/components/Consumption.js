@@ -150,7 +150,7 @@ class Consumption extends React.Component {
                     <div className="total">
                         <p className="total-price">{total} kr / månad</p>
                         <p className="total-text">
-                            *Det rorliga elpriset/spotpriser andras hela tiden och
+                            *Det rörliga elpriset/spotpriser andras hela tiden och
                             följer
                             nordiska elbörsen (nordpool).
                             Elcertifikatskostnaden varierar måndasvis.

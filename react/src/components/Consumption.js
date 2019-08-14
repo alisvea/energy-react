@@ -8,7 +8,7 @@ class Consumption extends React.Component {
         super(props);
         this.state = {
             bill: {
-                monthly_consumption: {value: 83, unit: 'kWh', display: ''},
+                monthly_consumption: {value: 83, unit: 'kWh', display: 0},
                 price_per_kw_hour: {value: 0, unit: 'öre'},
 
                 spot_price: {value: 39.21, unit: 'öre'},
@@ -17,6 +17,14 @@ class Consumption extends React.Component {
                 moms: {value: 0, unit: 'öre'},
 
                 total: {value: 0, unit: 'öre'}
+            },
+            production: {
+                monthly_production: {value: 204, unit: 'kWh', display: 0},
+                price_per_kw_hour: {value: 0, unit: 'öre'},
+
+                spot_price: {value: 41.34, unit: 'öre'},
+                svea_energy_price: {value: 5, unit: 'öre', bindingTime: 'INGEN'},
+                skatt_reduction: {value: 60, unit: 'öre'},
             },
         }
     }
@@ -62,9 +70,10 @@ class Consumption extends React.Component {
             paramsArray[key] = a[1];
         });
 
-        const {bill} = this.state;
+        const {bill, production} = this.state;
         bill.monthly_consumption.value = Math.ceil( Number(paramsArray.cons) / 12 );
-        this.setState({bill, version: paramsArray.v});
+        production.monthly_production.value = Math.ceil( Number(paramsArray.prod) / 12 );
+        this.setState({bill, version: paramsArray.v, production});
     }
 
     computeMoms() {
@@ -87,11 +96,11 @@ class Consumption extends React.Component {
 
     render() {
         console.log('Index - render ');
-        const {bill} = this.state;
+        const {bill, production} = this.state;
         /*let total = (Number(bill.monthly_consumption.value) * Number(bill.price_per_kw_hour.value) * 0.100).toFixed(2);
         total = Math.ceil(total); */
         const total = bill.monthly_consumption ?
-            Math.ceil(bill.monthly_consumption.value * 0.35 * bill.price_per_kw_hour.value / 100)
+            Math.ceil(((bill.monthly_consumption.value - production.monthly_production.value) * bill.price_per_kw_hour.value / 100) + 39)
         : 0;
 
         return (

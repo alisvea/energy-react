@@ -121,8 +121,11 @@ class Production extends React.Component {
     render() {
         console.log('Index - render ');
         const {production} = this.state;
-        let total = (Number(production.monthly_production.value) * Number(production.price_per_kw_hour.value) * 0.100).toFixed(2);
-        total = Math.ceil(total);
+        /*let total = (Number(production.monthly_production.value) * Number(production.price_per_kw_hour.value) * 0.100).toFixed(2);
+        total = Math.ceil(total); */
+        const total = production.monthly_production ? Math.ceil(production.monthly_production.value * 0.35 *
+            production.price_per_kw_hour.value / 100) : 0;
+
 
         return (
             <div className="bill-top-col">

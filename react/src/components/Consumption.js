@@ -88,8 +88,11 @@ class Consumption extends React.Component {
     render() {
         console.log('Index - render ');
         const {bill} = this.state;
-        let total = (Number(bill.monthly_consumption.value) * Number(bill.price_per_kw_hour.value) * 0.100).toFixed(2);
-        total = Math.ceil(total);
+        /*let total = (Number(bill.monthly_consumption.value) * Number(bill.price_per_kw_hour.value) * 0.100).toFixed(2);
+        total = Math.ceil(total); */
+        const total = bill.monthly_consumption ?
+            Math.ceil(bill.monthly_consumption.value * 0.35 * bill.price_per_kw_hour.value / 100)
+        : 0;
 
         return (
             <div className="calculator">

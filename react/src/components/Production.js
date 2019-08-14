@@ -8,7 +8,7 @@ class Production extends React.Component {
         super(props);
         this.state = {
             production: {
-                monthly_production: {value: 204, unit: 'kWh'},
+                monthly_production: {value: 204, unit: 'kWh', display: ''},
                 price_per_kw_hour: {value: 0, unit: 'öre'},
 
                 spot_price: {value: 41.34, unit: 'öre'},
@@ -62,7 +62,7 @@ class Production extends React.Component {
         });
 
         const {bill, production} = this.state;
-        production.monthly_production.value = paramsArray.prod;
+        production.monthly_production.value = Math.ceil(Number(paramsArray.prod) / 12);
         console.log(paramsArray);
         this.setState({bill, production, version: paramsArray.v});
 

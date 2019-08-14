@@ -8,7 +8,7 @@ class Consumption extends React.Component {
         super(props);
         this.state = {
             bill: {
-                monthly_consumption: {value: 83, unit: 'kWh'},
+                monthly_consumption: {value: 83, unit: 'kWh', display: ''},
                 price_per_kw_hour: {value: 0, unit: 'öre'},
 
                 spot_price: {value: 39.21, unit: 'öre'},
@@ -52,7 +52,7 @@ class Consumption extends React.Component {
     }
 
     setParams() {
-        const {search} = this.props.location; // ?cons=4000&prod=888&v=1
+        const {search} = this.props.location; // ?cons=4000&prod=888&v=1 - divide by 12
         const params = search.split('&');
         console.log(params);
         const paramsArray = {};
@@ -63,8 +63,7 @@ class Consumption extends React.Component {
         });
 
         const {bill} = this.state;
-        bill.monthly_consumption.value = paramsArray.cons;
-        console.log(paramsArray);
+        bill.monthly_consumption.value = Math.ceil( Number(paramsArray.cons) / 12 );
         this.setState({bill, version: paramsArray.v});
     }
 

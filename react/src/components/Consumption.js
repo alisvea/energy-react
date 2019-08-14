@@ -71,8 +71,10 @@ class Consumption extends React.Component {
         });
 
         const {bill, production} = this.state;
-        bill.monthly_consumption.value = Math.ceil( Number(paramsArray.cons) / 12 );
-        production.monthly_production.value = Math.ceil( Number(paramsArray.prod) / 12 );
+        bill.monthly_consumption.value = ( Number(paramsArray.cons) / 12 );
+        console.log('Rounding: ', paramsArray.cons, paramsArray.cons / 12);
+        production.monthly_production.value = ( Number(paramsArray.prod) / 12 );
+        bill.monthly_consumption.display = Math.round( bill.monthly_consumption.value - (0.65 * production.monthly_production.value) );
         this.setState({bill, version: paramsArray.v, production});
     }
 
@@ -100,7 +102,7 @@ class Consumption extends React.Component {
         /*let total = (Number(bill.monthly_consumption.value) * Number(bill.price_per_kw_hour.value) * 0.100).toFixed(2);
         total = Math.ceil(total); */
         const total = bill.monthly_consumption ?
-            Math.ceil(((bill.monthly_consumption.value - production.monthly_production.value) * bill.price_per_kw_hour.value / 100) + 39)
+            Math.round(((bill.monthly_consumption.value - (production.monthly_production.value * 0.65)) * bill.price_per_kw_hour.value / 100) + 39)
         : 0;
 
         return (
@@ -116,7 +118,7 @@ class Consumption extends React.Component {
                     <div className="item">
                         <p className="title">Uppskattad Måndasförbrukning</p>
                         <span className="price">
-                                                                {bill.monthly_consumption.value} {bill.monthly_consumption.unit}
+                                                                {bill.monthly_consumption.display} {bill.monthly_consumption.unit}
                                                             </span>
                     </div>
 

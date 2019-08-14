@@ -62,7 +62,8 @@ class Production extends React.Component {
         });
 
         const {bill, production} = this.state;
-        production.monthly_production.value = Math.ceil(Number(paramsArray.prod) / 12);
+        production.monthly_production.value = (Number(paramsArray.prod) / 12);
+        production.monthly_production.display = Math.round(production.monthly_production.value * 0.35);
         console.log(paramsArray);
         this.setState({bill, production, version: paramsArray.v});
 
@@ -123,7 +124,7 @@ class Production extends React.Component {
         const {production} = this.state;
         /*let total = (Number(production.monthly_production.value) * Number(production.price_per_kw_hour.value) * 0.100).toFixed(2);
         total = Math.ceil(total); */
-        const total = production.monthly_production ? Math.ceil(production.monthly_production.value * 0.35 *
+        const total = production.monthly_production ? Math.round(production.monthly_production.value * 0.35 *
             production.price_per_kw_hour.value / 100) : 0;
 
 
@@ -140,7 +141,7 @@ class Production extends React.Component {
                         <div className="item">
                             <p className="title">Uppskattad Månadsproduktion</p>
                             <span className="price">
-                                                                {production.monthly_production.value} {production.monthly_production.unit}
+                                                                {production.monthly_production.display} {production.monthly_production.unit}
                                                             </span>
                         </div>
 

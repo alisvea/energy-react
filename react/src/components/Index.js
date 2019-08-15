@@ -45,9 +45,7 @@ class Index extends React.Component {
             <section id="energy" className="container-fluid">
                 <div className="box u-margin-top-big u-white-bg">
                     <div className="content">
-                        <div className="row">
-                            <Header/>
-                        </div>
+
                         <div className="row">
                             <div className="col-1-of-3">
                                 <h1 className="u-left-text u-grey-text u-margin-top-big u-margin-bottom-big">BYT

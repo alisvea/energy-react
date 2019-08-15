@@ -189,9 +189,6 @@ class New extends React.Component {
             <section id="energy" className="container-fluid">
                 <div className="box u-margin-top-big u-white-bg">
                     <div className="content">
-                        <div className="row">
-                            <Header/>
-                        </div>
 
                         <div className="row">
                             <div className="col-1-of-3">

@@ -10,7 +10,7 @@ class App extends Component {
 
     render() {
         return (
-            <BrowserRouter basename="/">
+            <BrowserRouter basename="/v2/calculator">
                 <Switch>
                     <Route exact path={`/index`} component={Index}/>
 

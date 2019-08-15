@@ -1838,7 +1838,8 @@ get_header();
 			    var consumption = document.getElementById("consumptionKWHInput").value;
                 var yearlyProduction = document.getElementById("productionKWHInput").value;
 			    console.log("This is a test - consumption, yearlyProduction : ", consumption, yearlyProduction);
-			    location.href="http://localhost:3000/?cons="+consumption+"&prod="+yearlyProduction+"&v=1"; 
+			    location.href="https://www.sveasolar.se/v2/calculator/?cons="+consumption+"&prod="+yearlyProduction+"&v=1"; 
+			    return;
 			';
 				if ($_POST['step'] == 'householdInfo'){
 					echo 'document.getElementById("00N4H00000E7Wbi").value = document.getElementById("roomSlider").value;';

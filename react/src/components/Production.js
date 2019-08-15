@@ -136,7 +136,7 @@ class Production extends React.Component {
                         <p className="heading u-grey-text u-center-text">PRODUKTIONSAVTAL</p>
                     </div>
 
-                    <div className="calculator-content" style={{minHeight: '480px'}}>
+                    <div className="calculator-content" style={{minHeight: '454px'}}>
 
                         <div className="item">
                             <p className="title">Uppskattad Månadsproduktion</p>

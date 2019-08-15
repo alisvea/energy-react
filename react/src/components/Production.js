@@ -136,7 +136,7 @@ class Production extends React.Component {
                         <p className="heading u-grey-text u-center-text">PRODUKTIONSAVTAL</p>
                     </div>
 
-                    <div className="calculator-content" style={{minHeight: '350px'}}>
+                    <div className="calculator-content" style={{minHeight: '480px'}}>
 
                         <div className="item">
                             <p className="title">Uppskattad Månadsproduktion</p>
@@ -168,7 +168,7 @@ class Production extends React.Component {
                         <div className="item">
                             <p className="title"> Skattereduktion </p>
                             <span className="price line"
-                                  style={{paddingBottom: '80px'}}>
+                                  style={{paddingBottom: '146px'}}>
                                                                 {production.skatt_reduction.value} {production.skatt_reduction.unit}
                                                             </span>
                         </div>

@@ -153,10 +153,18 @@ class Consumption extends React.Component {
 
                     <div className="item">
                         <p className="title"> MOMS </p>
-                        <span className="price line">
+                        <span className="price">
                                                                 {bill.moms} öre
                                                             </span>
                     </div>
+
+                    <div className="item">
+                        <p className="title"> Månadsavgift </p>
+                        <span className="price line">
+                                                                39 kr
+                                                            </span>
+                    </div>
+
                 </div>
 
                 <div className="calculator-footer">

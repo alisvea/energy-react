@@ -68,9 +68,10 @@ class Binding extends React.Component {
         });
 
         const {bill, production} = this.state;
-        bill.monthly_consumption.value = paramsArray.cons;
-        production.monthly_production.value = paramsArray.prod;
-        console.log(paramsArray);
+
+        bill.monthly_consumption.value = ( Number(paramsArray.cons) / 12 );
+        production.monthly_production.value = ( Number(paramsArray.prod) / 12 );
+
         this.setState({bill, production, version: paramsArray.v});
 
         // Set the price for
@@ -148,7 +149,7 @@ class Binding extends React.Component {
     render() {
         console.log('Index - render ');
         const {bill, production} = this.state;
-        let comparison_price = (parseFloat(((39 / bill.monthly_consumption.value) * 100) + bill.price_per_kw_hour)).toFixed(2);
+        let comparison_price = (parseFloat(((39 / bill.monthly_consumption.value) * 100) + bill.price_per_kw_hour.value)).toFixed(2);
 
 
         return (
@@ -162,7 +163,7 @@ class Binding extends React.Component {
                     <div className="calculator-content"
                          style={{
                              border: 'none',
-                             minHeight: '412px',
+                             minHeight: '480px',
                              paddingRight: '25px'
                          }}>
 
@@ -186,12 +187,13 @@ class Binding extends React.Component {
                             }}>Du kan säga upp avtalet när du vill.</b>
                         </div>
 
+                        <span>Comparison: { bill.price_per_kw_hour.value} </span>
 
                         <Comparison />
 
                     </div>
 
-                    <div className="calculator-footer">
+                    <div className="calculator-footer" style={{marginTop: '30px'}}>
                         <button className="btn-thin btn-success small">SE
                             JÄMFÖRELSEPRISER
                         </button>

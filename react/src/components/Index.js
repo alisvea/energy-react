@@ -1,12 +1,11 @@
 import React from 'react';
-import axios from 'axios'
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
-import Header from "./Header";
 import Form from "./Form/Form";
 import Consumption from "./Consumption";
 import Production from "./Production";
 import Binding from "./Binding";
+import New from "./New";
 
 import {apiServer} from '../common/constants';
 
@@ -41,6 +40,11 @@ class Index extends React.Component {
 
 
     render() {
+        const {search} = this.props.location;
+        if(search.includes('new')) {
+            return <New />
+        }
+
         return (
             <section id="energy" className="container-fluid">
                 <div className="box u-margin-top-big u-white-bg">

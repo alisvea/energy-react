@@ -526,6 +526,7 @@ get_header();
 					<div id="excessProductionDiv">
 						<div id="excessProductionWrapper">
 							<div class="section-title">Äger ni ett solcellssystem och vill därmed ha ett produktionsavtal?</div>
+                            <span onclick="redirectToNewCalc('new')">n</span>
 						</div>
 					</div>
 				</div>
@@ -1879,10 +1880,11 @@ get_header();
 	<?php
 		if(isset($_POST['step'])){
 			echo '
-			function redirectToNewCalc() {
+			function redirectToNewCalc(new) {
 			    var consumption = document.getElementById("consumptionKWHInput").value;
                 var yearlyProduction = document.getElementById("productionKWHInput").value;
 			    console.log("This is a test - consumption, yearlyProduction : ", consumption, yearlyProduction);
+			    var strNew = (new && new == "new") ? "new" : "";
 			    location.href="https://www.sveasolar.se/v2/calculator/?cons="+consumption+"&prod="+yearlyProduction+"&v=1"; 
 			    return; 
 			}

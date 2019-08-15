@@ -3,27 +3,25 @@ import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 
 
-class Comparison extends React.Component {
+class Comparison_orig extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             bill: {
-                monthly_consumption: {value: 83, unit: 'kWh', display: 0},
+                monthly_consumption: {value: 83, unit: 'kWh'},
                 price_per_kw_hour: {value: 0, unit: 'öre'},
 
                 spot_price: {value: 39.21, unit: 'öre'},
                 spot_start: {value: 4.45, unit: 'öre'},
                 el_certificate: {value: 4.45, unit: 'öre'},
-                moms: {value: 0, unit: 'öre'},
-
-                total: {value: 0, unit: 'öre'}
+                moms: {value: 0, unit: 'öre'}
             },
             production: {
-                monthly_production: {value: 204, unit: 'kWh', display: 0},
+                monthly_production: {value: 204, unit: 'kWh'},
                 price_per_kw_hour: {value: 0, unit: 'öre'},
 
                 spot_price: {value: 41.34, unit: 'öre'},
-                svea_energy_price: {value: 5, unit: 'öre', bindingTime: 'INGEN'},
+                svea_energy_price: {value: 5, unit: 'öre'},
                 skatt_reduction: {value: 60, unit: 'öre'},
             },
         }
@@ -32,6 +30,7 @@ class Comparison extends React.Component {
     computeAll() {
         this.computeMoms();
         this.computePerKwHour('consumption');
+        this.computePerKwHour('production');
     }
 
     componentWillMount() {
@@ -39,28 +38,21 @@ class Comparison extends React.Component {
         this.computeAll();
     }
 
-    componentDidMount() {
-        console.log('Consumption - componentDidMount : spot', this.props.spot);
-        if (!this.props.spot) return;
-        const {spot} = this.props;
-        const {bill} = this.state;
-        bill.spot_price = {value: Number(spot.spot_price), unit: 'öre', zone: spot.zone};
-        this.setState({bill});
-        this.computeAll();
-    }
-
     componentWillReceiveProps(nextProps, nextContext) {
         console.log('Consumption - componentWillReceiveProps : spot', nextProps.spot);
-        if (!nextProps.spot) return;
-        const {spot} = nextProps;
-        const {bill} = this.state;
+        if( ! nextProps.spot) return;
+
+        const { spot } = nextProps;
+
+        const {bill, production} = this.state;
         bill.spot_price = {value: Number(spot.spot_price), unit: 'öre', zone: spot.zone};
-        this.setState({bill});
+        production.spot_price.value = Number(spot.spot_price);
+        this.setState({bill, production});
         this.computeAll();
     }
 
     setParams() {
-        const {search} = this.props.location; // ?cons=4000&prod=888&v=1 - divide by 12
+        const {search} = this.props.location; // ?cons=4000&prod=888&v=1
         const params = search.split('&');
         console.log(params);
         const paramsArray = {};
@@ -71,11 +63,10 @@ class Comparison extends React.Component {
         });
 
         const {bill, production} = this.state;
-        bill.monthly_consumption.value = (Number(paramsArray.cons) / 12);
-        console.log('Rounding: ', paramsArray.cons, paramsArray.cons / 12);
-        production.monthly_production.value = (Number(paramsArray.prod) / 12);
-        bill.monthly_consumption.display = Math.round(bill.monthly_consumption.value - (0.65 * production.monthly_production.value));
-        this.setState({bill, version: paramsArray.v, production});
+        bill.monthly_consumption.value = paramsArray.cons;
+        production.monthly_production.value = paramsArray.prod;
+        console.log(paramsArray);
+        this.setState({bill, production, version: paramsArray.v});
     }
 
     computeMoms() {
@@ -87,25 +78,27 @@ class Comparison extends React.Component {
     }
 
     computePerKwHour(type) {
-        if (type === 'consumption') {
+        if(type === 'consumption') {
             let {spot_price, spot_start, el_certificate, moms} = this.state.bill;
-            const {bill} = this.state;
+            const { bill } = this.state;
             let price_per_kw_hour = (Number.parseFloat(spot_price.value + spot_start.value + el_certificate.value + moms)).toFixed(2);
-            bill.price_per_kw_hour.value = price_per_kw_hour;
+            bill.price_per_kw_hour = price_per_kw_hour;
             this.setState({bill});
         }
+
+        if(type === 'production') {
+            let {production} = this.state;
+            let price_per_kw_hour = Number(production.spot_price.value) + production.svea_energy_price.value + production.skatt_reduction.value;
+            production.price_per_kw_hour = price_per_kw_hour;
+            this.setState({production});
+        }
+
     }
 
     render() {
-        console.log('Index - render ');
-        const {bill, production} = this.state;
-        /*let total = (Number(bill.monthly_consumption.value) * Number(bill.price_per_kw_hour.value) * 0.100).toFixed(2);
-        total = Math.ceil(total); */
-        const total = bill.monthly_consumption ?
-            Math.round(((bill.monthly_consumption.value - (production.monthly_production.value * 0.65)) * bill.price_per_kw_hour.value / 100) + 39)
-            : 0;
+        const {bill} = this.state;
+        let comparison_price = (parseFloat(((39 / bill.monthly_consumption.value) * 100) + bill.price_per_kw_hour)).toFixed(2);
 
-        let comparison_price =  (parseFloat(bill.price_per_kw_hour.value + (0.39 / bill.monthly_consumption.value))).toFixed(2);
 
         return (
             <div className="item" style={{textAlign: 'center'}}>
@@ -122,13 +115,14 @@ class Comparison extends React.Component {
  * @param state
  */
 const mapStateToProps = state => ({
-    spot: state.spot,
+    posts: state.posts,
 });
 
 /**
  * Import action from dir action above - but must be passed to connect method in order to trigger reducer in store
  * @type {{UserUpdate: UserUpdateAction}}
  */
-const mapActionsToProps = {};
+const mapActionsToProps = {
+};
 
-export default withRouter(connect(mapStateToProps, mapActionsToProps)(Comparison));
+export default withRouter(connect(mapStateToProps, mapActionsToProps)(Comparison_orig));

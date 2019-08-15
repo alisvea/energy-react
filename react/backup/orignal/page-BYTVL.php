@@ -526,7 +526,6 @@ get_header();
 					<div id="excessProductionDiv">
 						<div id="excessProductionWrapper">
 							<div class="section-title">Äger ni ett solcellssystem och vill därmed ha ett produktionsavtal?</div>
-                            <span onclick="redirectToNewCalc('new')">n</span>
 						</div>
 					</div>
 				</div>
@@ -546,6 +545,7 @@ get_header();
 						>
 							NEJ
 						</div>
+                        <span onclick="redirectToNewCalc('new')">n</span>
 					</div>
 				</div>
 
@@ -582,6 +582,7 @@ get_header();
 						>
 							NEJ
 						</div>
+                        <span onclick="redirectToNewCalc('new')">n</span>
 					</div>
 				</div>
 
@@ -648,7 +649,7 @@ get_header();
 						>
 							Nästa
 						</button>
-                        <span onclick="redirectToNewCalc()">t</span>
+                        <span onclick="redirectToNewCalc('')">e</span>
 					</div>
 				</div>
 
@@ -714,7 +715,7 @@ get_header();
 						>
 							Nästa
 						</button>
-                        <span onclick="redirectToNewCalc()">t</span>
+                        <span onclick="redirectToNewCalc('')">e</span>
 					</div>
 				</div>
 
@@ -1880,12 +1881,11 @@ get_header();
 	<?php
 		if(isset($_POST['step'])){
 			echo '
-			function redirectToNewCalc(new) {
+			function redirectToNewCalc(news) {
 			    var consumption = document.getElementById("consumptionKWHInput").value;
                 var yearlyProduction = document.getElementById("productionKWHInput").value;
 			    console.log("This is a test - consumption, yearlyProduction : ", consumption, yearlyProduction);
-			    var strNew = (new && new == "new") ? "new" : "";
-			    location.href="https://www.sveasolar.se/v2/calculator/?cons="+consumption+"&prod="+yearlyProduction+"&v=1"; 
+			    location.href="https://www.sveasolar.se/v2/calculator/?cons="+consumption+"&prod="+yearlyProduction+"&v=1&"+news+"=1"; 
 			    return; 
 			}
 			

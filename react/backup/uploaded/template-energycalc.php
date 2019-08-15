@@ -581,6 +581,7 @@
 
 			<div id="formHeader">
 				<h2>BYT TILL GRÖN ENERGI</h2>
+                <span>2</span>
 			</div>
 
 			<form

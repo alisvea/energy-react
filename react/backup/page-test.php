@@ -1,25 +1,164 @@
 <?php
 
 // =============================================================================
-// TEMPLATE NAME: Energycalc - No Container | No Header, Footer
+// TEMPLATE NAME: pagetest - No Container | No Header, Footer
 // -----------------------------------------------------------------------------
 // =============================================================================
 
 ?>
 
 <?php
+/**
+ * The template for displaying all single posts
+ *
+ * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#single-post
+ *
+ * @package WordPress
+ * @subpackage Twenty_Nineteen
+ * @since 1.0.0
+ */
 
-	if ( apply_filters( 'x_legacy_cranium_headers', true ) ) {
-		x_get_view( 'global', '_header' );
-	} else {
-		get_header();
-	}
+get_header();
 
 ?>
 
+	<section id="primary" class="content-area">
+		<main id="main" class="site-main">
+<style type="text/css">
+	
+	html, body{
+		font-family: 'Open-sans', sans-serif !important;
+	}
+	
+	#content{
+		margin: 120px auto 20px;
+    	max-width: 1170px;
+	}
+
+	#estBill, #pwp, .priceBillPopup2{
+		border: 1px solid rgba(0,0,0,0);
+	}
+
+	#formRightContent #estBill h2, #formRightContent #pwp h2{
+		border: 2px solid rgba(0,0,0,1); 
+		width: calc(100% - 22px); 
+		margin: 0 auto
+	}
+	
+	#priceSolarPopup h1, #priceBillPopup h1 {border: 2px solid rgba(0,0,0,1);margin: 0 auto; padding: 10px}
+	.seePricingDetails { display: block; margin: 0 auto; max-width: 170px}
+	#formRightContent div.seePricingDetails h3 { text-align: center; line-height: 30px; font-size: 14px; text-transform: initial; opacity: 0.7}
+
+	 #formRightContent #estBill h2, #formRightContent #pwp h2, #priceBillPopup h1, #priceSolarPopup h1  {
+		font-size: 14px;
+		color: #000;
+		font-weight: bold;
+	}
+	#piegraph {
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		padding-left: 0;
+		padding-right: 0; 
+		margin-bottom: 0px;
+		width: 100%;
+	}
+	.priceBillPopup2 {min-height: 524px}
+	#formRightContent #estBill p, #formRightContent #pwp p
+	{
+		padding: 10px 0 0;
+		margin: 0;
+		font-size: 16px;
+		color: #000;
+	}
+	#formRightContent #estBill .kostar p, #formRightContent #pwp .kostar p {
+		font-size: 20px;
+		color: #000;
+		font-weight: bold;
+	}
+	.price-table td {
+		width: 50%;
+		vertical-align: top;
+		text-align: center;
+	}
+	.price-table td #formPrice, .price-table td #formPriceUnboundFix {margin-bottom: 0; }
+	.price-table td #formPrice span, .price-table td #formPriceUnboundFix span {display: block; }
+	.price-table td #formPrice h1, .price-table td h1#formPriceUnboundFix  {padding: 20px; font-size: 22px;line-height: 28px;}
+	
+	#formPrice h1, .formprice-color h1, #pwpPriceWrapper h1, #submitInfo {
+		background: rgb(115, 164, 33);
+		color: #ffffff;
+		font-size: 22px;
+		display: block; border-radius: 8px;
+		font-family: 'Open sans';
+		cursor:pointer;
+		transition: all .15s linear;
+		-webkit-transition: all .15s linear;
+	}
+	#formPrice h1:hover, .formprice-color h1:hover, #pwpPriceWrapper h1:hover, #submitInfo:hover {
+		background: rgb(90, 127, 26); 
+		transition: all .15s linear; 
+		-webkit-transition: all .15s linear;
+	}
+
+	#pwpPriceWrapper h1 {max-width: 50%; margin: 20px auto; font-family: 'Open sans';font-size: 22px; padding: 10px; font-weight: 600; min-height: 118px;
+    line-height: 114px;}
+	#formPrice span, #formPriceUnboundFix span  {
+		font-size: 14px
+	}
+	#formPrice span:first-child {
+		content: '';
+		font-size: 20px;
+		font-weight: bold;
+		text-transform: none;
+		text-transform: uppercase;
+	}
+	.price-table td #formPrice h1:nth-child(2) {display: inline; content: '';}
+	.price-table td h1#formPriceUnboundFix {margin: 0; font-size: 22px; word-break: break-word; padding: 33px 30px;}
+	.priceBillPopup2 table {margin-bottom: 0 }
+	#ppkParts {border: none}
+	#priceBillPopup .priceBillPopup2 h2, #priceSolarPopup .priceBillPopup2 h2 {font-size: 0.8rem;}
+	.priceBillPopuptable {display: flex; width: 100%}
+	.priceBillPopup2 {display: inline-block;
+		width: 45%;
+		margin: 10px;
+		padding: 10px; vertical-align: top}
+	.priceBillPopuptable.test .priceBillPopup2 {display: inline-block;
+		width: 100%;
+	}
+	.priceBillPopuptable.test.mystyle .priceBillPopup2 {display: inline-block;
+		width: 45%; float: left;
+	}
+	.priceBillPopup2 #monBillFP, .priceBillPopup2 #monProdChoose, .priceBillPopup2 #monProdFP {font-size: 1.2rem !important;}
+
+	.priceBillPopup2 #ppkParts td:first-child {padding-left: 0;}
+	p.extra-value #productionKWHtest, p.extra-value #consumptionKWhextra {position: inherit; top: 0;     font-size: 18px;font-weight: 600;}
+
+	@media screen and (max-width: 1080px) {
+		.priceBillPopup2 { width: 100%; margin-top: 30px;}
+		.price-table td {width: 100%;display: block;}
+		.priceBillPopuptable.test.mystyle .priceBillPopup2 {display: inline-block; width: 100%; float: none;}
+		#pwpPriceWrapper h1 {
+			max-width: 100%;
+			margin-left: 10px;
+			margin-right: 10px;
+		}
+		#estBill, #pwp {padding: 20px;}
+	}
+	
+	#ges h2 {
+		margin:0px;
+		padding:11px;
+	}
+	
+	#formHeader{
+		padding:0px;
+	}
+
+</style>
 <?php
-	$markup		= 5.95;
-	$elcert		= 6.75;
+	$markup		= 4.45;
+	$elcert		= 3.45;
 	$monthlyFee	= 39;
 	$vat		= 0.25;
 
@@ -164,7 +303,7 @@
 			<div class="centerText">
 				<div>
 					<h1 id="stge">BYT TILL GRÖN ENERGI</h1>
-                    <span>1</span>
+                    <h1>This is a test</h1>
 				</div>
 
 				<div>
@@ -319,7 +458,7 @@
 					<div class="section-title">Din uppskattade årliga förbrukning</div>
 					<div id="consumptionDiv">
 						<div id="consumptionWrapper">
-							<div id="consumptionKWh">1000 KWh / år</div>
+							<div id="consumptionKWh">1000 kWh / år</div>
 
 							<div class="edgeSliderWrapper">
 								<div class="edgeSliderTrack estSmall"></div>
@@ -333,6 +472,7 @@
 									class	= "narrowSlider consumption"
 									id		= "consumptionSlider"
 									oninput	= "updateConsumption(this.value)"
+									onchange= "updateConsumption(this.value)"
 								/>
 							</div>
 						</div>
@@ -434,14 +574,17 @@
 				<?php elseif($_POST['step'] == 'productionLow'): ?>
 
 				<div id="consumptionSection">
-					<p id="prodErrorLow"></p>
+					<p 
+					   id="prodErrorLow" 
+					   style="font-size: 12px"
+					></p>
 					<div class="section-title">Hur mycket producerar er solcellsanläggning totalt per år?</div>
 					<div 
 						id		= "consumptionDiv"
 						class	= "withAutoButton"
 					>
 						<div id="consumptionWrapper">
-							<div id="productionKWH">3000 KWh / år</div>
+							<div id="productionKWH">3000 kWh / år</div>
 
 							<div class="edgeSliderWrapper">
 								<div class="edgeSliderTrack estSmall"></div>
@@ -449,12 +592,13 @@
 								<input
 									type	= "range"
 									min		= 3000
-									max		= 13000
+									max		= 17000
 									step	= 100
 									value	= 3000
 									class	= "narrowSlider consumption"
 									id		= "productionSliderLow"
 									oninput	= "updateProductionLow(this.value)"
+									onchange= "updateProductionLow(this.value)"
 								/>
 							</div>
 						</div>
@@ -465,9 +609,9 @@
 							<input
 								type	= "button"
 								onclick	= "setProductionSlider('productionLow')"
-								id		= "productionHighButton"
+								id		= "productionLowButton"
 							/>
-							<label for="productionHighButton">Jag vet inte? (Vi använder vår uppskattning)</label>
+							<label for="productionLowButton">Jag vet inte? (Vi använder vår uppskattning)</label>
 						</div>
 					</div>
 				</div>
@@ -496,14 +640,17 @@
 				<?php elseif($_POST['step'] == 'productionHigh'): ?>
 
 				<div id="consumptionSection">
-					<p id="prodErrorHigh"></p>
+					<p 
+					   id="prodErrorHigh"
+					   style="font-size: 12px"
+					></p>
 					<div class="section-title">Hur mycket producerar er solcellsanläggning totalt per år?</div>
 					<div 
 						id		= "consumptionDiv"
 						class	= "withAutoButton"
 					>
 						<div id="consumptionWrapper">
-							<div id="productionKWH">3000 KWh / år</div>
+							<div id="productionKWH">3000 kWh / år</div>
 
 							<div class="edgeSliderWrapper">
 								<div class="edgeSliderTrack estSmall"></div>
@@ -511,12 +658,13 @@
 								<input
 									type	= "range"
 									min		= 3000
-									max		= 13000
+									max		= 17000
 									step	= 100
 									value	= 3000
 									class	= "narrowSlider consumption"
 									id		= "productionSliderHigh"
 									oninput	= "updateProductionHigh(this.value)"
+									onchange= "updateProductionHigh(this.value)"
 								/>
 							</div>
 						</div>
@@ -599,7 +747,7 @@
 				<input
 					type	= "hidden"
 					name	= "retURL"
-					value	= "http://sveasolar.se"
+					value	= "https://energy.sveasolar.se/tack/"
 				/>
 
 				<!-- Company -->
@@ -698,8 +846,7 @@
 					type	= "hidden"
 					name	= "00N4H00000E7WDl"
 					id		= "00N4H00000E7WDl"
-					title	= "Rörligt - Bundet (3 år)"
-					value	= "Rörligt - Bundet (3 år)"
+					title	= "Price Group (Consumption)" value="Rörligt - Obundet"
 				/>
 
 				<input
@@ -724,7 +871,7 @@
 					type	= "hidden"
 					name	= "00N4H00000E7WDq"
 					id		= "00N4H00000E7WDq"
-					value	= "Rörligt - Until Special Offer"
+					value	= ""
 					style	= "display: none"
 				/>
 
@@ -878,7 +1025,7 @@
 							required
 						/>
 
-						<label for="acceptButton">Jag accepterar SVEA Energys allmänna villkor samt ger tillstånd att behandla min 
+						<label for="acceptButton">Jag accepterar SVEA Energys <a href="https://energy.sveasolar.se/allmanna-villkor/" target="_blank">allmänna villkor</a> samt ger tillstånd att behandla min 
 						personliga information enligt de lagar som råder. SVEA Energy har även tillstånd att hämta min förbrukningsdata från min nätägare.</label>
 					</div>
 					<table 
@@ -926,7 +1073,7 @@
 									type	= "hidden"
 									name	= "00N4H00000E7Wkp"
 									id		= "00N4H00000E7Wkp"
-									value	= "1"
+									value	= "0"
 								/>
 
 								<!-- Solar Quote Requested -->
@@ -948,38 +1095,10 @@
 							<h3>&#8592; Tillbaka till föregående steg</h3>
 						</div>
 					</div>
+					<div id="ges">
+					<h2 style="font-size: 14px">Energikälla</h2>
 				</div>
-			</form>
-		</div>
-
-		<div id="formRight">
-			<div id="formRightContent">
-				<div class="form-right-divider">
-					<div id="estBill">
-						<h2>DET KOSTAR DIG</h2>
-					</div>
-
-					<div id="formPrice">
-						<h1>900 kr</h1>
-					</div>
-					<div class="seePricingDetails" onclick="togglePopup('priceBillPopup', 'block', 'maskBillPopup')"><h3>Se prisdetaljer</h3></div>
-				</div>
-
-				<div class="form-right-divider">
-					<div id="estBill">
-						<h2>BINDNINGSTID</h2>
-					</div>
-
 					<div>
-						<h1 id="formPriceUnboundFix" style="text-align: center">Ingen</h1>
-					</div>
-				</div>
-
-				<div id="ges">
-					<h2>Energikälla</h2>
-				</div>
-
-				<div>
 				
 					<?php if($_POST['step'] == 'excessProduction' || $_POST['step'] == 'householdInfo'): ?>
 						<div 
@@ -989,7 +1108,7 @@
 							<img
 								style	= "display: block"
 								id		= "piegraph"
-								src		= "/wp-content/uploads/circlegraph1.png"
+								src		= "https://energy.sveasolar.se/wp-content/uploads/2019/03/circlegraph1.png"
 							/>
 						</div>
 						<div 
@@ -999,38 +1118,81 @@
 							<img
 								style	= "display: block"
 								id		= "piegraph"
-								src		= "/wp-content/uploads/circlegraph2.png"
+								src		= "https://energy.sveasolar.se/wp-content/uploads/2019/03/circlegraph2.png"
 							/>
 						</div>
 					<?php elseif($_POST['step'] == 'productionHigh' || $_POST['step'] == 'productionLow'): ?>
 						<img
 							id	= "piegraph"
-							src	= "/wp-content/uploads/circlegraph2.png"
+							src	= "https://energy.sveasolar.se/wp-content/uploads/2019/03/circlegraph2.png"
 						/>
 					<?php endif; ?>
 
 				</div>
+				</div>
+			</form>
+		</div>
+
+		<div id="formRight">
+			<div id="formRightContent">
+					<div id="estBill">
+						<h2>Förbrukningsavtal - rörligt</h2>
+						
+						<p class="extra-value">Din uppskattade månadsförbrukning:
+						<span id="consumptionKWhextra">1000 kWh / år</span></p>
+					
+
+					<table class="price-table">
+						<tr>
+							<td><div id="formPrice" onclick="togglePopup('priceBillPopup', 'block', 'maskBillPopup')">
+								
+						<h1>900 kr</h1>
+						</div>
+					</td>
+					<td><div class="formprice-color" onclick="togglePopup('priceBillPopup', 'block', 'maskBillPopup')">
+						<h1 id="formPriceUnboundFix" style="text-align: center" >Ingen bindningstid
+							
+						</h1>
+					</div></td>
+						</tr>
+					</table>
+					<!--<div class="kostar">
+						 <p>Det kostar dig: 2237 kr / månad</p> 
+					</div>-->
+					<div class="seePricingDetails" onclick="togglePopup('priceBillPopup', 'block', 'maskBillPopup')"><h3>Se prisdetaljer</h3></div>
+					</div>
 
 				<div 
 					id		= "pwpWrapper1"
 					style	= "display: none"
 				>
 					<div id="pwp">
-						<h2>PRIS SVEA ENERGY BETALAR FÖR ÖVERSKOTTET</h2>
+						<h2>Produktionsavtal - rörligt</h2>
+						<p class="extra-value">DIN UPPSKATTADE månadsproduktion: <span id="consumptionWrapper">
+						<span id="productionKWHtest">3000 kWh / år</span></span></p>
+					
+
+					<div id="pwpPriceWrapper" onclick	= "togglePopup('priceSolarPopup', 'block', 'maskpriceSolarPopup')">
+						<h1 id="pwpPrice">
+							<?php echo "Spotpris + " . ($_POST['step'] == 'productionHigh' ? 5 : 3)?> <span>öre</span></h1>
+
+						
 					</div>
 
-					<div id="pwpPriceWrapper">
-						<h1 id="pwpPrice"><?php echo "Spotpris + " . ($_POST['step'] == 'productionHigh' ? 5 : 3)?> </h1>
-
-						<h1 id="pwpPriceText">öre</h1>
+					<div class="kostar" id="monProdVal">
+						<p>Din vinst: <strong>537</strong> kr / månad</p>
 					</div>
-
-					<div
+					<div style="margin-top: 1rem"
 						class	= "seePricingDetails"
 						onclick	= "togglePopup('priceSolarPopup', 'block', 'maskpriceSolarPopup')"
 					>
-						<h3>Se detaljer</h3>
+						<h3>Se prisdetaljer</h3>
 					</div>
+					</div>
+
+					
+
+					
 				</div>
 
 				<table>
@@ -1069,17 +1231,20 @@
 		class	= "pageMask"
 	></div>
 
-	<div id="priceBillPopup">
+	<div id="priceBillPopup" class="priceBillPopuptable test">
+
+
+		<div class="priceBillPopup2">
 		<div>
-			<h1>Förbrukningsavtal</h1>
+			<h1>Förbrukningsavtal - rörligt</h1>
 			<table>
 				<tr>
 					<td>
-						<h2 class="pbpThick">UPPSKATTAD MÅNADSFÖRBRUKNING :</h2>
+						<h2 class="pbpThick" style="font-weight: normal">UPPSKATTAD MÅNADSFÖRBRUKNING :</h2>
 					</td>
 
 					<td>
-						<h2 id="estMonConFP">N/A KWh</h2>
+						<h2 id="estMonConFP">N/A kWh</h2>
 					</td>
 				</tr>
 
@@ -1098,14 +1263,33 @@
 			<table>
 				<tr>
 					<td>
-						<h2>RÖRLIGT ELPRIS:</h2>
+						<h2>Spotpris:</h2>
 					</td>
 
 					<td>
 						<h2>
-							<?php echo round($spotPrice + $markup + $elcert, 2);?> öre</h2>
+							<?php echo round($spotPrice, 2);?> öre</h2>
 					</td>
 				</tr>
+				<tr>
+					<td>
+						<h2>Spotpåslag:</h2>
+					</td>
+
+					<td>
+						<h2>
+							<?php echo round($markup, 2);?> öre</h2>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h2>Elcertifikat:</h2>
+					</td>
+
+					<td>
+						<h2>
+							<?php echo round($elcert, 2);?> öre</h2>
+					</td>
 				</tr>
 
 				<tr>
@@ -1136,15 +1320,24 @@
 						<h2 id="monBillFP" class="pbpThick">N/A kr / månad</h2>
 					</td>
 				</tr>
+				<tr>
+					<td colspan=2><p style="font-size: 11px; text-align: center;color: rgb(115, 164, 33);"><sup>*</sup>Det rörliga elpriset/spotpriset ändras hela tiden och följer nordiska elbörsen (nordpool). Elcertifikatskostnaden varierar månadsvis.</p></td>
+				</tr>
 			</table>
 		</div>
+		</div>
+
+		
+
+		
 		<?php if($_POST['step'] == 'excessProduction'): ?>
 			<div 
 				id		= "showExcessProductionContainer"
 				style	= "display: none"
 			>
+			<div class="priceBillPopup2">
 				<div>
-					<h1>Produktionsavtal</h1>
+					<h1>Produktionsavtal - rörligt</h1>
 					<table>
 						<tr>
 							<td>
@@ -1152,7 +1345,7 @@
 							</td>
 
 							<td>
-								<h2 id="estMonCProdFP">N/A KWh</h2>
+								<h2 id="estMonCProdFP">N/A kWh</h2>
 							</td>
 						</tr>
 
@@ -1188,11 +1381,10 @@
 								<h2>30 öre</h2>
 							</td>
 						</tr>
-						</tr>
 
 						<tr>
 							<td>
-								<h2>Skattereduktion <sup>*</sup>:</h2>
+								<h2>Skattereduktion : <sup>*</sup></h2>
 							</td>
 
 							<td>
@@ -1206,20 +1398,24 @@
 						<tr>
 							<td colspan=2>
 								<h2 id="monProdFP" class="pbpThick">N/A kr / månad</h2>
+								<p style="font-size: 11px; text-align: center;color: rgb(115, 164, 33);"><sup>*</sup> Skattereduktion betalas ut från skatteverket årsvis, för den el ni matar ut på nätet.</p>
 							</td>
 						</tr>
 					</table>
 				</div>
 			</div>
+			</div>
 		<?php endif; ?>
+	
 		<div
 			class	= "closeBtn dont-close-on-mobile"
 			onclick	= "togglePopup('priceBillPopup', 'block', 'maskBillPopup')"
 		>X</div>
 	</div>
-	<div id="priceSolarPopup">
+<div id="priceSolarPopup" class="priceBillPopuptable test">
+	<div class="priceBillPopup2">
 		<div>
-			<h1>Produktionsavtal</h1>
+			<h1>Produktionsavtal - rörligt</h1>
 			<div>
 				<table>
 					<tr>
@@ -1228,7 +1424,7 @@
 						</td>
 
 						<td>
-							<h2 id="estMonCProdFP">N/A KWh</h2>
+							<h2 id="estMonCProdFP">N/A kWh</h2>
 						</td>
 					</tr>
 
@@ -1252,7 +1448,7 @@
 
 						<td>
 							<h2>
-								<?php echo round($spotPrice);?> öre</h2>
+								<?php echo round($spotPrice, 2);?> öre</h2>
 						</td>
 					</tr>
 					<tr>
@@ -1281,7 +1477,7 @@
 
 					<tr>
 						<td>
-							<h2>Skattereduktion <sup>*</sup>:</h2>
+							<h2>Skattereduktion :<sup>*</sup></h2>
 						</td>
 
 						<td>
@@ -1301,12 +1497,15 @@
 				</table>
 			</div>
 		</div>
+	</div>
 
 		<div
 			class	= "closeBtn dont-close-on-mobile"
 			onclick	= "togglePopup('priceSolarPopup', 'block', 'maskpriceSolarPopup')"
 		>X</div>
 	</div>
+
+	
 </div>
 
 
@@ -1368,7 +1567,7 @@
 			if(document.getElementById("showSaleInput").value === "show") {
 				alert("Det är osäkert om du har plats för solceller. Men prata gärna med en av våra solcellskonsulter");
 			}
-			return 0;
+			return 3000;
 		}
 	}
 
@@ -1386,6 +1585,8 @@
 			document.getElementById("secondPie").style.display						= "block";
 			document.getElementById("firstPie").style.display						= "none";
 			document.getElementById("estBill").scrollIntoView({behavior: "smooth"});
+			var element = document.getElementById("priceBillPopup");
+  			element.classList.add("mystyle");
 		}
 	}
 
@@ -1428,7 +1629,9 @@
 			document.getElementById("content").style.marginBottom = "0";
 		}
 
-		if(document.getElementById("showSaleInput").value === "show" && x === "formPopup") {
+		document.getElementById(x).scrollIntoView({behavior: "smooth"});
+
+		if (document.getElementById("showSaleInput").value === "show" && x === "formPopup") {
 			clickSSI();
 		}
 	}
@@ -1469,19 +1672,32 @@
 				let consumption	= document.getElementById("consumptionKWHInput").value;
 
 				// Yearly production
-				let yearlyProduction = roundProduction(consumption);
+				let yearlyProduction = document.getElementById("productionKWHInput").value;
+
+				if(document.getElementById("stepInput").value === "excessProduction") {
+					yearlyProduction = roundProduction(consumption);
+				}
+
+				// Yearly consumption
+				let monthlyConsumption	= consumption / 12;
 
 				// Monthly production
-				let monthlyProduction = Math.round((yearlyProduction / 12));
+				let monthlyProduction = yearlyProduction / 12;
 
 				// Price per hour for production 
 				let pricePerProdHour = ('. $spotPrice . ' / 100) + 0.9;
+
+				if(document.getElementById("stepInput").value === "productionHigh") {
+					pricePerProdHour = ('. $spotPrice . ' / 100) + 0.65;
+				} else if(document.getElementById("stepInput").value === "productionLow") {
+					pricePerProdHour = ('. $spotPrice . ' / 100) + 0.63;
+				}
 
 				// Consumption price per kWh
 				let pricePerKwh	= ' . ($spotPrice + $markup + $elcert) * (1 + $vat) . ';
 
 				// Consumption price
-				let conPrice = Math.round((consumption / 12 * pricePerKwh) / 100 + ' . $monthlyFee . ');
+				let conPrice = Math.round((monthlyConsumption * pricePerKwh) / 100 + ' . $monthlyFee . ');
 
 				// Total price reduced by production
 				let prodPrice = Math.round(monthlyProduction * pricePerProdHour);
@@ -1493,9 +1709,9 @@
 
 				if(conPrice <= 0) {
 					if(document.getElementById("stepInput").value === "productionLow") {
-						document.getElementById("prodErrorLow").innerHTML 		= "Hoppsan! Här verkar er solproduktion ej matcha er förbrukning. Antingen har ni för låg förbrukning för denna kalkylatorn eller så har ni ej angett er totalförbrukning innan ni skaffade solceller i. Början. Vänligen gå tillbaka två steg och ange er totalförbrukning. Klicka \"Tillbaka till föregående steg\"";
+						document.getElementById("prodErrorLow").innerHTML 		= "Hoppsan! Här verkar er solproduktion ej matcha er förbrukning. Antingen har ni för låg förbrukning för denna kalkylatorn eller så har ni ej angett er totalförbrukning innan ni skaffade solceller i början. Vänligen gå tillbaka och fyll i er förbrukning eller tryck nästa för att se vår prissättning.";
 					} else if(document.getElementById("stepInput").value === "productionHigh"){
-						document.getElementById("prodErrorHigh").innerHTML		= "Hoppsan! Här verkar er solproduktion ej matcha er förbrukning. Antingen har ni för låg förbrukning för denna kalkylatorn eller så har ni ej angett er totalförbrukning innan ni skaffade solceller i. Början. Vänligen gå tillbaka två steg och ange er totalförbrukning. Klicka \"Tillbaka till föregående steg\"";
+						document.getElementById("prodErrorHigh").innerHTML		= "Hoppsan! Här verkar er solproduktion ej matcha er förbrukning. Antingen har ni för låg förbrukning för denna kalkylatorn eller så har ni ej angett er totalförbrukning innan ni skaffade solceller i början. Vänligen gå tillbaka och fyll i er förbrukning eller tryck nästa för att se vår prissättning.";
 					}
 				} else {
 					if(document.getElementById("stepInput").value === "productionLow") {
@@ -1505,30 +1721,41 @@
 					}
 				}
 
-				let adjustedPrice = Math.round(conPrice - (((monthlyProduction * pricePerKwh / 100) * 0.65)) - (monthlyProduction * 0.35 * pricePerProdHour));';			
+				let adjustedPrice = Math.round(conPrice - (((monthlyProduction * pricePerKwh / 100) * 0.65)) - (monthlyProduction * 0.35 * pricePerProdHour));';
+						
 		?>
 
-
-		document.getElementById("monBillFP").innerHTML		= conPrice + " kr / månad";
 		document.getElementById("priceFill").style.width	= conPrice / pMax * 100 + "%";
 		document.getElementById("priceText").innerHTML		= conPrice + " KR PER MÅNAD";
 		document.getElementById("ppKwhFPProd").innerHTML	= Math.round(pricePerProdHour * 100) + " öre";
-		document.getElementById("estMonConFP").innerHTML	= Math.round(monthlyConsumption - (monthlyProduction * 0.65)) + " KWh";
+		document.getElementById("estMonCProdFP").innerHTML	= Math.round(monthlyProduction * 0.35) + " kWh";
+		document.getElementById("consumptionKWhextra").innerHTML = Math.round((monthlyConsumption) - 0.65 *  (yearlyProduction / 12))+ " KWh";
+		document.getElementById("productionKWHtest").innerHTML	= Math.round((yearlyProduction / 12) * 0.35) + " KWh";
 
 		if(document.getElementById("stepInput").value === "excessProduction") {
-			document.getElementById("monProdFP").innerHTML		= conPrice - adjustedPrice + " kr / månad"
+			document.getElementById("monProdFP").innerHTML		= Math.round(monthlyProduction * 0.35 * pricePerProdHour) + " kr / månad"
 		}
 
 		if (document.getElementById("showSaleInput").value == 'show') {
-			document.getElementById("formPrice").innerHTML		= "<div><h1><div class='price-sale-outer'><p>" + conPrice + " kr</p></div></h1><h1>" + adjustedPrice + " kr</h1><span>PER MÅNAD</span></div>";
-		} else {
-			document.getElementById("formPrice").innerHTML		= "<h1>" + x + " kr <span>PER MÅNAD</span></h1>";
+			document.getElementById("formPrice").innerHTML		= "<div><h1><div class='price-sale-outer'><p>" + conPrice + " kr</p></div></h1><h1>" + Math.round(((monthlyConsumption - (monthlyProduction * 0.65)) * pricePerKwh) / 100 + 39) + " kr</h1><span>PER MÅNAD</span></div>";
+			document.getElementById("estMonConFP").innerHTML	= Math.round(monthlyConsumption - (monthlyProduction * 0.65)) + " kWh";
+			document.getElementById("monBillFP").innerHTML		= Math.round(((monthlyConsumption - (monthlyProduction * 0.65)) * pricePerKwh) / 100 + 39) + " kr / månad";
+		} else if(document.getElementById("stepInput").value === "productionHigh" || document.getElementById("stepInput").value === "productionLow"){
+			document.getElementById("formPrice").innerHTML		= "<h1><span>Din kostnad</span>" + x + " kr <span>PER MÅNAD</span></h1>";
+			document.getElementById("estMonConFP").innerHTML	= Math.round(monthlyConsumption - (monthlyProduction * 0.65)) + " kWh";
+			document.getElementById("monBillFP").innerHTML		= Math.round((monthlyConsumption * pricePerKwh) / 100 + 39) + " kr / månad";
+		}else {
+			document.getElementById("formPrice").innerHTML		= "<h1><span>Din kostnad</span>" + x + " kr <span>PER MÅNAD</span></h1>";
+			document.getElementById("estMonConFP").innerHTML	= Math.round(monthlyConsumption) + " kWh";
+			document.getElementById("monBillFP").innerHTML		= Math.round((monthlyConsumption * pricePerKwh) / 100 + 39) + " kr / månad";
 		}
 
 		if(document.getElementById("stepInput").value === "productionHigh" || document.getElementById("stepInput").value === "productionLow") {
 			let omProdChoose 									= document.getElementById("productionKWHInput").value;
-			document.getElementById("monProdChoose").innerHTML 	= Math.round(omProdChoose * pricePerProdHour / 12) + " kr / månad";
-			document.getElementById("estMonCProdFP").innerHTML	= Math.round(omProdChoose / 12) + " KWh";
+			document.getElementById("monProdChoose").innerHTML 	= Math.round(omProdChoose * pricePerProdHour / 12 * 0.35) + " kr / månad";
+			document.getElementById("monProdVal").innerHTML 	= "DIN VINST: <strong>"+Math.round(omProdChoose * pricePerProdHour / 12 * 0.35) + "</strong> kr / månad";
+			document.getElementById("estMonCProdFP").innerHTML	= Math.round(omProdChoose / 12 * 0.35) + " kWh";
+			document.getElementById("monBillFP").innerHTML		= Math.round(((monthlyConsumption - (monthlyProduction * 0.65)) * (pricePerKwh / 100)) + 39) + " kr / månad";
 		}
 	
 	}
@@ -1536,8 +1763,9 @@
 	// Updates the consumption slider
 	function updateConsumption(x) {
 		let cSlider											= document.getElementById("consumptionSlider");
-		document.getElementById("consumptionKWh").innerHTML	= x + " KWh / år";
+		document.getElementById("consumptionKWh").innerHTML	= x + " kWh / år";
 		document.getElementById("consumptionKWHInput").value= x;
+		document.getElementById("consumptionKWhextra").innerHTML = x + " kWh / år";
 		document.getElementById("consumptionKWh").style.left= (x - cSlider.min) / (cSlider.max - cSlider.min) * (cSlider.offsetWidth - consumptionSliderWidth) + "px";
 		calculatePrice();
 	}
@@ -1545,19 +1773,32 @@
 	// Updates the production slider
 	function updateProductionHigh(x) {
 		let cSlider											= document.getElementById("productionSliderHigh");
-		document.getElementById("productionKWH").innerHTML	= x + " KWh / år";
+		document.getElementById("productionKWH").innerHTML	= x + " kWh / år";
+		
 		document.getElementById("productionKWHInput").value	= x;
 		document.getElementById("productionKWH").style.left	= (x - cSlider.min) / (cSlider.max - cSlider.min) * (cSlider.offsetWidth - consumptionSliderWidth) + "px";
 		calculatePrice();
+
+		if(x == roundProduction(document.getElementById("consumptionKWHInput").value)) {
+			document.getElementById("productionHighButton").style.backgroundColor = "rgb(115, 164, 33)"
+		} else {
+			document.getElementById("productionHighButton").style.backgroundColor = "#fff"
+		}
 	}
 
 	// Updates the production slider
 	function updateProductionLow(x) {
 		let cSlider											= document.getElementById("productionSliderLow");
-		document.getElementById("productionKWH").innerHTML	= x + " KWh / år";
+		document.getElementById("productionKWH").innerHTML	= x + " kWh / år";
 		document.getElementById("productionKWHInput").value	= x;
 		document.getElementById("productionKWH").style.left	= (x - cSlider.min) / (cSlider.max - cSlider.min) * (cSlider.offsetWidth - consumptionSliderWidth) + "px";
 		calculatePrice();
+
+		if(x == roundProduction(document.getElementById("consumptionKWHInput").value)) {
+			document.getElementById("productionLowButton").style.backgroundColor = "rgb(115, 164, 33)"
+		} else {
+			document.getElementById("productionLowButton").style.backgroundColor = "#fff"
+		}
 	}
 
 	function poaDisagree() {
@@ -1607,6 +1848,19 @@
 					echo 'document.getElementById("00N4H00000E7Wbs").value = document.getElementById("consumptionKWHInput").value;';
 				}
 
+				echo '
+				if(document.getElementById("stepInput").value === "productionHigh") {
+					document.getElementById("productionTypeReturnInput").value	= "high";
+					document.getElementById("00N4H00000E7Wkp").value			= "1";
+					document.getElementById("00N4H00000E7WKN").value			= "1";
+					document.getElementById("00N4H00000E7WDq").value			= "Rörligt - Obundet(SVEAProd)";
+				} else if(document.getElementById("stepInput").value === "productionLow") {
+					document.getElementById("productionTypeReturnInput").value	= "low";
+					document.getElementById("00N4H00000E7Wkp").value			= "0";
+					document.getElementById("00N4H00000E7WKN").value			= "1";
+					document.getElementById("00N4H00000E7WDq").value			= "Rörligt - Obundet (Prod)";
+				};';
+
 				echo 'document.getElementById("content").style.opacity	= "0.4";
 				document.getElementById("formPopup").style.display		= (window.innerWidth > window.innerHeight) ? "flex" : "block";
 				document.getElementById("maskFormPopup").style.display	= "block";
@@ -1649,12 +1903,6 @@
 		}
 
 		echo 'let price = Math.round((monthlyConsumption * pricePerKwh) / 100 + ' . $monthlyFee . ');';
-
-		if ($_POST['showSale'] == 'hide' || $_POST['showSale'] == '') {
-			echo 'document.getElementById("estMonConFP").innerHTML	= Math.round(monthlyConsumption) + " KWh";';
-		} else if ($_POST['showSale'] == 'show') {
-			echo 'document.getElementById("estMonConFP").innerHTML	= Math.round(monthlyConsumption - (monthlyConsumption * 0.65)) + " KWh";';
-		}
 
 		echo 'document.getElementById("ppKwhFP").innerHTML		= Math.round(pricePerKwh * 100) / 100 + " öre";';
 		echo 'document.getElementById("vatFP").innerHTML		= Math.round(vatJS * 100) / 100 + " öre";';
@@ -1700,6 +1948,14 @@
 		}
 
 		function goBack(step) {
+			if(document.getElementById("stepInput").value === "productionHigh" || document.getElementById("stepInput").value === "productionLow" || document.getElementById("stepInput").value === "excessProduction") {
+				document.getElementById("productionTypeReturnInput").value	= "";
+				document.getElementById("productionKWHInput").value			= "";
+				document.getElementById("00N4H00000E7Wkp").value			= "0";
+				document.getElementById("00N4H00000E7WKN").value			= "0";
+				document.getElementById("00N4H00000E7WDq").value			= "Rörligt - Obundet"
+			}
+
 			document.getElementById("stepInput").value	= step;
 			document.getElementById("form").submit();
 		};
@@ -1716,5 +1972,8 @@
 		}
 	?>
 </script>
-
-<?php get_footer(); ?>
+</main><!-- #main -->
+    </section><!-- #primary -->
+ 
+<?php 
+get_footer('cal');

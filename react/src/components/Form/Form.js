@@ -144,9 +144,9 @@ class Form extends React.Component {
         var urlEncodeParams = this.urlEncoded(params);
         var http = new XMLHttpRequest();
         var urlLive = 'https://www.sveasolar.se/wp-content/themes/xpro-child/calculatorv2/solarcalc-extras/submitform.php';
-        var url = 'http://localhost:9090/submitform.php';
+        var url = 'https://www.sveasolar.se/v2/calculator/api/submitform.php';
         const proxyurl = "https://cors-anywhere.herokuapp.com/";
-        http.open('POST', proxyurl + urlLive, true);
+        http.open('POST', url, true);
         http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
         http.onreadystatechange =  () => {

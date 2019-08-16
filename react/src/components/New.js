@@ -187,7 +187,7 @@ class New extends React.Component {
 
         return (
             <section id="energy" className="container-fluid">
-                <div className="box u-margin-top-big u-white-bg">
+                <div className="box u-white-bg">
                     <div className="content">
 
                         <div className="row">

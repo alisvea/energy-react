@@ -46,7 +46,7 @@ html, body {
   .form {
     width: 100% !important; }
   section {
-    padding: 2rem !important; }
+    padding: 0; }
   .rectangle {
     margin-left: 0px !important;
     background-color: #f8f8f8 !important; }

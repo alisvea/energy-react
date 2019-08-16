@@ -231,7 +231,14 @@ class New extends React.Component {
                                                                 Hos oss är det du some bestämmer om vi är bra nog,
                                                                 därför utesluter
                                                                 vi bindningstid.</p>
-                                                            <b>Du kan säga upp avtalet när du vill.</b>
+                                                            <b
+                                                                style={{
+                                                                    textAlign: 'center',
+                                                                    display: 'block',
+                                                                    marginTop: '12px',
+                                                                    fontSize: '14px'
+                                                                }}
+                                                            >Du kan säga upp avtalet när du vill.</b>
                                                         </div>
                                                     </div>
 

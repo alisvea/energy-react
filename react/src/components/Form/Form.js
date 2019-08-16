@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 class Form extends React.Component {
     constructor(props) {
@@ -6,6 +7,8 @@ class Form extends React.Component {
         this.submitForm = this.submitForm.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.onKeyDown = this.onKeyDown.bind(this);
+        this.getCleanForm = this.getCleanForm.bind(this);
+        this.handleValidation = this.handleValidation.bind(this);
 
         this.state = {
             sendLabel: 'SKICKA',
@@ -25,11 +28,18 @@ class Form extends React.Component {
             last_name: '',
             email: '',
             telephone: '',
+            phone: '',
             personummer: '',
             address: '',
             postNumber: '',
             city: '',
-            eula: false
+            eula: false,
+            oid : '00D58000000IHRE',
+            retURL :  'https://sveasolar.se/tack_sk/',
+            lead_source : 'Website',
+            company : 'x',
+            Energy_Supplier__c : 'Sjogerstads Energi AB',
+            Property_Type__c : 'Bostadrättsförening',
         }
     }
 
@@ -122,9 +132,63 @@ class Form extends React.Component {
         this.setState({form});
     }
 
+    sendRequest() {
+
+        var params = this.state.form;
+        params.oid = '00D58000000IHRE';
+        params.retURL =  'https://sveasolar.se/tack_sk/';
+        params.lead_source = 'Website';
+        params.company = 'x';
+        params.Energy_Supplier__c = 'Sjogerstads Energi AB';
+        params.Property_Type__c = 'Bostadrättsförening';
+        params.phone = params.telephone;
+
+        var urlEncodeParams = this.urlEncoded(params);
+        var http = new XMLHttpRequest();
+        var urlLive = 'https://www.sveasolar.se/wp-content/themes/xpro-child/calculatorv2/solarcalc-extras/submitform.php';
+        var url = 'http://localhost:9090/submitform.php';
+        const proxyurl = "https://cors-anywhere.herokuapp.com/";
+        http.open('POST', proxyurl + urlLive, true);
+        http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+        http.onreadystatechange = function () {
+            if (http.readyState == 4 && http.status == 200) {
+                console.log(http.responseText);
+                const form = this.getCleanForm();
+                this.setState({form, sendLabel: 'SKICKA'});
+            }
+            if (http.status == 429) {
+                console.log(http.responseText);
+                alert('An error has occurred, please refresh the page.');
+            }
+        };
+
+        console.log('Before checking validation ');
+        const errors = this.handleValidation();
+
+        if ((Object.keys(errors)).length > 0 || this.state.sendLabel == 'BEARBETNING') {
+            console.log(errors);
+            return false;
+        }
+
+        this.setState({sendLabel: 'BEARBETNING'});
+        http.send(urlEncodeParams);
+    }
+
+    urlEncoded(obj) {
+        var params = '';
+        Object.keys(obj).forEach(function (key) {
+            params = params + key + '=' + obj[key] + '&'
+        });
+
+        return params;
+    }
+
     async submitForm(e) {
         e.preventDefault();
+        this.sendRequest();
 
+        return ;
         console.log('Before checking validation ');
         const errors = this.handleValidation();
 
@@ -136,8 +200,16 @@ class Form extends React.Component {
         this.setState({sendLabel: 'BEARBETNING'});
         const urlLive = 'https://www.sveasolar.se/wp-content/themes/xpro-child/calculatorv2/solarcalc-extras/submitform.php';
         const proxyUrl = "https://cors-anywhere.herokuapp.com/";
+        const submitForm = 'http://localhost:8081/submitform.php';
 
-        const response = await fetch(proxyUrl + urlLive, {
+        console.log('Posting to ' , proxyUrl + urlLive);
+
+        axios.post(proxyUrl + urlLive, this.state.form).then(res => res.data).catch(error => {
+            throw new Error(error);
+            console.dir(error);
+        });
+
+        /*const response = await axios.post(submitForm, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -149,7 +221,7 @@ class Form extends React.Component {
         const result = await response;
         const form = this.getCleanForm();
         this.setState({form, sendLabel: 'SKICKA'});
-        console.log(result);
+        console.log(result); */
     }
 
     render() {

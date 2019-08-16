@@ -33,7 +33,7 @@ class SpotPrice {
         $average = $sum / count($zones);
 
         $this->sendData([
-            'zone' => $zone,
+            'zone' => implode(",", $zones),
             'spot_price' => number_format($average,2)
         ]);
     }
@@ -150,5 +150,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 $zone = isset($_GET['zone']) ? $_GET['zone'] : 'SE1';
 
 // Lets compute the average of all 4
+$zone = ['SE1', 'SE2', 'SE3', 'SE4'];
 $spot_price = new SpotPrice($zone);
 

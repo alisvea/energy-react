@@ -1,0 +1,42 @@
+@import "../abstracts/variables";
+@import "../abstracts/mixins";
+
+
+.energy-sources-container {
+  display: flex;
+  flex-direction: column;
+
+  .header-1 {
+    flex: 1;
+    background-color: red;
+  }
+
+  .energy-sources-1 {
+    background-color: green;
+    flex: 5;
+    display: flex;
+    flex-direction: row;
+    img {
+      max-height: 116px;
+      width: auto;
+    }
+
+    .vind-1 {
+      background-color: #73a421;
+      flex: 1;
+      padding: 5px;
+      max-height: 116px;
+      width: auto;
+    }
+    .solceller-1 {
+      background-color: #3ab0e2;
+      flex: 1;
+      padding: 5px;
+    }
+    .vatten-1 {
+      background-color: #8e44ad;
+      flex: 1;
+      padding: 5px;
+    }
+  }
+}

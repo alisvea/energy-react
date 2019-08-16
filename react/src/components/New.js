@@ -235,14 +235,8 @@ class New extends React.Component {
                                                         </div>
                                                     </div>
 
-                                                    <div className="calculator-footer">
+                                                    <div className="calculator-footer" style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                                                         <Comparison />
-
-                                                        <div className="item u-margin-top-big">
-                                                            <button className="btn-thin btn-success small">SE
-                                                                JÄMFÖRELSEPRISER
-                                                            </button>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

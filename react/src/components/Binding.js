@@ -43,9 +43,9 @@ class Binding extends React.Component {
     componentWillReceiveProps(nextProps, nextContext) {
         console.log('Bindningstid - componentWillReceiveProps : spot', nextProps.spot);
         console.log('Bindningstid - componentWillReceiveProps :  prev props spot', this.props.spot);
-        if( ! nextProps.spot) return;
+        if (!nextProps.spot) return;
 
-        const { spot } = nextProps;
+        const {spot} = nextProps;
 
         const {bill, production} = this.state;
         bill.spot_price = {value: Number(spot.spot_price), unit: 'öre', zone: spot.zone};
@@ -69,8 +69,8 @@ class Binding extends React.Component {
 
         const {bill, production} = this.state;
 
-        bill.monthly_consumption.value = ( Number(paramsArray.cons) / 12 );
-        production.monthly_production.value = ( Number(paramsArray.prod) / 12 );
+        bill.monthly_consumption.value = (Number(paramsArray.cons) / 12);
+        production.monthly_production.value = (Number(paramsArray.prod) / 12);
 
         this.setState({bill, production, version: paramsArray.v});
 
@@ -89,15 +89,15 @@ class Binding extends React.Component {
     }
 
     computePerKwHour(type) {
-        if(type === 'consumption') {
+        if (type === 'consumption') {
             let {spot_price, spot_start, el_certificate, moms} = this.state.bill;
-            const { bill } = this.state;
+            const {bill} = this.state;
             let price_per_kw_hour = (Number.parseFloat(spot_price.value + spot_start.value + el_certificate.value + moms)).toFixed(2);
             bill.price_per_kw_hour = price_per_kw_hour;
             this.setState({bill});
         }
 
-        if(type === 'production') {
+        if (type === 'production') {
             let {production} = this.state;
             let price_per_kw_hour = Number(production.spot_price.value) + production.svea_energy_price.value + production.skatt_reduction.value;
             production.price_per_kw_hour = price_per_kw_hour;
@@ -112,12 +112,12 @@ class Binding extends React.Component {
 
     setVersion(nextProps) {
         const props = nextProps ? nextProps : this.props;
-        const { pathname } = props.location;
-        const { production } = this.state;
+        const {pathname} = props.location;
+        const {production} = this.state;
 
         // There are four version for the svea energy price - based on the uri part as follows
         // 1 - byt-elavtal    2 - erbjudande20   3 - employee-discount   4 - erbjudande19
-        const uri = pathname ? pathname.replace(/\//g, ''): '/byt-elavtal2';
+        const uri = pathname ? pathname.replace(/\//g, '') : '/byt-elavtal2';
 
         console.log('Bindningstid - setVersion : pathname', uri);
 
@@ -187,16 +187,8 @@ class Binding extends React.Component {
                             }}>Du kan säga upp avtalet när du vill.</b>
                         </div>
 
-                        <span>Comparison: { bill.price_per_kw_hour.value} </span>
+                        <Comparison/>
 
-                        <Comparison />
-
-                    </div>
-
-                    <div className="calculator-footer" style={{marginTop: '30px'}}>
-                        <button className="btn-thin btn-success small">SE
-                            JÄMFÖRELSEPRISER
-                        </button>
                     </div>
                 </div>
             </div>
@@ -216,7 +208,6 @@ const mapStateToProps = state => ({
  * Import action from dir action above - but must be passed to connect method in order to trigger reducer in store
  * @type {{UserUpdate: UserUpdateAction}}
  */
-const mapActionsToProps = {
-};
+const mapActionsToProps = {};
 
 export default withRouter(connect(mapStateToProps, mapActionsToProps)(Binding));

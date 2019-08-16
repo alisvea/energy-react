@@ -9,20 +9,32 @@ class SpotPrice {
         $month_start = new DateTime("first day of last month");
         $this->fileName = $month_start->format('mY') . '.json';
         $result = '';
+        $zones = is_array($zone) ? $zone : [$zone];
 
         if(file_exists($this->fileName)) {
             $contents = file_get_contents($this->fileName);
             $jsonData = json_decode($contents, true);
-            $result = $this->calculateAverageForZone($jsonData, $zone);
+            $sum = 0;
+            foreach ($zones as $z) {
+                $result = $this->calculateAverageForZone($jsonData, $z);
+                $sum += $result;
+            }
 
         } else {
             $jsonData = makeCurlRequest();
-            $result = $this->calculateAverageForZone($jsonData, $zone);
+
+            $sum = 0;
+            foreach ($zones as $z) {
+                $result = $this->calculateAverageForZone($jsonData, $z);
+                $sum += $result;
+            }
         }
+
+        $average = $sum / count($zones);
 
         $this->sendData([
             'zone' => $zone,
-            'spot_price' => number_format($result,2)
+            'spot_price' => number_format($average,2)
         ]);
     }
 
@@ -136,5 +148,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 }
 
 $zone = isset($_GET['zone']) ? $_GET['zone'] : 'SE1';
+
+// Lets compute the average of all 4
 $spot_price = new SpotPrice($zone);
 

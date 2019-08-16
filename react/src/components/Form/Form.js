@@ -27,7 +27,6 @@ class Form extends React.Component {
             first_name: '',
             last_name: '',
             email: '',
-            telephone: '',
             phone: '',
             personummer: '',
             address: '',
@@ -86,9 +85,9 @@ class Form extends React.Component {
             }
         }
 
-        if (!fields['telephone']) {
+        if (!fields['phone']) {
             formIsValid = false;
-            errors['telephone'] = 'telephone cannot be empty';
+            errors['phone'] = 'phone cannot be empty';
         }
 
         if (!fields['personummer']) {
@@ -141,7 +140,6 @@ class Form extends React.Component {
         params.company = 'x';
         params.Energy_Supplier__c = 'Sjogerstads Energi AB';
         params.Property_Type__c = 'Bostadrättsförening';
-        params.phone = params.telephone;
 
         var urlEncodeParams = this.urlEncoded(params);
         var http = new XMLHttpRequest();
@@ -151,7 +149,7 @@ class Form extends React.Component {
         http.open('POST', proxyurl + urlLive, true);
         http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
-        http.onreadystatechange = function () {
+        http.onreadystatechange =  () => {
             if (http.readyState == 4 && http.status == 200) {
                 console.log(http.responseText);
                 const form = this.getCleanForm();
@@ -187,7 +185,6 @@ class Form extends React.Component {
     async submitForm(e) {
         e.preventDefault();
         this.sendRequest();
-
         return ;
         console.log('Before checking validation ');
         const errors = this.handleValidation();
@@ -266,11 +263,11 @@ class Form extends React.Component {
                 <div className="row">
                     <div className="col-1-of-3">
                         <div className="form-group">
-                            <input type="text" className="form-control" id="telephone"
-                                   placeholder="Telefon" value={this.state.form.telephone}
+                            <input type="text" className="form-control" id="phone"
+                                   placeholder="Telefon" value={this.state.form.phone}
                                    onChange={(e) => this.handleChange(e)}/>
-                            <span id="telephone-error"
-                                  style={{display: this.state.errors.telephone ? 'block' : 'none'}}
+                            <span id="phone-error"
+                                  style={{display: this.state.errors.phone ? 'block' : 'none'}}
                                   className="help-inline">Detta är ett obligatoriskt fält.</span>
                         </div>
                     </div>

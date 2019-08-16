@@ -183,7 +183,8 @@ class Binding extends React.Component {
                             <b style={{
                                 textAlign: 'center',
                                 display: 'block',
-                                marginTop: '12px'
+                                marginTop: '12px',
+                                fontSize: '14px'
                             }}>Du kan säga upp avtalet när du vill.</b>
                         </div>
 

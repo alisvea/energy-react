@@ -564,8 +564,8 @@ p.heading {
 strong {
   color: #707070;
   font-weight: bold;
-  font-family: "DejaVu Sans";
-  font-size: 12px; }
+  font-family: "Open Sans", "Sans serif";
+  font-size: 14px; }
 
 .small {
   font-size: 12px !important;
@@ -624,3 +624,7 @@ p.compare {
   margin-top: -40px;
   max-height: 108px;
   max-width: 487px; }
+
+.switch-text {
+  font-size: 14px;
+  font-family: "Open Sans", "Sans serif"; }

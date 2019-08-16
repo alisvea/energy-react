@@ -289,7 +289,7 @@ class Form extends React.Component {
                                 <input type="checkbox" ref={this.refSaving} id="toggle" className="checkbox"/>
                                 <label htmlFor="toggle" className="switch" id="saving"
                                        onClick={(e) => this.handleChange(e)}></label>
-                                <span className="u-left-text">Visa mig hur mycket jag kan spara på att installera solceller!</span>
+                                <span className="switch-text u-left-text">Visa mig hur mycket jag kan spara på att installera solceller!</span>
                             </div>
                             :
                             null

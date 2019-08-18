@@ -51,7 +51,11 @@ html, body {
     margin-left: 0px !important;
     background-color: #f8f8f8 !important; }
   .circle {
-    float: none !important; } }
+    float: none !important; }
+  .energy-sources {
+    margin-top: -25px !important; }
+  .rectangle, .rectangle-image {
+    height: 165px !important; } }
 
 @media only screen and (max-width: 920px) {
   h1 {

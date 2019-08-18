@@ -458,7 +458,7 @@ get_header();
 					<div>
 						<div
 							id		= "confirmButton"
-							onclick	= "mts()"
+							onclick	= "redirectToNewCalc('new')"
 						>
 							Nästa
 						</div>
@@ -541,11 +541,11 @@ get_header();
 
 						<div
 							class	= "yes-or-now-button"
-							onclick	= "mts()"
+							onclick	= "redirectToNewCalc('new')"
 						>
 							NEJ
 						</div>
-                        <span onclick="redirectToNewCalc('new')">n</span>
+
 					</div>
 				</div>
 
@@ -578,11 +578,11 @@ get_header();
 
 						<div
 							class	= "yes-or-now-button"
-							onclick	= "goToReturnProd('productionLow')"
+							onclick	= "redirectToNewCalc('new')"
 						>
 							NEJ
 						</div>
-                        <span onclick="redirectToNewCalc('new')">n</span>
+
 					</div>
 				</div>
 
@@ -645,11 +645,11 @@ get_header();
 						<button
 							id		= "disableButtonOnFail1"
 							class	= "confirmButton"
-							onclick	= "mts()"
+							onclick	= "redirectToNewCalc('')"
 						>
 							Nästa
 						</button>
-                        <span onclick="redirectToNewCalc('')">e</span>
+
 					</div>
 				</div>
 
@@ -711,11 +711,11 @@ get_header();
 						<button
 							id		= "disableButtonOnFail2"
 							class	= "confirmButton"
-							onclick	= "mts()"
+							onclick	= "redirectToNewCalc('')"
 						>
 							Nästa
 						</button>
-                        <span onclick="redirectToNewCalc('')">e</span>
+
 					</div>
 				</div>
 

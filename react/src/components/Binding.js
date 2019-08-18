@@ -178,7 +178,7 @@ class Binding extends React.Component {
                             <p className="title" style={{textAlign: 'center'}}> Ingen
                                 gillar bindningstider - Det gör
                                 inte vi heller!
-                                Hos oss är det du some bestämmer om vi är bra nog,
+                                Hos oss är det du som bestämmer om vi är bra nog,
                                 därför utesluter vi bindningstid.</p>
                             <b style={{
                                 textAlign: 'center',

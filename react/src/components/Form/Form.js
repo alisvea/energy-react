@@ -79,7 +79,10 @@ class Form extends React.Component {
             formIsValid = false;
             errors['email'] = 'Detta är ett obligatoriskt fält.';
         } else {
-            if (/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(fields['email'])) {
+            // const re = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
+            const re = /\S+@\S+\.\S+/;
+
+            if (re.test(fields['email'])) {
             } else {
                 errors['email'] = 'Bör vara giltigt e-postmeddelande';
             }
